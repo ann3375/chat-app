@@ -10,9 +10,10 @@
     }
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    // "eslint:recommended",
+    // "plugin:react/recommended"
+    // "plugin:@typescript-eslint/recommended",
+    // "plugin:@typescript-eslint/eslint-recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -24,13 +25,6 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "object-curly-spacing": ["warn", "always"],
-    "no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "args": "none"
-      }
-    ],
 
     "indent": ["error", 2],
 
