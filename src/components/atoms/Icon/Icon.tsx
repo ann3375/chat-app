@@ -16,6 +16,7 @@ export const Icon: React.FC<IconProps> = ({ name, ...rest }): JSX.Element | null
           await import(`!!@svgr/webpack?-svgo,+titleProp,+ref!../../../assets/images/${name}.svg`)
         ).default;
       } catch (err) {
+        console.log(err);
         throw err;
       } finally {
         setIsLoading(false);

@@ -10,12 +10,12 @@ interface ITypography {
 }
 
 const Typography: React.FC<ITypography> = ({ variant, children, ...props }) => {
-  const Component: any = TypographyType[variant];
+  const Component = TypographyType[variant];
   return (
     <Component
       className={classNames({
         typography: true,
-        [`typography__variant_${variant}`]: variant,
+        [`typography_variant_${variant}`]: variant,
       })}
       {...props}
     >

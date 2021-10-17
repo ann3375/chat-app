@@ -3,7 +3,7 @@
 .typography {
   color: $color-black;
 
-  &__variant {
+  &_variant {
     &_h1 {
       font-size: 42px;
       line-height: 51px;
@@ -44,7 +44,7 @@
 
 @media (max-width: $media-mobile-m) {
   .typography {
-    &__variant {
+    &_variant {
       &_h1 {
         font-size: 27px;
         line-height: 33px;

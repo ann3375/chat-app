@@ -14,4 +14,4 @@ export const TypographyType = {
   [TypographyTypeStyle.h4]: 'h4',
   [TypographyTypeStyle.p1]: 'p',
   [TypographyTypeStyle.p2]: 'p',
-};
+} as const;

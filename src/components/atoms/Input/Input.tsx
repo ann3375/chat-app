@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { InputType } from './types/types';
 
 import './input.scss';
 
@@ -17,6 +16,11 @@ const Input: React.FC<IInput> = ({ id, placeholder, type, required = false, erro
     [`input_error_active`]: error,
   });
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    console.log(target.value);
+  };
+
   return (
     <input
       required={required}
@@ -24,6 +28,7 @@ const Input: React.FC<IInput> = ({ id, placeholder, type, required = false, erro
       id={id}
       placeholder={placeholder}
       type={type}
+      onChange={handleChange}
     />
   );
 };

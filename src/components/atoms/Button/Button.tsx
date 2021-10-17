@@ -15,6 +15,7 @@ interface IButton {
 const Button: React.FC<IButton> = ({ className, type, isDisabled, children, size }) => {
   const classProps = classNames('button', {
     [`button_size_${size}`]: size,
+    [`${className}`]: className,
   });
 
   return (
