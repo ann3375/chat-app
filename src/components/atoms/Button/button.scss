@@ -1,36 +1,39 @@
 @import '../../../styles/variables';
 
 .button {
-  color: $color-white;
   padding: 16px;
-  background: $color-cornflowerblue;
   font-weight: 500;
   font-size: 15px;
   line-height: 23px;
   border-radius: 8px;
   transition: all 0.5s ease;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &_size {
-    &_medium {
-      max-width: 233px;
+  &_primary {
+    color: $color-white;
+    background: $color-cornflowerblue;
+
+    &:hover {
+      background: $color-royalblue;
     }
 
-    &_large {
-      max-width: 347px;
-    }
-
-    &_small {
-      max-width: 180px;
+    &:active {
+      background: $color-darkBlue;
     }
   }
 
-  &:hover {
-    background: $color-royalblue;
-  }
+  &_outline {
+    color: $color-cornflowerblue;
+    background: inherit;
+    border: 1px solid $color-cornflowerblue;
 
-  &:active {
-    background: $color-darkBlue;
+    &:hover {
+      color: $color-darkBlue;
+      border: 1px solid $color-darkBlue;
+    }
   }
 
   &:disabled {
@@ -42,5 +45,49 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  &_icon {
+    & svg {
+      transition: all 0.5s ease;
+    }
+
+    &:hover svg {
+      color: $color-royalblue;
+    }
+
+    &:disabled {
+      background: inherit;
+
+      & svg {
+        color: $color-lightGrey;
+      }
+    }
+  }
+
+  &_size {
+    &_medium {
+      max-width: 233px;
+    }
+
+    &_large {
+      max-width: 347px;
+    }
+
+    &_small {
+      width: 80px;
+      height: 80px;
+    }
+  }
+}
+
+@media (max-width: $media-mobile-m) {
+  .button {
+    &_size {
+      &_small {
+        width: 48px;
+        height: 48px;
+      }
+    }
   }
 }

@@ -15,10 +15,10 @@ interface IFormInput extends IInput {
 
 const FormInput: React.FC<IFormInput> = ({ id, type, placeholder = '', labelText, errorText }) => {
   return (
-    <Wrapper className="form-input">
+    <Wrapper className="form-input-wrapper">
       <Label htmlFor={id} labelText={labelText} />
 
-      <Wrapper className="form-input__inner">
+      <Wrapper className="form-input-wrapper__inner">
         <Input type={type} error={!!errorText} placeholder={placeholder} id={id} />
         {errorText && <Icon color={IconColor.error} name={IconName.inputError} />}
       </Wrapper>

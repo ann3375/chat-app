@@ -1,9 +1,11 @@
 import React from 'react';
 import Button from './components/atoms/Button';
-import { ButtonTSize, ButtonType } from './components/atoms/Button/types/types';
+import { ButtonSize, ButtonType, ButtonVariant } from './components/atoms/Button/types/types';
+import { IconColor, IconName } from './components/atoms/Icon/types/types';
 import { InputId, InputType } from './components/atoms/Input/types/types';
 import Typography from './components/atoms/Typography';
 import { TypographyTypeStyle } from './components/atoms/Typography/types/types';
+import ButtonIcon from './components/molecules/ButtonIcon';
 import FormInput from './components/molecules/FormInput';
 
 const App: React.FC = () => {
@@ -16,22 +18,62 @@ const App: React.FC = () => {
       <Typography variant={TypographyTypeStyle.p1}>body1</Typography>
       <Typography variant={TypographyTypeStyle.p2}>body2</Typography>
 
-      <div className="">
-        <Button size={ButtonTSize.small} type={ButtonType.submit} isDisabled={false}>
+      <div>
+        <Button
+          variant={ButtonVariant.primary}
+          size={ButtonSize.large}
+          type={ButtonType.submit}
+          isDisabled={true}
+        >
           Log in
         </Button>
       </div>
 
       <div>
-        <Button size={ButtonTSize.large} type={ButtonType.submit} isDisabled={true}>
+        <Button
+          variant={ButtonVariant.primary}
+          size={ButtonSize.medium}
+          type={ButtonType.submit}
+          isDisabled={false}
+        >
           Log in
         </Button>
       </div>
 
       <div>
-        <Button size={ButtonTSize.medium} type={ButtonType.submit} isDisabled={false}>
+        <Button
+          variant={ButtonVariant.outline}
+          size={ButtonSize.medium}
+          type={ButtonType.submit}
+          isDisabled={false}
+        >
           Log in
         </Button>
+      </div>
+
+      <div style={{ width: 400, height: 80, position: 'relative' }}>
+        <ButtonIcon
+          iconColor={IconColor.primary}
+          iconName={IconName.sendMessage}
+          buttonType={ButtonType.submit}
+        />
+      </div>
+
+      <div style={{ width: 400, height: 80, position: 'relative' }}>
+        <ButtonIcon
+          isDisabled={true}
+          iconName={IconName.sendMessage}
+          iconColor={IconColor.primary}
+          buttonType={ButtonType.submit}
+        ></ButtonIcon>
+      </div>
+
+      <div style={{ width: 400, height: 80, position: 'relative' }}>
+        <ButtonIcon
+          iconName={IconName.addFile}
+          iconColor={IconColor.grey}
+          buttonType={ButtonType.button}
+        ></ButtonIcon>
       </div>
 
       <FormInput

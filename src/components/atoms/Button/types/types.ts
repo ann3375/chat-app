@@ -4,8 +4,14 @@ export enum ButtonType {
   submit = 'submit',
 }
 
-export enum ButtonTSize {
+export enum ButtonSize {
   large = 'large',
   medium = 'medium',
   small = 'small',
+}
+
+export enum ButtonVariant {
+  primary = 'primary',
+  outline = 'outline',
+  icon = 'icon',
 }

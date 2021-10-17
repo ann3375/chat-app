@@ -1,12 +1,13 @@
+@import '../../../styles/variables';
+
 .wrapper {
   &_flex {
-    &_column {
-      display: flex;
-      flex-direction: column;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  &.form-input {
+  &.form-input-wrapper {
     max-width: 354px;
 
     &__inner {

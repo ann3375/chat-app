@@ -1,20 +1,22 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ButtonTSize, ButtonType } from './types/types';
+import { ButtonSize, ButtonType, ButtonVariant } from './types/types';
 
 import './button.scss';
 
 interface IButton {
   type: ButtonType;
-  isDisabled: boolean;
   children: React.ReactNode;
+  isDisabled?: boolean;
+  variant?: ButtonVariant;
   className?: string;
-  size?: ButtonTSize;
+  size?: ButtonSize;
 }
 
-const Button: React.FC<IButton> = ({ className, type, isDisabled, children, size }) => {
+const Button: React.FC<IButton> = ({ children, type, className, isDisabled, variant, size }) => {
   const classProps = classNames('button', {
     [`button_size_${size}`]: size,
+    [`button_${variant}`]: variant,
     [`${className}`]: className,
   });
 
