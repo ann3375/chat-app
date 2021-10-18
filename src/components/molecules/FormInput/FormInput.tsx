@@ -1,10 +1,12 @@
 import React from 'react';
 import Icon from '../../atoms/Icon';
-import { IconColor, IconName } from '../../atoms/Icon/types/types';
-import Input from '../../atoms/Input';
-import { IInput } from '../../atoms/Input/Input';
 import Label from '../../atoms/Label';
 import Wrapper from '../../atoms/Wrapper';
+import Input from '../../atoms/Input';
+import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { IInput } from '../../atoms/Input/Input';
+
+import { WrapperTypes } from '../../atoms/Wrapper/types/types';
 
 import './formInput.scss';
 
@@ -15,12 +17,12 @@ interface IFormInput extends IInput {
 
 const FormInput: React.FC<IFormInput> = ({ id, type, placeholder = '', labelText, errorText }) => {
   return (
-    <Wrapper className="form-input-wrapper">
+    <Wrapper variant={WrapperTypes.div} className="form-input-wrapper">
       <Label htmlFor={id} labelText={labelText} />
 
-      <Wrapper className="form-input-wrapper__inner">
+      <Wrapper variant={WrapperTypes.div} className="form-input-wrapper__inner">
         <Input type={type} error={!!errorText} placeholder={placeholder} id={id} />
-        {errorText && <Icon color={IconColor.error} name={IconName.inputError} />}
+        {errorText && <Icon color={ColorType.error} name={IconName.inputError} />}
       </Wrapper>
 
       {errorText && <Label htmlFor={id} isError errorText={errorText} />}

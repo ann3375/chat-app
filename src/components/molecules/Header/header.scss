@@ -1,0 +1,19 @@
+@import '../../../styles/variables';
+
+.header-login-page {
+  & .logo-wrapper {
+    margin-bottom: 16px;
+  }
+
+  & .typography_variant_h1 {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: $media-mobile-l) {
+  .header-login-page {
+    & .typography_variant_h1 {
+      margin-bottom: 8px;
+    }
+  }
+}

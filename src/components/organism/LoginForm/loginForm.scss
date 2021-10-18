@@ -1,0 +1,17 @@
+.form-login-wrapper {
+  width: 100%;
+  & form {
+  }
+
+  & .typography_variant_h2 {
+    margin-bottom: 48px;
+  }
+
+  & .form-input-wrapper {
+    margin-bottom: 32px;
+
+    &:last-of-type {
+      margin-bottom: 48px;
+    }
+  }
+}

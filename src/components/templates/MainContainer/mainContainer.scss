@@ -1,0 +1,20 @@
+@import '../../../styles/variables';
+
+.main-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 1080px;
+
+  &.flex {
+    display: flex;
+  }
+}
+
+@media (max-width: $media-mobile-l) {
+  .main-container {
+    &-login {
+      flex-direction: column;
+      height: auto;
+    }
+  }
+}

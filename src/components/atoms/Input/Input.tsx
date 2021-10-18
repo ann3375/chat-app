@@ -5,13 +5,13 @@ import './input.scss';
 
 export interface IInput {
   id: string;
-  placeholder: string;
   type: string;
+  placeholder?: string;
   required?: boolean;
   error?: boolean;
 }
 
-const Input: React.FC<IInput> = ({ id, placeholder, type, required = false, error }) => {
+const Input: React.FC<IInput> = ({ id, type, placeholder, required = false, error }) => {
   const classProps = classNames('input', {
     [`input_error_active`]: error,
   });
@@ -26,7 +26,7 @@ const Input: React.FC<IInput> = ({ id, placeholder, type, required = false, erro
       required={required}
       className={classProps}
       id={id}
-      placeholder={placeholder}
+      placeholder={placeholder ? placeholder : ''}
       type={type}
       onChange={handleChange}
     />

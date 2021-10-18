@@ -6,7 +6,7 @@ import './typographyStyle.scss';
 
 interface ITypography {
   variant: TypographyTypeStyle;
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
 const Typography: React.FC<ITypography> = ({ variant, children, ...props }) => {

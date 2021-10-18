@@ -1,0 +1,56 @@
+@import '../../../styles/variables';
+
+.login-page {
+  &__aside-form {
+    width: 100%;
+    max-width: 716px;
+    min-width: 500px;
+    background-color: $color-white;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .container {
+      padding-top: 256px;
+    }
+  }
+
+  &__aside-image {
+    width: 100%;
+    max-width: 724px;
+    background: no-repeat url('../../../assets/images/loginPageFrame.svg') $color-aliceblue;
+  }
+}
+
+@media (max-width: 425px) {
+  .login-page {
+    &__aside-form {
+      position: relative;
+      order: 1;
+      height: 400px;
+      min-width: 100%;
+
+      & .typography_variant_h2 {
+        margin-bottom: 99px;
+      }
+
+      & .container {
+        margin-top: -35%;
+        padding: 0 14px;
+      }
+
+      & button {
+        max-width: 100%;
+      }
+    }
+
+    &__aside-image {
+      height: 316px;
+      order: 0;
+      background: no-repeat url('../../../assets/images/loginPageFrameMobile.svg'), $color-aliceblue;
+      background-size: cover;
+      border-radius: 0px 0px 16px 16px;
+    }
+  }
+}

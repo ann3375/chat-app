@@ -1,22 +1,23 @@
-import classNames from 'classnames';
 import React from 'react';
-
-import './wrapper.scss';
+import classNames from 'classnames';
+import { WrapperType, WrapperTypes } from './types/types';
 
 interface IWrapper {
-  children: React.ReactNode;
+  variant: WrapperTypes;
+  children?: React.ReactNode;
   className?: string;
-  flex?: 'column' | 'row';
-  fullWidth?: boolean;
 }
 
-const Wrapper: React.FC<IWrapper> = ({ children, flex, fullWidth, className }) => {
-  const classProps = classNames('wrapper', {
-    [`wrapper_flex_${flex}`]: flex,
-    [`wrapper_${fullWidth}`]: fullWidth,
+const Wrapper: React.FC<IWrapper> = ({ variant, className, children, ...props }) => {
+  const Component = WrapperType[variant];
+  const classProps = classNames({
     [`${className}`]: className,
   });
-  return <div className={classProps}>{children}</div>;
+  return (
+    <Component className={classProps} {...props}>
+      {children}
+    </Component>
+  );
 };
 
 export default Wrapper;

@@ -1,0 +1,26 @@
+@import '../../../styles/variables';
+
+.form-input-wrapper {
+  max-width: 354px;
+
+  &__inner {
+    position: relative;
+
+    & svg {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+
+  & .label_error {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: $media-mobile-l) {
+  .form-input-wrapper {
+    max-width: 100%;
+  }
+}

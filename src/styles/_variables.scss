@@ -3,6 +3,7 @@ $color-lightBlack: #303030;
 $color-grey: #949494; // last-msg in statusBar || last-seen
 $color-mediumGrey: #9f9f9f; //placeholder
 $color-lightGrey: #d1d1d1; //  button disabled
+$color-easyGrey: #cacaca;
 
 $color-darkBlue: #2c6ac7; //  button press
 $color-blue: #5e93e7; // "You" in status Bar
@@ -10,6 +11,7 @@ $color-cornflowerblue: #5c98f1; // input - typing (border) |  button regular
 $color-royalblue: #4583de; //  button hover
 $color-mediumBlue: #b3cdf8; // input -initial (border)
 $color-lightBlue: #e9f2ff;
+$color-aliceblue: #eff5ff;
 
 $color-error: #fb6262;
 $color-error-focus: #fa4b4b;
@@ -18,7 +20,7 @@ $color-white: #fff;
 
 $media-mobile-s: 320px;
 $media-mobile-m: 375px;
-$mobile-l: 425px;
-$tablet: 768px;
-$laptop: 1024px;
-$laptop-l: 1440px;
+$media-mobile-l: 425px;
+$media-tablet: 768px;
+$media-laptop: 1024px;
+$media-laptop-l: 1440px;
