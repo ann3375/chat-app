@@ -3,11 +3,8 @@
 .main-container {
   max-width: 1440px;
   margin: 0 auto;
-  height: 1080px;
-
-  &.flex {
-    display: flex;
-  }
+  max-height: 1080px;
+  position: relative;
 }
 
 @media (max-width: $media-mobile-l) {

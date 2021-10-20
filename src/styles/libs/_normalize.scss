@@ -47,6 +47,10 @@ input {
   border: none;
 }
 
+*::before {
+  box-sizing: border-box;
+}
+
 @mixin noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */

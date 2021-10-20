@@ -9,7 +9,7 @@ import './fileInput.scss';
 
 const FileInput = (): React.ReactElement => {
   return (
-    <Label htmlFor={InputId.file}>
+    <Label htmlFor={InputId.file} className="file-input__label">
       <Icon name={IconName.addFile} />
       <Input type={InputType.file} id={InputId.file} />
     </Label>

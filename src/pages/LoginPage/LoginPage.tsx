@@ -1,8 +1,7 @@
 import React from 'react';
 import LoginPageTemplate from '../../components/templates/LoginPageTemplate';
-import MainContainer from '../../components/templates/MainContainer';
 
-const LoginPage = () => {
+const LoginPage = (): React.ReactElement => {
   return <LoginPageTemplate />;
 };
 

@@ -4,20 +4,24 @@ import Logo from '../../atoms/Logo';
 import StyledText from '../../atoms/StyledText';
 import Typography from '../../atoms/Typography';
 import Wrapper from '../../atoms/Wrapper';
-import { ColorType } from '../../atoms/Icon/types/types';
+import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { LogoSize } from '../../atoms/Logo/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { WrapperTypes } from '../../atoms/Wrapper/types/types';
 
 import './header.scss';
+import ButtonIcon from '../../molecules/ButtonIcon';
+import { ButtonType } from '../../atoms/Button/types/types';
 
 interface IHeader {
   isLoginPage?: boolean;
+  isChatPage?: boolean;
 }
 
-const Header: React.FC<IHeader> = ({ isLoginPage = true }) => {
+const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
   const classProps = classNames('header', {
     [`header-login-page`]: isLoginPage,
+    [`header-chat-page`]: isChatPage,
   });
 
   return (
@@ -31,7 +35,11 @@ const Header: React.FC<IHeader> = ({ isLoginPage = true }) => {
           <StyledText color={ColorType.lightblue}>!</StyledText>
         </Typography>
       ) : (
-        'icon'
+        <ButtonIcon
+          type={ButtonType.button}
+          color={ColorType.primary}
+          iconName={IconName.userIcon}
+        />
       )}
     </Wrapper>
   );

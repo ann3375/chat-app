@@ -5,7 +5,6 @@ import Wrapper from '../../atoms/Wrapper';
 import Input from '../../atoms/Input';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { IInput } from '../../atoms/Input/Input';
-
 import { WrapperTypes } from '../../atoms/Wrapper/types/types';
 
 import './formInput.scss';

@@ -1,0 +1,16 @@
+@import '../../../styles/variables';
+
+.user-list {
+  margin-top: 20px;
+
+  &__item {
+    max-width: 100%;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+
+    &:hover {
+      background: $color-cornflowerblue;
+    }
+  }
+}

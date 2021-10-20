@@ -1,0 +1,57 @@
+@import '../../../styles/variables';
+
+.message-wrapper {
+  border: 1px solid $color-powderblue;
+  border-radius: 12px 0 12px 12px;
+  padding: 12px;
+  position: relative;
+  max-width: 503px;
+  width: fit-content;
+  height: auto;
+  background: $color-lightBlue;
+
+  &::before,
+  &::after {
+    border: 12px solid transparent;
+    border-top: 12px solid $color-powderblue;
+    content: '';
+    position: absolute;
+  }
+
+  &_side_left {
+    border-radius: 0px 12px 12px 12px;
+    background: $color-white;
+
+    &::before,
+    &::after {
+      left: -13px;
+      top: -1px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -11px;
+      top: 0px;
+      border: 12px solid transparent;
+      border-top: 12px solid $color-white;
+    }
+  }
+
+  &_side_right {
+    &::before,
+    &::after {
+      right: -13px;
+      top: -1px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -11px;
+      top: 0px;
+      border: 12px solid transparent;
+      border-top: 12px solid $color-lightBlue;
+    }
+  }
+}

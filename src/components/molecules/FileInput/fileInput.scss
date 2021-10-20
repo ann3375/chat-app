@@ -1,15 +1,25 @@
 @import '../../../styles/variables';
 
-input[type='file'] {
-  display: none;
-}
+.file-input {
+  &__label {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-svg {
-  color: $color-easyGrey;
-  cursor: pointer;
-  transition: all 0.5s ease;
+    & svg {
+      color: $color-easyGrey;
+      transition: all 0.5s ease;
+    }
 
-  &:hover {
-    color: $color-blue;
+    &:hover svg {
+      color: $color-blue;
+    }
+
+    & input[type='file'] {
+      display: none;
+    }
   }
 }

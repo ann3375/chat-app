@@ -2,14 +2,10 @@
 
 .login-page {
   &__aside-form {
-    width: 100%;
     max-width: 716px;
     min-width: 500px;
     background-color: $color-white;
     z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     & .container {
       padding-top: 256px;
@@ -17,13 +13,22 @@
   }
 
   &__aside-image {
-    width: 100%;
     max-width: 724px;
     background: no-repeat url('../../../assets/images/loginPageFrame.svg') $color-aliceblue;
   }
 }
 
-@media (max-width: 425px) {
+.header-login-page {
+  & .logo-wrapper {
+    margin-bottom: 16px;
+  }
+
+  & .typography_variant_h1 {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: $media-mobile-l) {
   .login-page {
     &__aside-form {
       position: relative;
@@ -38,6 +43,7 @@
       & .container {
         margin-top: -35%;
         padding: 0 14px;
+        width: 100%;
       }
 
       & button {
@@ -51,6 +57,12 @@
       background: no-repeat url('../../../assets/images/loginPageFrameMobile.svg'), $color-aliceblue;
       background-size: cover;
       border-radius: 0px 0px 16px 16px;
+    }
+  }
+
+  .header-login-page {
+    & .typography_variant_h1 {
+      margin-bottom: 8px;
     }
   }
 }

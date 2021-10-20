@@ -16,7 +16,7 @@ const LoginForm = (): React.ReactElement => {
   };
 
   return (
-    <Wrapper variant={WrapperTypes.div} className={'form-login-wrapper'}>
+    <Wrapper variant={WrapperTypes.div} fullWidth className={'form-login-wrapper'}>
       <Typography variant={TypographyTypeStyle.h2}>Please, autorize yourself</Typography>
 
       <form onSubmit={handleSubmit}>

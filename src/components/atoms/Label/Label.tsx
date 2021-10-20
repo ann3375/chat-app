@@ -9,10 +9,19 @@ interface ILabel {
   labelText?: string;
   errorText?: string;
   isError?: boolean;
+  className?: string;
 }
 
-const Label: React.FC<ILabel> = ({ htmlFor, labelText, errorText, isError, children }) => {
+const Label: React.FC<ILabel> = ({
+  htmlFor,
+  labelText,
+  errorText,
+  isError,
+  children,
+  className,
+}) => {
   const classProps = classNames('label', {
+    [`${className}`]: className,
     [`label_error`]: isError,
     [`label_error_active`]: errorText,
   });

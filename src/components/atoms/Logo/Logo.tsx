@@ -18,7 +18,7 @@ const Logo: React.FC<ILogo> = ({ size }) => {
   });
 
   return (
-    <Wrapper variant={WrapperTypes.div} className={classProps}>
+    <Wrapper variant={WrapperTypes.div} flex className={classProps}>
       <Icon name={IconName.logo} height={`100%`} />
     </Wrapper>
   );

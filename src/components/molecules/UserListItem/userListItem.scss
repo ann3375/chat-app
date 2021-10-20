@@ -1,0 +1,21 @@
+.user-list {
+  &__item {
+    max-width: 295px;
+
+    & svg {
+      margin-right: 12px;
+    }
+  }
+}
+
+.item {
+  &__inner {
+    & h4,
+    & p {
+      max-width: 235px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

@@ -6,6 +6,7 @@ export enum IconName {
   maleAvatar = 'maleAvatar',
   femaleAvatar = 'femaleAvatar',
   noUserAvatar = 'noUserAvatar',
+  userIcon = 'userIcon',
 }
 
 export enum ColorType {
