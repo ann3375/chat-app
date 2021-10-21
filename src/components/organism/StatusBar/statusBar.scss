@@ -1,0 +1,57 @@
+@import '../../../styles/variables';
+
+.status-bar {
+  & .user-status {
+    margin-left: 24px;
+  }
+
+  & .button_icon {
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none;
+  }
+}
+
+@media (max-width: $media-tablet) {
+  .status-bar {
+    padding: 0 24px;
+
+    & .button_icon {
+      display: flex;
+      transform: translateX(0);
+      animation: pulse 2s infinite;
+      transition: none;
+
+      &_transform {
+        transform: translate(330px, -30px);
+        animation: none;
+        transition: transform 0.5s ease;
+      }
+    }
+
+    & .user-status {
+      margin-left: auto;
+
+      & h3 {
+        max-width: calc(100vw - 230px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-mobile-l) {
+  .status-bar {
+    & .user-status {
+      margin-left: 24px;
+
+      & h3 {
+        max-width: calc(100vw - 130px);
+      }
+    }
+  }
+}

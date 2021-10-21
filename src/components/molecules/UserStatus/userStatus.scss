@@ -1,6 +1,6 @@
 @import '../../../styles/variables';
 
-.status-bar {
+.user-status {
   & h3 {
     margin-bottom: 4px;
   }
@@ -16,7 +16,7 @@
 }
 
 @media (max-width: $media-tablet) {
-  .status-bar {
+  .user-status {
     & svg {
       display: inline-block;
     }
@@ -24,7 +24,7 @@
 }
 
 @media (max-width: $media-mobile-l) {
-  .status-bar {
+  .user-status {
     & svg {
       display: none;
     }

@@ -7,11 +7,15 @@ import { IconName } from '../../atoms/Icon/types/types';
 
 import './fileInput.scss';
 
-const FileInput = (): React.ReactElement => {
+interface IFileInput {
+  id: InputId;
+}
+
+const FileInput: React.FC<IFileInput> = ({ id }): React.ReactElement => {
   return (
     <Label htmlFor={InputId.file} className="file-input__label">
       <Icon name={IconName.addFile} />
-      <Input type={InputType.file} id={InputId.file} />
+      <Input type={InputType.file} id={id} />
     </Label>
   );
 };
