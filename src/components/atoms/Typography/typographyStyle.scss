@@ -40,6 +40,12 @@
       font-family: 'MontserratMedium', sans-serif;
     }
   }
+
+  &_color {
+    &_cornflowerblue {
+      color: $color-cornflowerblue;
+    }
+  }
 }
 
 @media (max-width: $media-mobile-m) {

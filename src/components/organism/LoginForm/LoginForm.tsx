@@ -6,17 +6,16 @@ import FormInput from '../../molecules/FormInput';
 import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/types';
 import { InputId, InputType } from '../../atoms/Input/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
-import { WrapperTypes } from '../../atoms/Wrapper/types/types';
 
 import './loginForm.scss';
 
 const LoginForm = (): React.ReactElement => {
-  const handleSubmit = () => {
-    console.log('submit');
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 
   return (
-    <Wrapper variant={WrapperTypes.div} fullWidth className={'form-login-wrapper'}>
+    <Wrapper className={'form-login-wrapper'}>
       <Typography variant={TypographyTypeStyle.h2}>Please, autorize yourself</Typography>
 
       <form onSubmit={handleSubmit}>

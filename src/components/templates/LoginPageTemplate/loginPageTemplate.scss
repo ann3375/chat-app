@@ -1,5 +1,9 @@
 @import '../../../styles/variables';
 
+.main-container-login {
+  height: 1080px;
+}
+
 .login-page {
   &__aside-form {
     max-width: 716px;
@@ -14,6 +18,7 @@
 
   &__aside-image {
     max-width: 724px;
+    width: 100%;
     background: no-repeat url('../../../assets/images/loginPageFrame.svg') $color-aliceblue;
   }
 }
@@ -29,6 +34,10 @@
 }
 
 @media (max-width: $media-mobile-l) {
+  .main-container-login {
+    height: fit-content;
+  }
+
   .login-page {
     &__aside-form {
       position: relative;
@@ -42,12 +51,16 @@
 
       & .container {
         margin-top: -35%;
-        padding: 0 14px;
+        padding: 0 14px 24px;
         width: 100%;
       }
 
       & button {
         max-width: 100%;
+      }
+
+      & input {
+        height: 48px;
       }
     }
 

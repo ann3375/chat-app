@@ -1,18 +1,18 @@
-import classNames from 'classnames';
-import React, { useCallback, useEffect, useRef } from 'react';
-import { ButtonType } from '../../atoms/Button/types/types';
-import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import React, { useRef } from 'react';
 import Input from '../../atoms/Input';
-import { InputId, InputType } from '../../atoms/Input/types/types';
 import Wrapper from '../../atoms/Wrapper';
-import { WrapperTypes } from '../../atoms/Wrapper/types/types';
 import ButtonIcon from '../../molecules/ButtonIcon';
 import ChatMessage from '../../molecules/ChatMessage';
 import FileInput from '../../molecules/FileInput';
+import StatusBar from '../../molecules/StatusBar';
 import Header from '../../organism/Header';
 import UserList from '../../organism/UserList';
 import MainContainer from '../MainContainer';
-import { Pages } from '../MainContainer/types/types';
+import { Pages } from '../../../router/constants';
+import { UserGender } from '../../atoms/Avatar/types/types';
+import { ButtonType } from '../../atoms/Button/types/types';
+import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { InputId, InputType } from '../../atoms/Input/types/types';
 
 import './chatPageTemplate.scss';
 
@@ -50,57 +50,49 @@ const text: Text = [
 
 const ChatPageTemplate = (): React.ReactElement => {
   const [isVisibleUserList, setIsVisibleUserList] = React.useState(false);
-
   const userListRef = useRef<HTMLDivElement>(null);
 
-  const handleOutsideClickUserList = useCallback(
-    (event: MouseEvent) => {
-      if (userListRef.current && !userListRef.current?.contains(event.target as Node)) {
-        isVisibleUserList && setIsVisibleUserList(!isVisibleUserList);
-      }
-    },
-    [isVisibleUserList]
-  );
-
-  useEffect(() => {
-    document.body.addEventListener('click', handleOutsideClickUserList);
-
-    return () => {
-      document.body.removeEventListener('click', handleOutsideClickUserList);
-      isVisibleUserList && setIsVisibleUserList(false);
-    };
-  }, [handleOutsideClickUserList, isVisibleUserList]);
+  const handleVisibleUserList = () => {
+    setIsVisibleUserList(!isVisibleUserList);
+  };
 
   return (
     <MainContainer grid page={Pages.chat}>
       <Header isChatPage />
 
-      <UserList listRef={userListRef} isVisibleUserList={isVisibleUserList} />
+      <UserList
+        listRef={userListRef}
+        handleVisibleUserList={handleVisibleUserList}
+        isVisibleUserList={isVisibleUserList}
+      />
 
       <div className="chat">
-        <div className="chat__header">
-          <button
-            className={classNames('button', {
-              ['button_active']: isVisibleUserList,
-            })}
-            onClick={() => setIsVisibleUserList(!isVisibleUserList)}
-          >
-            open
-          </button>
-          header-chat s
-        </div>
+        <Wrapper flex align="center" className="chat__header">
+          <ButtonIcon
+            iconName={isVisibleUserList ? IconName.closeIcon : IconName.userList}
+            type={ButtonType.button}
+            color={ColorType.primary}
+            onClick={handleVisibleUserList}
+            className={isVisibleUserList ? 'button_icon_transform' : ''}
+          />
+          <StatusBar
+            username="User BobUser BobUser BobUser BobUser BobUser Bob"
+            userStatus="last seen 3 min ago"
+            gender={UserGender.male}
+          />
+        </Wrapper>
         <div className="chat__message-area">
           {text.map((item) => (
             <ChatMessage
               messageText={item.messageText}
-              id={item.id}
               isCurrentUserMessage={item.isCurrentUserMessage}
               key={item.id}
             />
           ))}
         </div>
+
         <form>
-          <Wrapper variant={WrapperTypes.div} flex align="center" className="chat__footer">
+          <Wrapper flex align="center" className="chat__footer">
             <FileInput />
             <Input
               type={InputType.textarea}

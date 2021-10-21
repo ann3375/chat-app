@@ -3,14 +3,10 @@ import classNames from 'classnames';
 import Logo from '../../atoms/Logo';
 import StyledText from '../../atoms/StyledText';
 import Typography from '../../atoms/Typography';
-import Wrapper from '../../atoms/Wrapper';
+import ButtonIcon from '../../molecules/ButtonIcon';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { LogoSize } from '../../atoms/Logo/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
-import { WrapperTypes } from '../../atoms/Wrapper/types/types';
-
-import './header.scss';
-import ButtonIcon from '../../molecules/ButtonIcon';
 import { ButtonType } from '../../atoms/Button/types/types';
 
 interface IHeader {
@@ -23,9 +19,8 @@ const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
     [`header-login-page`]: isLoginPage,
     [`header-chat-page`]: isChatPage,
   });
-
   return (
-    <Wrapper variant={WrapperTypes.header} className={classProps}>
+    <header className={classProps}>
       <Logo size={LogoSize.large} />
 
       {isLoginPage ? (
@@ -41,8 +36,8 @@ const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
           iconName={IconName.userIcon}
         />
       )}
-    </Wrapper>
+    </header>
   );
 };
 
-export default Header;
+export default React.memo(Header);

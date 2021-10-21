@@ -1,6 +1,21 @@
+@import '../../../styles/variables';
+
 .user-list {
   &__item {
     max-width: 295px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+
+    &:hover,
+    &_active {
+      background: $color-cornflowerblue;
+
+      & .typography {
+        color: $color-white;
+      }
+    }
 
     & svg {
       margin-right: 12px;
@@ -16,6 +31,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    & h4 {
+      margin-bottom: 4px;
     }
   }
 }

@@ -1,0 +1,32 @@
+@import '../../../styles/variables';
+
+.status-bar {
+  & h3 {
+    margin-bottom: 4px;
+  }
+
+  & p {
+    color: $color-grey;
+  }
+
+  & svg {
+    display: none;
+    margin-right: 12px;
+  }
+}
+
+@media (max-width: $media-tablet) {
+  .status-bar {
+    & svg {
+      display: inline-block;
+    }
+  }
+}
+
+@media (max-width: $media-mobile-l) {
+  .status-bar {
+    & svg {
+      display: none;
+    }
+  }
+}

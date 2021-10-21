@@ -4,16 +4,25 @@ import { ButtonSize, ButtonType, ButtonVariant } from './types/types';
 
 import './button.scss';
 
-interface IButton {
+export interface IButton {
   type: ButtonType;
   children: React.ReactNode;
+  onClick?: () => void;
   isDisabled?: boolean;
   variant?: ButtonVariant;
   className?: string;
   size?: ButtonSize;
 }
 
-const Button: React.FC<IButton> = ({ children, type, className, isDisabled, variant, size }) => {
+const Button: React.FC<IButton> = ({
+  children,
+  type,
+  className,
+  onClick,
+  isDisabled,
+  variant,
+  size,
+}) => {
   const classProps = classNames('button', {
     [`button_size_${size}`]: size,
     [`button_${variant}`]: variant,
@@ -21,7 +30,7 @@ const Button: React.FC<IButton> = ({ children, type, className, isDisabled, vari
   });
 
   return (
-    <button type={type} disabled={isDisabled} className={classProps}>
+    <button onClick={onClick} type={type} disabled={isDisabled} className={classProps}>
       {children}
     </button>
   );

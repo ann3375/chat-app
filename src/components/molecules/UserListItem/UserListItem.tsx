@@ -1,18 +1,19 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Avatar from '../../atoms/Avatar';
 import StyledText from '../../atoms/StyledText';
 import Typography from '../../atoms/Typography';
 import { UserGender, AvatarSize } from '../../atoms/Avatar/types/types';
 import { ColorType } from '../../atoms/Icon/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
+import { Paths } from '../../../router/constants';
 
 import './userListItem.scss';
-import Wrapper from '../../atoms/Wrapper';
-import { WrapperTypes } from '../../atoms/Wrapper/types/types';
 
 interface IUserListItem {
   username: string;
   userGender: UserGender;
+  id: string;
   isCurrentUserLastMessage?: boolean;
   lastMessage?: string;
 }
@@ -20,11 +21,16 @@ interface IUserListItem {
 const UserListItem: React.FC<IUserListItem> = ({
   username,
   userGender,
+  id,
   isCurrentUserLastMessage,
   lastMessage,
 }) => {
   return (
-    <Wrapper variant={WrapperTypes.div} flex align="center" className="user-list__item">
+    <NavLink
+      to={`${Paths.chat}/${id}`}
+      className="user-list__item"
+      activeClassName="user-list__item_active"
+    >
       <Avatar size={AvatarSize.medium} gender={userGender} />
       <div className={'item__inner'}>
         <Typography variant={TypographyTypeStyle.h4}>{username}</Typography>
@@ -33,8 +39,8 @@ const UserListItem: React.FC<IUserListItem> = ({
           {lastMessage}
         </Typography>
       </div>
-    </Wrapper>
+    </NavLink>
   );
 };
 
-export default UserListItem;
+export default React.memo(UserListItem);

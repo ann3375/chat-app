@@ -1,6 +1,7 @@
 @import './libs/normalize';
 @import './variables';
 @import './fonts/fonts';
+@import './animation';
 
 .flex {
   display: flex;
@@ -18,10 +19,6 @@
       align-items: center;
     }
   }
-}
-
-.full-w {
-  width: 100%;
 }
 
 .grid {

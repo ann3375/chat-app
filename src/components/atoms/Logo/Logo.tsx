@@ -4,7 +4,6 @@ import Wrapper from '../Wrapper';
 import Icon from '../Icon';
 import { IconName } from '../Icon/types/types';
 import { LogoSize } from './types/types';
-import { WrapperTypes } from '../Wrapper/types/types';
 
 import './logo.scss';
 
@@ -18,8 +17,8 @@ const Logo: React.FC<ILogo> = ({ size }) => {
   });
 
   return (
-    <Wrapper variant={WrapperTypes.div} flex className={classProps}>
-      <Icon name={IconName.logo} height={`100%`} />
+    <Wrapper flex className={classProps}>
+      <Icon name={IconName.logo} />
     </Wrapper>
   );
 };

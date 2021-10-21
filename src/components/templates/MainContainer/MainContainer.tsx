@@ -1,16 +1,11 @@
-import classNames from 'classnames';
 import React from 'react';
-import Wrapper from '../../atoms/Wrapper';
-import { WrapperTypes } from '../../atoms/Wrapper/types/types';
+import classNames from 'classnames';
+import { IWrapper } from '../../atoms/Wrapper/Wrapper';
 
 import './mainContainer.scss';
 
-interface IMainContainer {
-  children: React.ReactNode;
+interface IMainContainer extends Omit<IWrapper, 'className' | 'align'> {
   page?: string;
-  flex?: boolean;
-  row?: boolean;
-  column?: boolean;
   grid?: boolean;
 }
 
@@ -23,11 +18,7 @@ const MainContainer: React.FC<IMainContainer> = ({ children, page, flex, row, co
     [`grid`]: grid,
   });
 
-  return (
-    <Wrapper className={classProps} variant={WrapperTypes.main}>
-      {children}
-    </Wrapper>
-  );
+  return <main className={classProps}>{children}</main>;
 };
 
 export default MainContainer;
