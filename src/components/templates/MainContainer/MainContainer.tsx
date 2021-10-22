@@ -13,9 +13,8 @@ const MainContainer: React.FC<IMainContainer> = ({ children, page, flex, row, co
   const classProps = classNames('main-container', {
     [`main-container-${page}`]: page,
     [`flex`]: flex,
-    [`flex_${row}`]: row,
-    [`flex_${column}`]: column,
-    [`grid`]: grid,
+    [`flex_row`]: row,
+    [`flex_column`]: column,
   });
 
   return <main className={classProps}>{children}</main>;

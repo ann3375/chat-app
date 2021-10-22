@@ -6,7 +6,7 @@ import LoginPage from '../pages/LoginPage';
 
 const AppRoute: React.FC = () => {
   return (
-    <div>
+    <>
       <Router>
         <Switch>
           <Route path={Paths.dialogs} component={ChatPage} />
@@ -14,7 +14,7 @@ const AppRoute: React.FC = () => {
           <Route component={() => <>404: Page not found</>} />
         </Switch>
       </Router>
-    </div>
+    </>
   );
 };
 

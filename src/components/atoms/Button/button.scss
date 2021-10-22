@@ -79,6 +79,18 @@
       height: 80px;
     }
   }
+
+  &_notification {
+    width: 339px;
+    height: 56px;
+    border-radius: 32px;
+    color: $color-black;
+    background: $color-ghostwhite;
+    animation: pulse 2s infinite;
+    align-self: center;
+    justify-self: center;
+    grid-row: 2 / 3;
+  }
 }
 
 @media (max-width: $media-mobile-m) {

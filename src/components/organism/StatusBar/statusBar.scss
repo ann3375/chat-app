@@ -5,6 +5,13 @@
 
   & .user-status {
     margin-left: 24px;
+
+    & h3 {
+      max-width: calc(100vw - 450px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   & .button_icon {
@@ -35,8 +42,6 @@
     }
 
     & .user-status {
-      margin-left: auto;
-
       & h3 {
         max-width: calc(100vw - 230px);
         overflow: hidden;

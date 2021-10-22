@@ -1,12 +1,12 @@
 import React from 'react';
 import Wrapper from '../../atoms/Wrapper';
 import ButtonIcon from '../../molecules/ButtonIcon';
+import UserStatus from '../../molecules/UserStatus';
 import { UserGender } from '../../atoms/Avatar/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 
 import './statusBar.scss';
-import UserStatus from '../../molecules/UserStatus';
 
 interface IStatusBar {
   isVisibleUserList: boolean;
