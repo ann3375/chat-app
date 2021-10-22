@@ -27,7 +27,7 @@ const UserListItem: React.FC<IUserListItem> = ({
 }) => {
   return (
     <NavLink
-      to={`${Paths.chat}/${id}`}
+      to={`${Paths.dialogs}/${id}`}
       className="user-list__item"
       activeClassName="user-list__item_active"
     >

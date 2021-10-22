@@ -1,8 +1,8 @@
 export enum Paths {
   home = '/',
   login = '/login',
-  currentChat = '/chat/:id',
-  chat = '/chat',
+  currentDialog = '/dialogs/:id',
+  dialogs = '/dialogs',
 }
 
 export enum Pages {

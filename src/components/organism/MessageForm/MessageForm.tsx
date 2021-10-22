@@ -31,4 +31,4 @@ const MessageForm = (): React.ReactElement => {
   );
 };
 
-export default MessageForm;
+export default React.memo(MessageForm);

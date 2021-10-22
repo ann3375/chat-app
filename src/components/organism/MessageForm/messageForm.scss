@@ -1,5 +1,9 @@
+@import '../../../styles/variables';
+
 .message-form {
   &__inner {
+    background: $color-white;
+
     & .form-input-wrapper {
       max-width: 100%;
       width: 100%;

@@ -9,6 +9,7 @@ export enum IconName {
   userIcon = 'userIcon',
   userList = 'userList',
   closeIcon = 'closeIcon',
+  spiner = 'spiner',
 }
 
 export enum ColorType {

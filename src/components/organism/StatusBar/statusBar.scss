@@ -1,6 +1,8 @@
 @import '../../../styles/variables';
 
 .status-bar {
+  background: $color-white;
+
   & .user-status {
     margin-left: 24px;
   }
@@ -28,6 +30,7 @@
         transform: translate(330px, -30px);
         animation: none;
         transition: transform 0.5s ease;
+        background: transparent;
       }
     }
 
