@@ -1,26 +1,30 @@
 @import '../../../styles/variables';
 
-.form-input-wrapper {
+.form-input {
   max-width: 354px;
 
-  &__inner {
-    position: relative;
+  &__label {
+    margin-bottom: 4px;
 
-    & svg {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translate(0, -50%);
+    &.label_notification_error {
+      margin: 4px 0px 0px 20px;
     }
   }
 
-  & .label_error {
-    margin-left: 20px;
+  &__inner {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translate(0, -50%);
   }
 }
 
 @media (max-width: $media-mobile-l) {
-  .form-input-wrapper {
+  .form-input {
     max-width: 100%;
   }
 }

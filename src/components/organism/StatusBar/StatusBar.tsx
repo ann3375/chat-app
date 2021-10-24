@@ -21,7 +21,7 @@ const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserL
         type={ButtonType.button}
         color={ColorType.primary}
         onClick={handleVisibleUserList}
-        className={isVisibleUserList ? 'button_icon_transform' : ''}
+        // className={isVisibleUserList ? 'button_icon_transform' : ''}
       />
 
       <UserStatus

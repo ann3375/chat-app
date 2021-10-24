@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Paths } from './constants';
 import ChatPage from '../pages/ChatPage';
 import LoginPage from '../pages/LoginPage';
+import Home from '../pages/Home';
 
 const AppRoute: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const AppRoute: React.FC = () => {
         <Switch>
           <Route path={Paths.dialogs} component={ChatPage} />
           <Route exact path={Paths.login} component={LoginPage} />
+          <Route exact path={Paths.home} component={Home} />
           <Route component={() => <>404: Page not found</>} />
         </Switch>
       </Router>

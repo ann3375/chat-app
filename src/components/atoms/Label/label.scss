@@ -4,9 +4,12 @@
   font-family: 'MontserratSemiBold', sans-serif;
   font-size: 13px;
   line-height: 19px;
+  display: inline-block;
 
-  &_error {
-    font-family: 'MontserratMedium', sans-serif;
-    color: $color-error;
+  &_notification {
+    &_error {
+      font-family: 'MontserratMedium', sans-serif;
+      color: $color-error;
+    }
   }
 }

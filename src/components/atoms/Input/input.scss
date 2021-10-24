@@ -2,7 +2,7 @@
 
 .input {
   border-radius: 8px;
-  border: 1px solid $color-lightBlue;
+  border: 1px solid $color-mediumBlue;
   padding: 16px 40px 16px 16px;
   width: 100%;
   font-family: 'MontserratRegular', sans-serif;
@@ -19,8 +19,8 @@
     border: 1px solid $color-cornflowerblue;
   }
 
-  &_error {
-    &_active {
+  &_notification {
+    &_error {
       border: 1px solid $color-error;
 
       &:focus {

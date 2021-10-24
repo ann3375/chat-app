@@ -10,7 +10,7 @@ export interface IWrapper {
   align?: 'center' | 'flex-start';
 }
 
-const Wrapper: React.FC<IWrapper> = ({
+export const Wrapper: React.FC<IWrapper> = ({
   className,
   children,
   flex,
@@ -19,11 +19,11 @@ const Wrapper: React.FC<IWrapper> = ({
   column,
   ...props
 }) => {
-  const classProps = classNames({
-    ['flex']: flex,
-    ['flex_column']: column,
-    ['flex_row']: row,
-    [`flex_align_${align}`]: align,
+  const classProps = classNames('', {
+    ['wrapper_flex']: flex,
+    ['wrapper_flex_column']: column,
+    ['wrapper_flex_row']: row,
+    [`wrapper_flex_align_${align}`]: align,
     [`${className}`]: className,
   });
   return (

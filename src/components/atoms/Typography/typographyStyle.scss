@@ -2,6 +2,7 @@
 
 .typography {
   color: $color-black;
+  font-family: inherit;
 
   &_variant {
     &_h1 {
@@ -44,6 +45,10 @@
   &_color {
     &_cornflowerblue {
       color: $color-cornflowerblue;
+    }
+
+    &_mediumBlue {
+      color: $color-mediumBlue;
     }
   }
 }

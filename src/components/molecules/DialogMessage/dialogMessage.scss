@@ -1,14 +1,14 @@
 @import '../../../styles/variables';
 
-.message-wrapper {
+.message {
   border: 1px solid $color-powderblue;
   border-radius: 12px 0 12px 12px;
   padding: 12px;
   position: relative;
   max-width: 503px;
   width: fit-content;
-  height: auto;
   background: $color-lightBlue;
+  overflow-wrap: break-word;
 
   &::before,
   &::after {

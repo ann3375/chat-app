@@ -2,24 +2,24 @@
 
 .file-input {
   &__label {
+    cursor: pointer;
     width: 80px;
     height: 80px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
 
-    & svg {
-      color: $color-easyGrey;
-      transition: all 0.5s ease;
-    }
+  &__icon path {
+    color: $color-easyGrey;
+    transition: all 0.5s ease;
+  }
 
-    &:hover svg {
-      color: $color-blue;
-    }
+  &:hover path {
+    color: $color-blue;
+  }
 
-    & input[type='file'] {
-      display: none;
-    }
+  & input[type='file'] {
+    display: none;
   }
 }

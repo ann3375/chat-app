@@ -10,23 +10,23 @@ export interface IButton {
   onClick?: () => void;
   isDisabled?: boolean;
   variant?: ButtonVariant;
-  className?: string;
   size?: ButtonSize;
+  className?: string;
 }
 
-const Button: React.FC<IButton> = ({
+export const Button: React.FC<IButton> = ({
   children,
   type,
-  className,
   onClick,
   isDisabled,
   variant,
+  className,
   size,
 }) => {
   const classProps = classNames('button', {
     [`button_size_${size}`]: size,
-    [`button_${variant}`]: variant,
-    [`${className}`]: className,
+    [`button_variant_${variant}`]: variant,
+    className: className,
   });
 
   return (

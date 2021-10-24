@@ -12,7 +12,7 @@ interface ILabel {
   className?: string;
 }
 
-const Label: React.FC<ILabel> = ({
+export const Label: React.FC<ILabel> = ({
   htmlFor,
   labelText,
   errorText,
@@ -22,8 +22,7 @@ const Label: React.FC<ILabel> = ({
 }) => {
   const classProps = classNames('label', {
     [`${className}`]: className,
-    [`label_error`]: isError,
-    [`label_error_active`]: errorText,
+    [`label_notification_error`]: isError,
   });
 
   return (

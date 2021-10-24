@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Wrapper from '../Wrapper';
-import Icon from '../Icon';
+import { Icon } from '../Icon';
 import { IconName } from '../Icon/types/types';
 import { LogoSize } from './types/types';
 
@@ -11,13 +11,13 @@ interface ILogo {
   size: LogoSize;
 }
 
-const Logo: React.FC<ILogo> = ({ size }) => {
-  const classProps = classNames('logo-wrapper', {
-    [`logo-wrapper_${size}`]: size,
+export const Logo: React.FC<ILogo> = ({ size }) => {
+  const classProps = classNames('logo', {
+    [`logo_size_${size}`]: size,
   });
 
   return (
-    <Wrapper flex className={classProps}>
+    <Wrapper className={classProps}>
       <Icon name={IconName.logo} />
     </Wrapper>
   );

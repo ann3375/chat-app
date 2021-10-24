@@ -1,22 +1,22 @@
 import React from 'react';
 import Button from '../../atoms/Button';
-import Icon from '../../atoms/Icon';
 import { ButtonSize, ButtonVariant } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
-import { IButton } from '../../atoms/Button/Button';
+import { IButton } from '../../atoms/Button';
+import { Icon } from '../../atoms/Icon';
 
 interface IButtonIcon extends Omit<IButton, 'size' | 'variant' | 'children'> {
   iconName: IconName;
   color: ColorType;
 }
 
-const ButtonIcon: React.FC<IButtonIcon> = ({
+export const ButtonIcon: React.FC<IButtonIcon> = ({
   iconName,
   type,
   color,
   onClick,
-  className,
   isDisabled,
+  className,
 }) => {
   return (
     <Button

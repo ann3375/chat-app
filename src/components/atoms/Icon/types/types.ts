@@ -16,5 +16,5 @@ export enum ColorType {
   error = 'tomato',
   primary = 'cornflowerblue',
   grey = 'lightgray',
-  lightblue = 'lightblue',
+  mediumBlue = 'mediumBlue',
 }

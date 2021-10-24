@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from '../../atoms/Wrapper';
-import ChatMessage from '../../molecules/ChatMessage';
+import ChatMessage from '../../molecules/DialogMessage';
 
 import './dialog.scss';
 

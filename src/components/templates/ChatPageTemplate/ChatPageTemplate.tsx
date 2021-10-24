@@ -43,11 +43,7 @@ const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
               {messageForm}
             </>
           ) : (
-            <Button
-              variant={ButtonVariant.outline}
-              className="button_notification"
-              type={ButtonType.button}
-            >
+            <Button variant={ButtonVariant.notification} type={ButtonType.button}>
               Select a chat to stary messaging
             </Button>
           )}

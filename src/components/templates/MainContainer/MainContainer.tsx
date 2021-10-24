@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IWrapper } from '../../atoms/Wrapper/Wrapper';
+import { IWrapper } from '../../atoms/Wrapper/';
 
 import './mainContainer.scss';
 

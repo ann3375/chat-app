@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import Logo from '../../atoms/Logo';
-import StyledText from '../../atoms/StyledText';
 import Typography from '../../atoms/Typography';
 import ButtonIcon from '../../molecules/ButtonIcon';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
@@ -26,8 +25,13 @@ const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
       {isLoginPage ? (
         <Typography variant={TypographyTypeStyle.h1}>
           Wellcome to
-          <StyledText color={ColorType.primary}> Chatty</StyledText>
-          <StyledText color={ColorType.lightblue}>!</StyledText>
+          <Typography variant={TypographyTypeStyle.span} color={ColorType.primary}>
+            {' '}
+            Chatty
+          </Typography>
+          <Typography variant={TypographyTypeStyle.span} color={ColorType.mediumBlue}>
+            !
+          </Typography>
         </Typography>
       ) : (
         <ButtonIcon

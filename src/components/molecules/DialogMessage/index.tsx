@@ -4,17 +4,17 @@ import Typography from '../../atoms/Typography';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import Wrapper from '../../atoms/Wrapper';
 
-import './chatMessage.scss';
+import './dialogMessage.scss';
 
-interface iChatMessage {
+interface IDialogMessage {
   messageText: string;
   isCurrentUserMessage: boolean;
 }
 
-const ChatMessage: React.FC<iChatMessage> = ({ messageText, isCurrentUserMessage }) => {
-  const classProps = classNames('message-wrapper', {
-    ['message-wrapper_side_left']: !isCurrentUserMessage,
-    ['message-wrapper_side_right']: isCurrentUserMessage,
+export const DialogMessage: React.FC<IDialogMessage> = ({ messageText, isCurrentUserMessage }) => {
+  const classProps = classNames('message', {
+    ['message_side_left']: !isCurrentUserMessage,
+    ['message_side_right']: isCurrentUserMessage,
   });
 
   return (
@@ -24,4 +24,4 @@ const ChatMessage: React.FC<iChatMessage> = ({ messageText, isCurrentUserMessage
   );
 };
 
-export default ChatMessage;
+export default DialogMessage;

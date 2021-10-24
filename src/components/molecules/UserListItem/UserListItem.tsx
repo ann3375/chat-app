@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Avatar from '../../atoms/Avatar';
-import StyledText from '../../atoms/StyledText';
 import Typography from '../../atoms/Typography';
 import { UserGender, AvatarSize } from '../../atoms/Avatar/types/types';
 import { ColorType } from '../../atoms/Icon/types/types';
@@ -35,7 +34,11 @@ const UserListItem: React.FC<IUserListItem> = ({
       <div className={'item__inner'}>
         <Typography variant={TypographyTypeStyle.h4}>{username}</Typography>
         <Typography variant={TypographyTypeStyle.p2}>
-          {isCurrentUserLastMessage && <StyledText color={ColorType.primary}>You: </StyledText>}
+          {isCurrentUserLastMessage && (
+            <Typography variant={TypographyTypeStyle.span} color={ColorType.primary}>
+              You:{' '}
+            </Typography>
+          )}
           {lastMessage}
         </Typography>
       </div>

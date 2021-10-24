@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../../atoms/Icon';
+import { Icon } from '../../atoms/Icon';
 import { IconName } from '../../atoms/Icon/types/types';
 import Wrapper from '../../atoms/Wrapper';
 

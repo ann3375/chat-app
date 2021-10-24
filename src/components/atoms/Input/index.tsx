@@ -1,23 +1,29 @@
 import React from 'react';
 import classNames from 'classnames';
+import { InputType } from './types/types';
 
 import './input.scss';
-import { InputType } from './types/types';
 
 export interface IInput {
   id: string;
   type: string;
   placeholder?: string;
-  required?: boolean;
-  error?: boolean;
+  isRequired?: boolean;
+  isError?: boolean;
 }
 
-const Input: React.FC<IInput> = ({ id, type, placeholder = '', required = false, error }) => {
+export const Input: React.FC<IInput> = ({
+  id,
+  type,
+  placeholder = '',
+  isRequired = false,
+  isError,
+}) => {
   const classProps = classNames('input', {
-    [`input_error_active`]: error,
+    [`input_notification_error`]: isError,
   });
 
-  const handleChange = (
+  const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { target } = event;
@@ -27,23 +33,23 @@ const Input: React.FC<IInput> = ({ id, type, placeholder = '', required = false,
   if (type === InputType.textarea) {
     return (
       <textarea
-        required={required}
+        required={isRequired}
         className="textarea"
         id={id}
         placeholder={placeholder}
-        onChange={handleChange}
+        onChange={handleInputChange}
       />
     );
   }
 
   return (
     <input
-      required={required}
+      required={isRequired}
       className={classProps}
       id={id}
       placeholder={placeholder}
       type={type}
-      onChange={handleChange}
+      onChange={handleInputChange}
     />
   );
 };

@@ -12,55 +12,55 @@
   justify-content: center;
   align-items: center;
 
-  &_primary {
-    color: $color-white;
-    background: $color-cornflowerblue;
+  &_variant {
+    &_primary {
+      color: $color-white;
+      background: $color-cornflowerblue;
 
-    &:hover {
-      background: $color-royalblue;
+      &:hover {
+        background: $color-royalblue;
+      }
+
+      &:active {
+        background: $color-darkBlue;
+      }
     }
 
-    &:active {
-      background: $color-darkBlue;
-    }
-  }
-
-  &_outline {
-    color: $color-cornflowerblue;
-    background: inherit;
-    border: 1px solid $color-cornflowerblue;
-
-    &:hover {
-      color: $color-darkBlue;
-      border: 1px solid $color-darkBlue;
-    }
-  }
-
-  &:disabled {
-    cursor: auto;
-    background: $color-lightGrey;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  &_icon {
-    & svg {
-      transition: all 0.5s ease;
-    }
-
-    &:hover svg {
-      color: $color-royalblue;
-    }
-
-    &:disabled {
+    &_outline {
+      color: $color-cornflowerblue;
       background: inherit;
+      border: 1px solid $color-cornflowerblue;
 
+      &:hover {
+        color: $color-darkBlue;
+        border: 1px solid $color-darkBlue;
+      }
+    }
+
+    &_notification {
+      border: 1px solid $color-cornflowerblue;
+      width: 339px;
+      height: 56px;
+      border-radius: 32px;
+      background: $color-ghostwhite;
+      animation: pulse 2s infinite;
+    }
+
+    &_icon {
       & svg {
-        color: $color-lightGrey;
+        transition: all 0.5s ease;
+      }
+
+      &:hover svg {
+        color: $color-royalblue;
+      }
+
+      &:disabled {
+        background: inherit;
+
+        & svg {
+          color: $color-lightGrey;
+        }
       }
     }
   }
@@ -80,16 +80,15 @@
     }
   }
 
-  &_notification {
-    width: 339px;
-    height: 56px;
-    border-radius: 32px;
-    color: $color-black;
-    background: $color-ghostwhite;
-    animation: pulse 2s infinite;
-    align-self: center;
-    justify-self: center;
-    grid-row: 2 / 3;
+  &:disabled {
+    cursor: auto;
+    background: $color-lightGrey;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
