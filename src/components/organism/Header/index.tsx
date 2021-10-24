@@ -8,6 +8,8 @@ import { LogoSize } from '../../atoms/Logo/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 
+import './header.scss';
+
 interface IHeader {
   isLoginPage?: boolean;
   isChatPage?: boolean;
@@ -15,15 +17,15 @@ interface IHeader {
 
 const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
   const classProps = classNames('header', {
-    [`header-login-page`]: isLoginPage,
-    [`header-chat-page`]: isChatPage,
+    [`login-page__header`]: isLoginPage,
+    [`chat-page__header`]: isChatPage,
   });
   return (
     <header className={classProps}>
-      <Logo size={LogoSize.large} />
+      <Logo size={LogoSize.large} className="header__logo" />
 
       {isLoginPage ? (
-        <Typography variant={TypographyTypeStyle.h1}>
+        <Typography variant={TypographyTypeStyle.h1} className="header__text">
           Wellcome to
           <Typography variant={TypographyTypeStyle.span} color={ColorType.primary}>
             {' '}
@@ -35,6 +37,7 @@ const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
         </Typography>
       ) : (
         <ButtonIcon
+          className="header__button"
           type={ButtonType.button}
           color={ColorType.primary}
           iconName={IconName.userIcon}

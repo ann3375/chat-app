@@ -1,7 +1,7 @@
 @import '../../../styles/variables';
 
 .user-list {
-  &__item {
+  &__link {
     max-width: 295px;
     display: flex;
     align-items: center;
@@ -16,14 +16,14 @@
         color: $color-white;
       }
     }
-
-    & svg {
-      margin-right: 12px;
-    }
   }
 }
 
-.item {
+.link {
+  &__avatar {
+    margin-right: 12px;
+  }
+
   &__inner {
     & h4,
     & p {

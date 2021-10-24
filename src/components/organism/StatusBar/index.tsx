@@ -7,6 +7,7 @@ import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 
 import './statusBar.scss';
+import classNames from 'classnames';
 
 interface IStatusBar {
   isVisibleUserList: boolean;
@@ -21,10 +22,13 @@ const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserL
         type={ButtonType.button}
         color={ColorType.primary}
         onClick={handleVisibleUserList}
-        // className={isVisibleUserList ? 'button_icon_transform' : ''}
+        className={classNames('status-bar__user-list-icon', {
+          ['status-bar__user-list-icon_transform']: isVisibleUserList,
+        })}
       />
 
       <UserStatus
+        className="status-bar__user-status"
         username="User BobUser BobUser BobUser BobUser BobUser Bob"
         userStatus="last seen 3 min ago"
         gender={UserGender.male}

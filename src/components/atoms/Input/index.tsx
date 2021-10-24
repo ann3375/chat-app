@@ -10,6 +10,7 @@ export interface IInput {
   placeholder?: string;
   isRequired?: boolean;
   isError?: boolean;
+  isDisabled?: boolean;
 }
 
 export const Input: React.FC<IInput> = ({
@@ -18,6 +19,7 @@ export const Input: React.FC<IInput> = ({
   placeholder = '',
   isRequired = false,
   isError,
+  isDisabled,
 }) => {
   const classProps = classNames('input', {
     [`input_notification_error`]: isError,
@@ -49,6 +51,7 @@ export const Input: React.FC<IInput> = ({
       id={id}
       placeholder={placeholder}
       type={type}
+      disabled={isDisabled}
       onChange={handleInputChange}
     />
   );

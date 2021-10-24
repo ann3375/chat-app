@@ -8,16 +8,18 @@ import './typographyStyle.scss';
 interface ITypography {
   variant: TypographyTypeStyle;
   children: React.ReactNode;
+  className?: string;
   color?: ColorType;
 }
 
-const Typography: React.FC<ITypography> = ({ variant, children, color, ...props }) => {
+const Typography: React.FC<ITypography> = ({ variant, children, color, className, ...props }) => {
   const Component = TypographyType[variant];
   return (
     <Component
       className={classNames('typography', {
         [`typography_variant_${variant}`]: variant,
         [`typography_color_${color}`]: color,
+        [`${className}`]: className,
       })}
       {...props}
     >

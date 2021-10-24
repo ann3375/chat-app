@@ -1,7 +1,7 @@
 import React from 'react';
 import Wrapper from '../../atoms/Wrapper';
 import MainContainer from '../MainContainer';
-import { Pages } from '../../../router/constants';
+import { Pages } from '../../../router/endpoints';
 
 import './loginPageTemplate.scss';
 
@@ -15,9 +15,9 @@ const LoginPageTemplate: React.FC<ILoginPageTemplate> = ({
   loginForm,
 }): React.ReactElement => {
   return (
-    <MainContainer flex page={Pages.login}>
-      <Wrapper flex column align={'center'} className="login-page__aside-form">
-        <Wrapper className="container">
+    <MainContainer page={Pages.login}>
+      <Wrapper flex column align="center" className="login-page__aside-form">
+        <Wrapper className="aside-form__inner">
           {header}
           {loginForm}
         </Wrapper>

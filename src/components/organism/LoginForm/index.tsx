@@ -15,8 +15,10 @@ const LoginForm = (): React.ReactElement => {
   };
 
   return (
-    <Wrapper className={'form-login-wrapper'}>
-      <Typography variant={TypographyTypeStyle.h2}>Please, autorize yourself</Typography>
+    <Wrapper className="form-login">
+      <Typography className="form-login__text" variant={TypographyTypeStyle.h2}>
+        Please, autorize yourself
+      </Typography>
 
       <form onSubmit={handleSubmit}>
         <FormInput
@@ -35,6 +37,7 @@ const LoginForm = (): React.ReactElement => {
         />
 
         <Button
+          className="form-login__button"
           variant={ButtonVariant.primary}
           size={ButtonSize.medium}
           type={ButtonType.submit}

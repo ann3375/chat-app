@@ -26,7 +26,7 @@ export const Button: React.FC<IButton> = ({
   const classProps = classNames('button', {
     [`button_size_${size}`]: size,
     [`button_variant_${variant}`]: variant,
-    className: className,
+    [`${className}`]: className,
   });
 
   return (

@@ -1,15 +1,19 @@
 @import '../../../styles/variables';
 
 .user-status {
-  & h3 {
+  &__username {
     margin-bottom: 4px;
+    max-width: calc(100vw - 450px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  & p {
+  &__last-seen {
     color: $color-grey;
   }
 
-  & svg {
+  &__avatar {
     display: none;
     margin-right: 12px;
   }
@@ -17,16 +21,27 @@
 
 @media (max-width: $media-tablet) {
   .user-status {
-    & svg {
+    &__avatar {
       display: inline-block;
+    }
+
+    &__username {
+      max-width: calc(100vw - 230px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
 
 @media (max-width: $media-mobile-l) {
   .user-status {
-    & svg {
+    &__avatar {
       display: none;
+    }
+
+    &__username {
+      max-width: calc(100vw - 130px);
     }
   }
 }

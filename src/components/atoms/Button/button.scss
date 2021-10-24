@@ -45,24 +45,6 @@
       background: $color-ghostwhite;
       animation: pulse 2s infinite;
     }
-
-    &_icon {
-      & svg {
-        transition: all 0.5s ease;
-      }
-
-      &:hover svg {
-        color: $color-royalblue;
-      }
-
-      &:disabled {
-        background: inherit;
-
-        & svg {
-          color: $color-lightGrey;
-        }
-      }
-    }
   }
 
   &_size {

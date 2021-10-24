@@ -6,11 +6,3 @@
   max-height: 1080px;
   position: relative;
 }
-
-@media (max-width: $media-mobile-l) {
-  .main-container {
-    &-login {
-      flex-direction: column;
-    }
-  }
-}

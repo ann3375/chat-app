@@ -9,11 +9,13 @@ import './logo.scss';
 
 interface ILogo {
   size: LogoSize;
+  className?: string;
 }
 
-export const Logo: React.FC<ILogo> = ({ size }) => {
+export const Logo: React.FC<ILogo> = ({ size, className }) => {
   const classProps = classNames('logo', {
     [`logo_size_${size}`]: size,
+    [`${className}`]: className,
   });
 
   return (

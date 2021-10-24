@@ -5,7 +5,7 @@ import Typography from '../../atoms/Typography';
 import { UserGender, AvatarSize } from '../../atoms/Avatar/types/types';
 import { ColorType } from '../../atoms/Icon/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
-import { Paths } from '../../../router/constants';
+import { SCREENS } from '../../../router/endpoints';
 
 import './userListItem.scss';
 
@@ -26,12 +26,12 @@ const UserListItem: React.FC<IUserListItem> = ({
 }) => {
   return (
     <NavLink
-      to={`${Paths.dialogs}/${id}`}
-      className="user-list__item"
-      activeClassName="user-list__item_active"
+      to={`${SCREENS.SCREEN_DIALOGS}/${id}`}
+      className="user-list__link"
+      activeClassName="user-list__link_active"
     >
-      <Avatar size={AvatarSize.medium} gender={userGender} />
-      <div className={'item__inner'}>
+      <Avatar size={AvatarSize.medium} gender={userGender} className="link__avatar" />
+      <div className={'link__inner'}>
         <Typography variant={TypographyTypeStyle.h4}>{username}</Typography>
         <Typography variant={TypographyTypeStyle.p2}>
           {isCurrentUserLastMessage && (

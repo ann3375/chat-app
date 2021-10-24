@@ -8,7 +8,7 @@ import './spinner.scss';
 const Spinner = (): React.ReactElement => {
   return (
     <Wrapper className="spinner">
-      <Icon name={IconName.spiner} />
+      <Icon name={IconName.spiner} className="spinner__icon" />
     </Wrapper>
   );
 };

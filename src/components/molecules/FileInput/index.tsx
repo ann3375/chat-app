@@ -10,14 +10,15 @@ import Wrapper from '../../atoms/Wrapper';
 
 interface IFileInput {
   id: InputId;
+  isDisabled?: boolean;
 }
 
-const FileInput: React.FC<IFileInput> = ({ id }): React.ReactElement => {
+const FileInput: React.FC<IFileInput> = ({ id, isDisabled }): React.ReactElement => {
   return (
     <Wrapper className="file-input">
       <Label htmlFor={InputId.file} className="file-input__label">
         <Icon name={IconName.addFile} className="file-input__icon" />
-        <Input type={InputType.file} id={id} />
+        <Input type={InputType.file} id={id} isDisabled={isDisabled} />
       </Label>
     </Wrapper>
   );

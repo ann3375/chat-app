@@ -8,15 +8,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:hover path {
+      color: $color-blue;
+    }
   }
 
   &__icon path {
     color: $color-easyGrey;
     transition: all 0.5s ease;
-  }
-
-  &:hover path {
-    color: $color-blue;
   }
 
   & input[type='file'] {

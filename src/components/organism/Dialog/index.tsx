@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from '../../atoms/Wrapper';
-import ChatMessage from '../../molecules/DialogMessage';
+import { DialogMessage } from '../../molecules/DialogMessage';
 
 import './dialog.scss';
 
@@ -37,9 +37,9 @@ const text: Text = [
 
 const Dialog = (): React.ReactElement => {
   return (
-    <Wrapper className="dialog__message-area">
+    <Wrapper className="messages-area">
       {text.map((item) => (
-        <ChatMessage
+        <DialogMessage
           messageText={item.messageText}
           isCurrentUserMessage={item.isCurrentUserMessage}
           key={item.id}

@@ -1,17 +1,14 @@
 @import '../../../styles/variables';
 
-.dialog {
-  &__message-area {
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 0 24px;
+.messages-area {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
 
-    & .message-wrapper {
-      margin: 24px 0;
-    }
-
-    & .message-wrapper_side_right {
+  & .message {
+    margin: 12px 0;
+    &_side_right {
       align-self: flex-end;
     }
   }

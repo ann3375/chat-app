@@ -1,18 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Paths } from './constants';
+import { SCREENS } from './endpoints';
 import ChatPage from '../pages/ChatPage';
 import LoginPage from '../pages/LoginPage';
-import Home from '../pages/Home';
 
-const AppRoute: React.FC = () => {
+const Routes: React.FC = () => {
   return (
     <>
       <Router>
         <Switch>
-          <Route path={Paths.dialogs} component={ChatPage} />
-          <Route exact path={Paths.login} component={LoginPage} />
-          <Route exact path={Paths.home} component={Home} />
+          <Route path={SCREENS.SCREEN_DIALOGS} component={ChatPage} />
+          <Route exact path={SCREENS.SCREEN_LOGIN} component={LoginPage} />
           <Route component={() => <>404: Page not found</>} />
         </Switch>
       </Router>
@@ -20,4 +18,4 @@ const AppRoute: React.FC = () => {
   );
 };
 
-export default AppRoute;
+export default Routes;

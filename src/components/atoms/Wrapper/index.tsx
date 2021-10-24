@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import './wrapper.scss';
+
 export interface IWrapper {
   children?: React.ReactNode;
   className?: string;

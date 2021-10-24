@@ -18,40 +18,42 @@
     position: absolute;
   }
 
-  &_side_left {
-    border-radius: 0px 12px 12px 12px;
-    background: $color-white;
+  &_side {
+    &_left {
+      border-radius: 0px 12px 12px 12px;
+      background: $color-white;
 
-    &::before,
-    &::after {
-      left: -13px;
-      top: -1px;
+      &::before,
+      &::after {
+        left: -13px;
+        top: -1px;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -11px;
+        top: 0px;
+        border: 12px solid transparent;
+        border-top: 12px solid $color-white;
+      }
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      left: -11px;
-      top: 0px;
-      border: 12px solid transparent;
-      border-top: 12px solid $color-white;
-    }
-  }
+    &_right {
+      &::before,
+      &::after {
+        right: -13px;
+        top: -1px;
+      }
 
-  &_side_right {
-    &::before,
-    &::after {
-      right: -13px;
-      top: -1px;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      right: -11px;
-      top: 0px;
-      border: 12px solid transparent;
-      border-top: 12px solid $color-lightBlue;
+      &::after {
+        content: '';
+        position: absolute;
+        right: -11px;
+        top: 0px;
+        border: 12px solid transparent;
+        border-top: 12px solid $color-lightBlue;
+      }
     }
   }
 }

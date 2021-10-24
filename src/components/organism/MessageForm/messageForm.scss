@@ -3,10 +3,16 @@
 .message-form {
   &__inner {
     background: $color-white;
+    height: 80px;
 
-    & .form-input-wrapper {
+    & .form-input {
       max-width: 100%;
       width: 100%;
+      height: inherit;
+
+      & label {
+        display: none;
+      }
     }
   }
 }

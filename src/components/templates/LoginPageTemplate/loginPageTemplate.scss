@@ -1,19 +1,16 @@
 @import '../../../styles/variables';
 
-.main-container-login {
-  height: 1080px;
-}
-
 .login-page {
+  &__main-container {
+    height: 1080px;
+    display: flex;
+  }
+
   &__aside-form {
     max-width: 716px;
     min-width: 500px;
     background-color: $color-white;
     z-index: 10;
-
-    & .container {
-      padding-top: 256px;
-    }
   }
 
   &__aside-image {
@@ -21,24 +18,31 @@
     width: 100%;
     background: no-repeat url('../../../assets/images/loginPageFrame.svg') $color-aliceblue;
   }
+
+  &__header {
+    & .header {
+      &__logo {
+        margin-bottom: 16px;
+      }
+
+      &__text {
+        margin-bottom: 24px;
+      }
+    }
+  }
 }
 
-.header-login-page {
-  & .logo-wrapper {
-    margin-bottom: 16px;
-  }
-
-  & .typography_variant_h1 {
-    margin-bottom: 24px;
-  }
+.aside-form__inner {
+  padding-top: 256px;
 }
 
 @media (max-width: $media-mobile-l) {
-  .main-container-login {
-    height: fit-content;
-  }
-
   .login-page {
+    &__main-container {
+      height: fit-content;
+      flex-direction: column;
+    }
+
     &__aside-form {
       position: relative;
       order: 1;
@@ -47,12 +51,6 @@
 
       & .typography_variant_h2 {
         margin-bottom: 99px;
-      }
-
-      & .container {
-        margin-top: -35%;
-        padding: 0 14px 24px;
-        width: 100%;
       }
 
       & button {
@@ -71,11 +69,19 @@
       background-size: cover;
       border-radius: 0px 0px 16px 16px;
     }
+
+    &__header {
+      & .header {
+        &__text {
+          margin-bottom: 8px;
+        }
+      }
+    }
   }
 
-  .header-login-page {
-    & .typography_variant_h1 {
-      margin-bottom: 8px;
-    }
+  .aside-form__inner {
+    margin-top: -36%;
+    padding: 0 14px 24px;
+    width: 100%;
   }
 }

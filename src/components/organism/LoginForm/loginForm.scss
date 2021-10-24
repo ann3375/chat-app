@@ -1,13 +1,13 @@
-.form-login-wrapper {
-  & .typography_variant_h2 {
-    margin-bottom: 48px;
-  }
-
-  & .form-input-wrapper {
+.form-login {
+  & .form-input {
     margin-bottom: 32px;
 
     &:last-of-type {
       margin-bottom: 48px;
     }
+  }
+
+  &__text {
+    margin-bottom: 48px;
   }
 }
