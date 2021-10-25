@@ -9,7 +9,11 @@ const Routes: React.FC = () => {
     <>
       <Router>
         <Switch>
-          <Route path={SCREENS.SCREEN_DIALOGS} component={ChatPage} />
+          <Route
+            exact
+            path={[SCREENS.SCREEN_DIALOGS, SCREENS.SCREEN_CURRENT_DIALOG]}
+            component={ChatPage}
+          />
           <Route exact path={SCREENS.SCREEN_LOGIN} component={LoginPage} />
           <Route component={() => <>404: Page not found</>} />
         </Switch>

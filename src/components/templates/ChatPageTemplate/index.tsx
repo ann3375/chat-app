@@ -2,10 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import Wrapper from '../../atoms/Wrapper';
 import MainContainer from '../MainContainer';
-import { Pages, SCREENS } from '../../../router/endpoints';
+import { Pages } from '../../../router/endpoints';
+import { useWindowSize } from '../../../hooks/useWindowSize';
 
 import './chatPageTemplate.scss';
-import { useWindowSize } from '../../../hooks/useWindowSize';
+import { WindowSize } from '../../../hooks/constants';
 
 interface IChatPageTemplate {
   header?: React.ReactElement;
@@ -23,48 +24,24 @@ const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
   dialog,
   messageForm,
   notificationButton,
-}): React.ReactElement => {
+}): React.ReactElement | null => {
   const path = useHistory();
   const pathArr = path.location.pathname.split('/');
 
   const size = useWindowSize();
 
-  if (size.width && size.width <= 425) {
-    return (
-      <MainContainer page={Pages.chat}>
-        {pathArr.length === 2 && header}
-
-        <main className="chat-page__inner">
-          {pathArr.length === 2 && userList}
-
-          {pathArr.length === 3 && (
-            <Wrapper className="chat-page__dialog">
-              {statusBar}
-
-              {dialog}
-
-              {messageForm}
-            </Wrapper>
-          )}
-        </main>
-      </MainContainer>
-    );
-  }
-
   return (
     <MainContainer page={Pages.chat}>
-      {header}
+      {(size.width > WindowSize.SIZE_MOBILE_L || pathArr.length == 2) && header}
 
       <main className="chat-page__inner">
-        {userList}
+        {(size.width > WindowSize.SIZE_MOBILE_L || pathArr.length == 2) && userList}
 
         <Wrapper className="chat-page__dialog">
           {pathArr.length === 3 ? (
             <>
               {statusBar}
-
               {dialog}
-
               {messageForm}
             </>
           ) : (

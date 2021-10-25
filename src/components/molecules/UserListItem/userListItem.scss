@@ -24,17 +24,15 @@
     margin-right: 12px;
   }
 
-  &__inner {
-    & h4,
-    & p {
-      max-width: 235px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+  &__username,
+  &__last-message {
+    max-width: 235px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-    & h4 {
-      margin-bottom: 4px;
-    }
+  &__username {
+    margin-bottom: 4px;
   }
 }

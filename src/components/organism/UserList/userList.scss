@@ -29,3 +29,16 @@
     }
   }
 }
+
+@media (max-width: $media-mobile-l) {
+  .user-list {
+    width: 100%;
+    height: calc(100% - 64px);
+    background: $color-white;
+    padding-top: 20px;
+
+    &__link {
+      padding: 12px 14px;
+    }
+  }
+}

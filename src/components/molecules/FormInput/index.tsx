@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Label from '../../atoms/Label';
 import Wrapper from '../../atoms/Wrapper';
 import Input from '../../atoms/Input';
@@ -11,11 +12,23 @@ import './formInput.scss';
 interface IFormInput extends IInput {
   labelText?: string;
   errorText?: string;
+  className?: string;
 }
 
-const FormInput: React.FC<IFormInput> = ({ id, type, placeholder = '', labelText, errorText }) => {
+const FormInput: React.FC<IFormInput> = ({
+  id,
+  type,
+  placeholder = '',
+  labelText,
+  errorText,
+  className,
+}) => {
+  const classProps = classNames('form-input', {
+    [`${className}`]: className,
+  });
+
   return (
-    <Wrapper className="form-input">
+    <Wrapper className={classProps}>
       <Label htmlFor={id} labelText={labelText} className="form-input__label" />
 
       <Wrapper className="form-input__inner">
@@ -26,7 +39,12 @@ const FormInput: React.FC<IFormInput> = ({ id, type, placeholder = '', labelText
       </Wrapper>
 
       {errorText && (
-        <Label htmlFor={id} isError errorText={errorText} className="form-input__label" />
+        <Label
+          htmlFor={id}
+          isError
+          errorText={errorText}
+          className="form-input__label_notification_error"
+        />
       )}
     </Wrapper>
   );

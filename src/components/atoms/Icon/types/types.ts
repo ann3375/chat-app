@@ -8,6 +8,7 @@ export enum IconName {
   noUserAvatar = 'noUserAvatar',
   userIcon = 'userIcon',
   userList = 'userList',
+  arrowLeft = 'arrowLeft',
   closeIcon = 'closeIcon',
   spiner = 'spiner',
 }

@@ -49,16 +49,14 @@
       height: 400px;
       min-width: 100%;
 
-      & .typography_variant_h2 {
-        margin-bottom: 99px;
-      }
+      & .form-login {
+        &__button {
+          max-width: 100%;
+        }
 
-      & button {
-        max-width: 100%;
-      }
-
-      & input {
-        height: 48px;
+        &__text {
+          margin-bottom: 99px;
+        }
       }
     }
 

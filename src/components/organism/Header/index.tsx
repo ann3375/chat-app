@@ -9,6 +9,8 @@ import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 
 import './header.scss';
+import { NavLink } from 'react-router-dom';
+import { SCREENS } from '../../../router/endpoints';
 
 interface IHeader {
   isLoginPage?: boolean;
@@ -22,7 +24,13 @@ const Header: React.FC<IHeader> = ({ isLoginPage, isChatPage }) => {
   });
   return (
     <header className={classProps}>
-      <Logo size={LogoSize.large} className="header__logo" />
+      {isChatPage ? (
+        <NavLink to={isChatPage ? SCREENS.SCREEN_DIALOGS : SCREENS.SCREEN_LOGIN}>
+          <Logo size={LogoSize.large} className="header__logo" />
+        </NavLink>
+      ) : (
+        <Logo size={LogoSize.large} className="header__logo" />
+      )}
 
       {isLoginPage ? (
         <Typography variant={TypographyTypeStyle.h1} className="header__text">

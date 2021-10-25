@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 type Size = {
-  width: number | undefined;
+  width: number;
 };
 
 export function useWindowSize(): Size {
-  const [windowSize, setWindowSize] = useState<Size>({ width: undefined });
+  const [windowSize, setWindowSize] = useState<Size>({ width: 0 });
 
   useEffect(() => {
     function handleWindowResize() {

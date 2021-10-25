@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Wrapper from '../../atoms/Wrapper';
 import ButtonIcon from '../../molecules/ButtonIcon';
 import UserStatus from '../../molecules/UserStatus';
@@ -7,7 +8,6 @@ import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 
 import './statusBar.scss';
-import classNames from 'classnames';
 
 interface IStatusBar {
   isVisibleUserList: boolean;
@@ -25,6 +25,14 @@ const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserL
         className={classNames('status-bar__user-list-icon', {
           ['status-bar__user-list-icon_transform']: isVisibleUserList,
         })}
+      />
+
+      <ButtonIcon
+        iconName={IconName.arrowLeft}
+        type={ButtonType.button}
+        color={ColorType.primary}
+        onClick={() => history.back()}
+        className={'status-bar__back-icon'}
       />
 
       <UserStatus

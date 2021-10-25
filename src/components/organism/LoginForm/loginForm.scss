@@ -1,13 +1,37 @@
-.form-login {
-  & .form-input {
-    margin-bottom: 32px;
+@import '../../../styles/variables';
 
-    &:last-of-type {
-      margin-bottom: 48px;
-    }
+.form-login {
+  &__input:not(:last-of-type) {
+    margin-bottom: 32px;
+  }
+
+  & input {
+    padding: 16px 40px 16px 16px;
+    height: 56px;
+  }
+
+  &__button {
+    margin-top: 48px;
   }
 
   &__text {
     margin-bottom: 48px;
+  }
+}
+
+@media (max-width: $media-mobile-l) {
+  .form-login {
+    &__input:not(:last-of-type) {
+      margin-bottom: 24px;
+    }
+
+    & input {
+      padding: 12px 40px 12px 16px;
+      height: 48px;
+    }
+
+    &__button {
+      margin-top: 80px;
+    }
   }
 }

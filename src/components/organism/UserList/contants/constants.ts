@@ -15,7 +15,7 @@ export const USERS = [
   },
   {
     id: '13',
-    gender: UserGender.female,
+    gender: UserGender.noGender,
     username: 'John Bob',
     lastMessage: 'Real Eyes realize real rice',
   },

@@ -25,6 +25,7 @@ const MessageForm = (): React.ReactElement => {
           iconName={IconName.sendMessage}
           type={ButtonType.submit}
           color={ColorType.primary}
+          className="message-form__button"
         />
       </Wrapper>
     </form>

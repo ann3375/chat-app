@@ -37,7 +37,7 @@
 @media (max-width: $media-mobile-l) {
   .user-status {
     &__avatar {
-      display: none;
+      display: inline-block;
     }
 
     &__username {

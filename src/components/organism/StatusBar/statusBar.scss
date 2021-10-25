@@ -15,6 +15,13 @@
     border-radius: 50%;
     display: none;
   }
+
+  &__back-icon {
+    padding: 0;
+    height: 100%;
+    width: 16px;
+    display: none;
+  }
 }
 
 @media (max-width: $media-tablet) {
@@ -37,8 +44,19 @@
 
 @media (max-width: $media-mobile-l) {
   .status-bar {
+    height: 72px;
+    padding: 16px 14px;
+
     &__user-status {
       margin-left: 24px;
+    }
+
+    &__user-list-icon {
+      display: none;
+    }
+
+    &__back-icon {
+      display: block;
     }
   }
 }

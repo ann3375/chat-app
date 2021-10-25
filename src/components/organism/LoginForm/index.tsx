@@ -26,6 +26,7 @@ const LoginForm = (): React.ReactElement => {
           placeholder={'User name'}
           type={InputType.text}
           labelText="User password"
+          className="form-login__input"
         />
 
         <FormInput
@@ -34,6 +35,7 @@ const LoginForm = (): React.ReactElement => {
           type={InputType.password}
           errorText={'Something wrong'}
           labelText="Password"
+          className="form-login__input"
         />
 
         <Button

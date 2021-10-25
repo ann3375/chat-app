@@ -31,9 +31,11 @@ const UserListItem: React.FC<IUserListItem> = ({
       activeClassName="user-list__link_active"
     >
       <Avatar size={AvatarSize.medium} gender={userGender} className="link__avatar" />
-      <div className={'link__inner'}>
-        <Typography variant={TypographyTypeStyle.h4}>{username}</Typography>
-        <Typography variant={TypographyTypeStyle.p2}>
+      <div>
+        <Typography variant={TypographyTypeStyle.h4} className={'link__username'}>
+          {username}
+        </Typography>
+        <Typography variant={TypographyTypeStyle.p2} className={'link__last-message'}>
           {isCurrentUserLastMessage && (
             <Typography variant={TypographyTypeStyle.span} color={ColorType.primary}>
               You:{' '}

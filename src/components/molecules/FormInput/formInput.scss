@@ -2,17 +2,20 @@
 
 .form-input {
   max-width: 354px;
+  position: relative;
 
   &__label {
     margin-bottom: 4px;
 
-    &.label_notification_error {
-      margin: 4px 0px 0px 20px;
+    &_notification_error {
+      position: absolute;
+      bottom: -20px;
     }
   }
 
   &__inner {
     position: relative;
+    height: 100%;
   }
 
   &__icon {
