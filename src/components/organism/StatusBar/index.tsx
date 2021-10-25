@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import Wrapper from '../../atoms/Wrapper';
-import ButtonIcon from '../../molecules/ButtonIcon';
-import UserStatus from '../../molecules/UserStatus';
+import { Wrapper } from '../../atoms/Wrapper';
+import { ButtonIcon } from '../../molecules/ButtonIcon';
+import { UserStatus } from '../../molecules/UserStatus';
 import { UserGender } from '../../atoms/Avatar/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
@@ -14,7 +14,7 @@ interface IStatusBar {
   handleVisibleUserList: () => void;
 }
 
-const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserList }) => {
+export const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserList }) => {
   return (
     <Wrapper flex align="center" className="status-bar">
       <ButtonIcon
@@ -44,5 +44,3 @@ const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserL
     </Wrapper>
   );
 };
-
-export default StatusBar;

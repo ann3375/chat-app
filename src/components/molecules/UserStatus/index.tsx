@@ -1,7 +1,7 @@
 import React from 'react';
-import Avatar from '../../atoms/Avatar';
-import Typography from '../../atoms/Typography';
-import Wrapper from '../../atoms/Wrapper';
+import { Avatar } from '../../atoms/Avatar';
+import { Typography } from '../../atoms/Typography';
+import { Wrapper } from '../../atoms/Wrapper';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { AvatarSize, UserGender } from '../../atoms/Avatar/types/types';
 
@@ -15,7 +15,7 @@ interface IUserStatus {
   className?: string;
 }
 
-const UserStatus: React.FC<IUserStatus> = ({ username, userStatus, gender, className }) => {
+export const UserStatus: React.FC<IUserStatus> = ({ username, userStatus, gender, className }) => {
   const classProps = classNames('user-status', {
     [`${className}`]: className,
   });
@@ -34,5 +34,3 @@ const UserStatus: React.FC<IUserStatus> = ({ username, userStatus, gender, class
     </Wrapper>
   );
 };
-
-export default UserStatus;

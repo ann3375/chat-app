@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
-import Button from '../../components/atoms/Button';
+import { Button } from '../../components/atoms/Button';
 import { ButtonType, ButtonVariant } from '../../components/atoms/Button/types/types';
-import Dialog from '../../components/organism/Dialog';
-import Header from '../../components/organism/Header';
-import MessageForm from '../../components/organism/MessageForm';
-import StatusBar from '../../components/organism/StatusBar';
-import UserList from '../../components/organism/UserList';
-import ChatPageTemplate from '../../components/templates/ChatPageTemplate';
+import { Dialog } from '../../components/organism/Dialog';
+import { Header } from '../../components/organism/Header';
+import { MessageForm } from '../../components/organism/MessageForm';
+import { StatusBar } from '../../components/organism/StatusBar';
+import { UserList } from '../../components/organism/UserList';
+import { ChatPageTemplate } from '../../components/templates/ChatPageTemplate';
 
-const ChatPage = (): React.ReactElement => {
+export const ChatPage = (): React.ReactElement => {
   const [isVisibleUserList, setIsVisibleUserList] = React.useState(false);
   const userListRef = useRef<HTMLDivElement>(null);
 
@@ -47,5 +47,3 @@ const ChatPage = (): React.ReactElement => {
     />
   );
 };
-
-export default ChatPage;

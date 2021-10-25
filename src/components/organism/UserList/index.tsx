@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import UserListItem from '../../molecules/UserListItem';
+import { UserListItem } from '../../molecules/UserListItem';
 import { USERS } from './contants/constants';
 
 import './userList.scss';
@@ -11,7 +11,7 @@ interface IUserList {
   handleVisibleUserList: () => void;
 }
 
-const UserList: React.FC<IUserList> = ({
+export const UserList: React.FC<IUserList> = ({
   isVisibleUserList,
   listRef,
   handleVisibleUserList,
@@ -35,5 +35,3 @@ const UserList: React.FC<IUserList> = ({
     </div>
   );
 };
-
-export default UserList;

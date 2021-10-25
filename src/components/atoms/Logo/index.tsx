@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Wrapper from '../Wrapper';
+import { Wrapper } from '../Wrapper';
 import { Icon } from '../Icon';
 import { IconName } from '../Icon/types/types';
 import { LogoSize } from './types/types';
@@ -24,5 +24,3 @@ export const Logo: React.FC<ILogo> = ({ size, className }) => {
     </Wrapper>
   );
 };
-
-export default Logo;

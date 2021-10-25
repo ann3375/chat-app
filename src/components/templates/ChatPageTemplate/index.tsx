@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import Wrapper from '../../atoms/Wrapper';
-import MainContainer from '../MainContainer';
+import { Wrapper } from '../../atoms/Wrapper';
+import { MainContainer } from '../MainContainer';
 import { Pages } from '../../../router/endpoints';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
@@ -17,7 +17,7 @@ interface IChatPageTemplate {
   notificationButton?: React.ReactElement;
 }
 
-const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
+export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
   header,
   userList,
   statusBar,
@@ -52,5 +52,3 @@ const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
     </MainContainer>
   );
 };
-
-export default ChatPageTemplate;

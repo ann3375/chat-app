@@ -20,5 +20,3 @@ export const Avatar: React.FC<IAvatar> = ({ size, gender, className, isNoUser })
   });
   return <Icon className={classProps} name={checkUserAvatar(gender)} />;
 };
-
-export default Avatar;

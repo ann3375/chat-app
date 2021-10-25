@@ -34,5 +34,3 @@ export const Wrapper: React.FC<IWrapper> = ({
     </div>
   );
 };
-
-export default Wrapper;

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import Typography from '../../atoms/Typography';
+import { Typography } from '../../atoms/Typography';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
-import Wrapper from '../../atoms/Wrapper';
+import { Wrapper } from '../../atoms/Wrapper';
 
 import './dialogMessage.scss';
 
@@ -23,5 +23,3 @@ export const DialogMessage: React.FC<IDialogMessage> = ({ messageText, isCurrent
     </Wrapper>
   );
 };
-
-export default DialogMessage;

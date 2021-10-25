@@ -12,7 +12,13 @@ interface ITypography {
   color?: ColorType;
 }
 
-const Typography: React.FC<ITypography> = ({ variant, children, color, className, ...props }) => {
+export const Typography: React.FC<ITypography> = ({
+  variant,
+  children,
+  color,
+  className,
+  ...props
+}) => {
   const Component = TypographyType[variant];
   return (
     <Component
@@ -27,5 +33,3 @@ const Typography: React.FC<ITypography> = ({ variant, children, color, className
     </Component>
   );
 };
-
-export default Typography;

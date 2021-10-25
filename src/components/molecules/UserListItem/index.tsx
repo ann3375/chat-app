@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Avatar from '../../atoms/Avatar';
-import Typography from '../../atoms/Typography';
+import { Avatar } from '../../atoms/Avatar';
+import { Typography } from '../../atoms/Typography';
 import { UserGender, AvatarSize } from '../../atoms/Avatar/types/types';
 import { ColorType } from '../../atoms/Icon/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
@@ -17,13 +17,13 @@ interface IUserListItem {
   lastMessage?: string;
 }
 
-const UserListItem: React.FC<IUserListItem> = ({
+export const UserListItem = React.memo(function UserListItem({
   username,
   userGender,
   id,
   isCurrentUserLastMessage,
   lastMessage,
-}) => {
+}: IUserListItem) {
   return (
     <NavLink
       to={`${SCREENS.SCREEN_DIALOGS}/${id}`}
@@ -46,6 +46,4 @@ const UserListItem: React.FC<IUserListItem> = ({
       </div>
     </NavLink>
   );
-};
-
-export default React.memo(UserListItem);
+});

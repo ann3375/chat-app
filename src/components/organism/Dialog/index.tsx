@@ -1,5 +1,5 @@
 import React from 'react';
-import Wrapper from '../../atoms/Wrapper';
+import { Wrapper } from '../../atoms/Wrapper';
 import { DialogMessage } from '../../molecules/DialogMessage';
 
 import './dialog.scss';
@@ -35,7 +35,7 @@ const text: Text = [
   },
 ];
 
-const Dialog = (): React.ReactElement => {
+export const Dialog = (): React.ReactElement => {
   return (
     <Wrapper className="messages-area">
       {text.map((item) => (
@@ -48,5 +48,3 @@ const Dialog = (): React.ReactElement => {
     </Wrapper>
   );
 };
-
-export default Dialog;

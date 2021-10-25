@@ -1,18 +1,23 @@
 import React from 'react';
-import Button from '../../atoms/Button';
-import Typography from '../../atoms/Typography';
-import Wrapper from '../../atoms/Wrapper';
-import FormInput from '../../molecules/FormInput';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { Button } from '../../atoms/Button';
+import { Typography } from '../../atoms/Typography';
+import { Wrapper } from '../../atoms/Wrapper';
+import { FormInput } from '../../molecules/FormInput';
 import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/types';
-import { InputId, InputType } from '../../atoms/Input/types/types';
+import { InputId, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 import './loginForm.scss';
 
-const LoginForm = (): React.ReactElement => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+interface IFormInput {
+  username: InputId.username;
+  password: InputId.password;
+}
+
+export const LoginForm = (): React.ReactElement => {
+  const { handleSubmit, control, formState } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
 
   return (
     <Wrapper className="form-login">
@@ -20,13 +25,27 @@ const LoginForm = (): React.ReactElement => {
         Please, autorize yourself
       </Typography>
 
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          id={InputId.username}
-          placeholder={'User name'}
-          type={InputType.text}
-          labelText="User password"
-          className="form-login__input"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name={InputId.username}
+          control={control}
+          defaultValue={undefined}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormInput
+              id={InputId.username}
+              placeholder={'User name'}
+              type={InputType.text}
+              labelText="User name"
+              className="form-login__input"
+              field={field}
+              errorText={
+                formState.errors.username?.type === 'required'
+                  ? 'Something wrong with your name'
+                  : ''
+              }
+            />
+          )}
         />
 
         <FormInput
@@ -51,5 +70,3 @@ const LoginForm = (): React.ReactElement => {
     </Wrapper>
   );
 };
-
-export default LoginForm;

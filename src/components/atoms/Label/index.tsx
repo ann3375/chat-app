@@ -32,5 +32,3 @@ export const Label: React.FC<ILabel> = ({
     </label>
   );
 };
-
-export default Label;

@@ -1,15 +1,15 @@
 import React from 'react';
-import Wrapper from '../../atoms/Wrapper';
-import ButtonIcon from '../../molecules/ButtonIcon';
-import FileInput from '../../molecules/FileInput';
-import FormInput from '../../molecules/FormInput';
+import { Wrapper } from '../../atoms/Wrapper';
+import { ButtonIcon } from '../../molecules/ButtonIcon';
+import { FileInput } from '../../molecules/FileInput';
+import { FormInput } from '../../molecules/FormInput';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
-import { InputId, InputType } from '../../atoms/Input/types/types';
+import { InputId, InputType } from '../../molecules/FormInput/types/types';
 
 import './messageForm.scss';
 
-const MessageForm = (): React.ReactElement => {
+export const MessageForm = React.memo(function MessageForm() {
   return (
     <form className="message-form">
       <Wrapper flex align="center" className="message-form__inner">
@@ -30,6 +30,4 @@ const MessageForm = (): React.ReactElement => {
       </Wrapper>
     </form>
   );
-};
-
-export default React.memo(MessageForm);
+});

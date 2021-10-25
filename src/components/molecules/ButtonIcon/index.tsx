@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from '../../atoms/Button';
-import { ButtonSize } from '../../atoms/Button/types/types';
-import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { Button } from '../../atoms/Button';
 import { IButton } from '../../atoms/Button';
 import { Icon } from '../../atoms/Icon';
+import { ButtonSize } from '../../atoms/Button/types/types';
+import { ColorType, IconName } from '../../atoms/Icon/types/types';
 
 import './buttonIcon.scss';
 
@@ -32,5 +32,3 @@ export const ButtonIcon: React.FC<IButtonIcon> = ({
     </Button>
   );
 };
-
-export default ButtonIcon;

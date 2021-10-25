@@ -35,5 +35,3 @@ export const Button: React.FC<IButton> = ({
     </button>
   );
 };
-
-export default Button;

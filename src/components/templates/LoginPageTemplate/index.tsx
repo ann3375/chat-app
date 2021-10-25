@@ -1,6 +1,6 @@
 import React from 'react';
-import Wrapper from '../../atoms/Wrapper';
-import MainContainer from '../MainContainer';
+import { Wrapper } from '../../atoms/Wrapper';
+import { MainContainer } from '../MainContainer';
 import { Pages } from '../../../router/endpoints';
 
 import './loginPageTemplate.scss';
@@ -10,7 +10,7 @@ interface ILoginPageTemplate {
   loginForm?: React.ReactElement;
 }
 
-const LoginPageTemplate: React.FC<ILoginPageTemplate> = ({
+export const LoginPageTemplate: React.FC<ILoginPageTemplate> = ({
   header,
   loginForm,
 }): React.ReactElement => {
@@ -26,5 +26,3 @@ const LoginPageTemplate: React.FC<ILoginPageTemplate> = ({
     </MainContainer>
   );
 };
-
-export default LoginPageTemplate;
