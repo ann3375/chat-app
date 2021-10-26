@@ -8,7 +8,7 @@ import './avatar.scss';
 
 interface IAvatar {
   size: AvatarSize;
-  gender?: UserGender;
+  gender: UserGender;
   className?: string;
   isNoUser?: boolean;
 }

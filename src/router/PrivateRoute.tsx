@@ -8,7 +8,7 @@ interface IProps {
   path: SCREENS | SCREENS[];
   redirectPath: H.LocationDescriptor;
   exact: boolean;
-  isUserAuthenticate?: boolean;
+  isUserAuthenticate: boolean;
 }
 
 export const PrivateRoute: React.FC<IProps> = ({

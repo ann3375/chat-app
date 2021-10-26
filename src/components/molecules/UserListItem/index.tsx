@@ -9,7 +9,7 @@ import { SCREENS } from '../../../router/endpoints';
 
 import './userListItem.scss';
 
-interface IUserListItem {
+export interface IUserListItem {
   username: string;
   userGender: UserGender;
   id: string;

@@ -7,9 +7,12 @@ import { MessageForm } from '../../components/organism/MessageForm';
 import { StatusBar } from '../../components/organism/StatusBar';
 import { UserList } from '../../components/organism/UserList';
 import { ChatPageTemplate } from '../../components/templates/ChatPageTemplate';
+import { userListStore } from '../../store/userListStore';
 
 export const ChatPage = (): React.ReactElement => {
   const [isVisibleUserList, setIsVisibleUserList] = React.useState(false);
+  const users = userListStore.userList;
+
   const userListRef = useRef<HTMLDivElement>(null);
 
   const handleVisibleUserList = React.useCallback(() => {
@@ -21,6 +24,7 @@ export const ChatPage = (): React.ReactElement => {
       header={<Header isChatPage />}
       userList={
         <UserList
+          users={users}
           listRef={userListRef}
           handleVisibleUserList={handleVisibleUserList}
           isVisibleUserList={isVisibleUserList}

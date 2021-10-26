@@ -9,9 +9,10 @@ import { FormInput } from '../../molecules/FormInput';
 import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/types';
 import { InputId, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
+import { useLocalStorageState } from '../../../hooks/useLocalStorageState';
+import { userStore } from '../../../store/userStore';
 
 import './loginForm.scss';
-import { useLocalStorageState } from '../../../hooks/useLocalStorageState';
 
 interface IFormInput {
   username: string;
@@ -34,7 +35,11 @@ const schema = yup.object().shape({
 
 export const LoginForm = (): React.ReactElement => {
   const [username, setUsername] = useLocalStorageState(InputId.username, '');
-  const [password, setPassword] = useLocalStorageState(InputId.password, '');
+
+  const [isUserAuthenticate, setIsUserAuthenticate] = useLocalStorageState(
+    'isUserAuthenticate',
+    ''
+  );
 
   const {
     handleSubmit,
@@ -45,12 +50,13 @@ export const LoginForm = (): React.ReactElement => {
     resolver: yupResolver(schema),
     defaultValues: {
       username,
-      password,
+      password: '',
     },
   });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     setUsername(data.username);
-    setPassword(data.password);
+    setIsUserAuthenticate('true');
+    userStore.setUser(data.username);
   };
 
   return (
