@@ -8,26 +8,18 @@ interface ILabel {
   children?: React.ReactNode;
   labelText?: string;
   errorText?: string;
-  isError?: boolean;
   className?: string;
 }
 
-export const Label: React.FC<ILabel> = ({
-  htmlFor,
-  labelText,
-  errorText,
-  isError,
-  children,
-  className,
-}) => {
+export const Label: React.FC<ILabel> = ({ htmlFor, labelText, errorText, children, className }) => {
   const classProps = classNames('label', {
     [`${className}`]: className,
-    [`label_notification_error`]: isError,
+    [`label_notification_error`]: errorText,
   });
 
   return (
     <label htmlFor={htmlFor} className={classProps}>
-      {isError ? errorText : labelText}
+      {errorText ? errorText : labelText}
       {children}
     </label>
   );

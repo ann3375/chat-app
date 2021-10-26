@@ -8,7 +8,7 @@ export const Icon: React.FC<IconProps> = ({ name, ...rest }): JSX.Element | null
   const importedIconRef = React.useRef<React.FC<React.SVGProps<SVGSVGElement>>>();
   const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect((): void => {
+  React.useEffect(() => {
     setIsLoading(true);
     const importIcon = async (): Promise<void> => {
       try {
@@ -23,6 +23,9 @@ export const Icon: React.FC<IconProps> = ({ name, ...rest }): JSX.Element | null
       }
     };
     importIcon();
+    return () => {
+      setIsLoading(false);
+    };
   }, [name]);
 
   if (!isLoading && importedIconRef.current) {

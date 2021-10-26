@@ -45,6 +45,15 @@
       background: $color-ghostwhite;
       animation: pulse 2s infinite;
     }
+
+    &_icon {
+      &.button:disabled {
+        background: inherit;
+        & svg {
+          color: $color-lightGrey;
+        }
+      }
+    }
   }
 
   &_size {

@@ -1,4 +1,7 @@
 import React from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Wrapper } from '../../atoms/Wrapper';
 import { ButtonIcon } from '../../molecules/ButtonIcon';
 import { FileInput } from '../../molecules/FileInput';
@@ -9,16 +12,42 @@ import { InputId, InputType } from '../../molecules/FormInput/types/types';
 
 import './messageForm.scss';
 
+interface IFormInput {
+  messageText: string;
+}
+
+const schema = yup.object().shape({
+  messageText: yup.string().required(),
+});
+
 export const MessageForm = React.memo(function MessageForm() {
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid },
+  } = useForm<IFormInput>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      messageText: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <form className="message-form">
+    <form className="message-form" onSubmit={handleSubmit(onSubmit)}>
       <Wrapper flex align="center" className="message-form__inner">
         <FileInput id={InputId.file} />
 
-        <FormInput
-          type={InputType.textarea}
-          id={InputId.messageText}
-          placeholder="Write something..."
+        <Controller
+          name={InputId.messageText}
+          control={control}
+          render={({ field }) => (
+            <FormInput placeholder="Write something..." type={InputType.textarea} field={field} />
+          )}
         />
 
         <ButtonIcon
@@ -26,6 +55,7 @@ export const MessageForm = React.memo(function MessageForm() {
           type={ButtonType.submit}
           color={ColorType.primary}
           className="message-form__button"
+          isDisabled={!isValid}
         />
       </Wrapper>
     </form>

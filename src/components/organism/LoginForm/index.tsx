@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Button } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { Wrapper } from '../../atoms/Wrapper';
@@ -9,15 +11,47 @@ import { InputId, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 import './loginForm.scss';
+import { useLocalStorageState } from '../../../hooks/useLocalStorageState';
 
 interface IFormInput {
-  username: InputId.username;
-  password: InputId.password;
+  username: string;
+  password: string;
 }
 
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .min(2, 'Your name must contain at least 2 letters')
+    .max(25, 'Your name must be less than 25 letters')
+    .matches(/^[A-Za-zА-Яа-яЁё]+$/, 'Only alphabets are allowed in your name ')
+    .required('Please input your name'),
+  password: yup
+    .string()
+    .min(4, ' Password must contain at least 4 symbols')
+    .max(20, 'Password must be less than 20 symbols')
+    .required('Please input your password'),
+});
+
 export const LoginForm = (): React.ReactElement => {
-  const { handleSubmit, control, formState } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const [username, setUsername] = useLocalStorageState(InputId.username, '');
+  const [password, setPassword] = useLocalStorageState(InputId.password, '');
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isValid },
+  } = useForm<IFormInput>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      username,
+      password,
+    },
+  });
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    setUsername(data.username);
+    setPassword(data.password);
+  };
 
   return (
     <Wrapper className="form-login">
@@ -29,32 +63,31 @@ export const LoginForm = (): React.ReactElement => {
         <Controller
           name={InputId.username}
           control={control}
-          defaultValue={undefined}
-          rules={{ required: true }}
           render={({ field }) => (
             <FormInput
-              id={InputId.username}
               placeholder={'User name'}
               type={InputType.text}
               labelText="User name"
               className="form-login__input"
               field={field}
-              errorText={
-                formState.errors.username?.type === 'required'
-                  ? 'Something wrong with your name'
-                  : ''
-              }
+              errorText={errors.username?.message}
             />
           )}
         />
 
-        <FormInput
-          id={InputId.password}
-          placeholder={'Input password'}
-          type={InputType.password}
-          errorText={'Something wrong'}
-          labelText="Password"
-          className="form-login__input"
+        <Controller
+          name={InputId.password}
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              placeholder={'Input password'}
+              type={InputType.password}
+              labelText="Password"
+              className="form-login__input"
+              field={field}
+              errorText={errors.password?.message}
+            />
+          )}
         />
 
         <Button
@@ -62,7 +95,7 @@ export const LoginForm = (): React.ReactElement => {
           variant={ButtonVariant.primary}
           size={ButtonSize.medium}
           type={ButtonType.submit}
-          isDisabled={false}
+          isDisabled={!isValid}
         >
           Log in
         </Button>

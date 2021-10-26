@@ -9,7 +9,6 @@ import './formInput.scss';
 import { InputType } from './types/types';
 
 interface IFormInput {
-  id: string;
   type: string;
   placeholder?: string;
   isRequired?: boolean;
@@ -17,15 +16,14 @@ interface IFormInput {
   labelText?: string;
   errorText?: string;
   className?: string;
-  field?: {
+  field: {
     name: string;
     onBlur: () => void;
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
+    onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   };
 }
 
 export const FormInput: React.FC<IFormInput> = ({
-  id,
   type,
   placeholder = '',
   labelText,
@@ -45,21 +43,20 @@ export const FormInput: React.FC<IFormInput> = ({
 
   return (
     <Wrapper className={classProps}>
-      <Label htmlFor={id} labelText={labelText} className="form-field__label" />
+      <Label htmlFor={field.name} labelText={labelText} className="form-field__label" />
 
       <Wrapper className="form-field__inner">
         {type === InputType.textarea ? (
           <textarea
             required={isRequired}
             className="form-field__textarea"
-            id={id}
             placeholder={placeholder}
-            // onChange={handleInputChange}
+            {...field}
           />
         ) : (
           <input
             className={classPropsInput}
-            id={id}
+            id={field.name}
             placeholder={placeholder}
             type={type}
             disabled={isDisabled}
@@ -74,8 +71,7 @@ export const FormInput: React.FC<IFormInput> = ({
 
       {errorText && (
         <Label
-          htmlFor={id}
-          isError
+          htmlFor={field.name}
           errorText={errorText}
           className="form-field__label_notification_error"
         />
