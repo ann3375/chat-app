@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { RootStore } from './RootStore';
 import { CurrentDialogInfoType, DialogMessageType, LOADING_STATE } from './types/types';
 
-type Dialog = [
+type DialogResponseData = [
   {
     id: string;
     messages: DialogMessageType[];
@@ -34,7 +34,7 @@ export class CurrentDialogStore {
     });
   }
 
-  *fetchDialogMessages(id: string): Generator<Promise<void>, void, Dialog> {
+  *fetchDialogMessages(id: string): Generator<Promise<void>, void, DialogResponseData> {
     this.dialogMessages = [];
     this.loadingState = LOADING_STATE.PENDING;
 
