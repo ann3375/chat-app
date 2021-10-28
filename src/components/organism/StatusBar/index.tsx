@@ -12,9 +12,14 @@ import './statusBar.scss';
 interface IStatusBar {
   isVisibleUserList: boolean;
   handleVisibleUserList: () => void;
+  dialogInfo: any;
 }
 
-export const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisibleUserList }) => {
+export const StatusBar: React.FC<IStatusBar> = ({
+  isVisibleUserList,
+  handleVisibleUserList,
+  dialogInfo,
+}) => {
   return (
     <Wrapper flex align="center" className="status-bar">
       <ButtonIcon
@@ -37,8 +42,8 @@ export const StatusBar: React.FC<IStatusBar> = ({ isVisibleUserList, handleVisib
 
       <UserStatus
         className="status-bar__user-status"
-        username="User BobUser BobUser BobUser BobUser BobUser Bob"
-        userStatus="last seen 3 min ago"
+        username={dialogInfo.username}
+        userStatus={dialogInfo.lastSeen}
         gender={UserGender.male}
       />
     </Wrapper>

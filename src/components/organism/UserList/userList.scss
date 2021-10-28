@@ -7,6 +7,8 @@
   border-right: 1px solid $color-skyblue;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   &__link {
     max-width: 100%;
@@ -14,16 +16,10 @@
   }
 
   &__no-user-block {
-    height: 241px;
     position: absolute;
     transform: translate(-50%, -50%);
     top: 46%;
     left: 50%;
-    text-align: center;
-  }
-
-  &__no-user-text {
-    margin-top: 24px;
   }
 }
 

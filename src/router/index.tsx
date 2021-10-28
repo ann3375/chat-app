@@ -34,7 +34,7 @@ export const Routes: React.FC = observer(() => {
           <PrivateRoute
             component={LoginPage}
             exact
-            path={SCREENS.SCREEN_LOGIN}
+            path={[SCREENS.SCREEN_LOGIN, SCREENS.SCREEN_HOME]}
             isUserAuthenticate={!isUserAuthenticate}
             redirectPath={SCREENS.SCREEN_DIALOGS}
           />

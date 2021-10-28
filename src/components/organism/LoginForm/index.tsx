@@ -36,6 +36,7 @@ const schema = yup.object().shape({
 export const LoginForm = (): React.ReactElement => {
   const [username, setUsername] = useLocalStorageState(InputId.username, '');
 
+  // eslint-disable-next-line
   const [isUserAuthenticate, setIsUserAuthenticate] = useLocalStorageState(
     'isUserAuthenticate',
     ''

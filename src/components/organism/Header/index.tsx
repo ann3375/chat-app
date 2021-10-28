@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { NavLink } from 'react-router-dom';
 import { Logo } from '../../atoms/Logo';
 import { Typography } from '../../atoms/Typography';
 import { ButtonIcon } from '../../molecules/ButtonIcon';
@@ -7,10 +8,9 @@ import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { LogoSize } from '../../atoms/Logo/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
+import { SCREENS } from '../../../router/endpoints';
 
 import './header.scss';
-import { NavLink } from 'react-router-dom';
-import { SCREENS } from '../../../router/endpoints';
 
 interface IHeader {
   isLoginPage?: boolean;

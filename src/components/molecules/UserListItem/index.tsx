@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
@@ -13,6 +13,7 @@ export interface IUserListItem {
   username: string;
   userGender: UserGender;
   id: string;
+  setDialogInfo: (username: string, lastseen: string, id: string) => void;
   isCurrentUserLastMessage?: boolean;
   lastMessage?: string;
 }
@@ -23,12 +24,14 @@ export const UserListItem = React.memo(function UserListItem({
   id,
   isCurrentUserLastMessage,
   lastMessage,
+  setDialogInfo,
 }: IUserListItem) {
   return (
     <NavLink
       to={`${SCREENS.SCREEN_DIALOGS}/${id}`}
       className="user-list__link"
       activeClassName="user-list__link_active"
+      onClick={() => setDialogInfo(username, 'asd', id)}
     >
       <Avatar size={AvatarSize.medium} gender={userGender} className="link__avatar" />
       <div>

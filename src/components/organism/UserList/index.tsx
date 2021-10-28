@@ -1,25 +1,26 @@
 import React from 'react';
 import classNames from 'classnames';
 import { IUserListItem, UserListItem } from '../../molecules/UserListItem';
-import { USERS } from './contants/constants';
+import { UserListNotification } from '../../molecules/UserListNotification';
+import { Spinner } from '../../molecules/Spinner';
 
 import './userList.scss';
-import { Avatar } from '../../atoms/Avatar';
-import { AvatarSize, UserGender } from '../../atoms/Avatar/types/types';
-import { Typography } from '../../atoms/Typography';
-import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 interface IUserList {
   isVisibleUserList: boolean;
   listRef: React.RefObject<HTMLDivElement>;
   handleVisibleUserList: () => void;
+  setDialogInfo: (username: string, lastseen: string, id: string) => void;
   users: IUserListItem[];
+  isLoaded: boolean;
 }
 
 export const UserList: React.FC<IUserList> = ({
   isVisibleUserList,
   listRef,
   users,
+  isLoaded,
+  setDialogInfo,
   handleVisibleUserList,
 }): React.ReactElement => {
   const classProps = classNames('user-list', {
@@ -28,24 +29,22 @@ export const UserList: React.FC<IUserList> = ({
 
   return (
     <div ref={listRef} className={classProps} onClick={handleVisibleUserList}>
-      {!users.length ? (
-        USERS.map((user) => (
+      {!isLoaded ? (
+        <Spinner />
+      ) : users.length ? (
+        users.map((user) => (
           <UserListItem
+            setDialogInfo={setDialogInfo}
             key={user.id}
             id={user.id}
             username={user.username}
-            userGender={user.gender}
+            userGender={user.userGender}
             lastMessage={user.lastMessage}
             isCurrentUserLastMessage={user.isCurrentUserLastMessage}
           />
         ))
       ) : (
-        <div className="user-list__no-user-block">
-          <Avatar size={AvatarSize.large} gender={UserGender.noGender} />
-          <Typography variant={TypographyTypeStyle.p2} className="user-list__no-user-text">
-            There is no other users yet
-          </Typography>
-        </div>
+        <UserListNotification className="user-list__no-user-block" />
       )}
     </div>
   );

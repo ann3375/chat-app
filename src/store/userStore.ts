@@ -1,11 +1,12 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
+import { LOADING_STATE } from './types/types';
 
 class UserStore {
   user = {
     username: '',
     isUserAuthenticate: false,
   };
-  isLoading: null | boolean = null;
+  isLoading: LOADING_STATE = LOADING_STATE.NEVER;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,6 +17,10 @@ class UserStore {
       username,
       isUserAuthenticate: true,
     };
+  }
+
+  setLoadingState(loadingState: LOADING_STATE) {
+    this.isLoading = loadingState;
   }
 }
 
