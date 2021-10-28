@@ -7,21 +7,21 @@ import './button.scss';
 export interface IButton {
   type: ButtonType;
   children: React.ReactNode;
-  onClick?: () => void;
   isDisabled?: boolean;
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
+  onClick?: () => void;
 }
 
 export const Button: React.FC<IButton> = ({
   children,
   type,
-  onClick,
   isDisabled,
   variant,
   className,
   size,
+  onClick,
 }) => {
   const classProps = classNames('button', {
     [`button_size_${size}`]: size,

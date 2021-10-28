@@ -16,9 +16,9 @@ export const ButtonIcon: React.FC<IButtonIcon> = ({
   iconName,
   type,
   color,
-  onClick,
   isDisabled,
   className,
+  onClick,
 }) => {
   return (
     <Button

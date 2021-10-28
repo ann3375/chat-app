@@ -9,10 +9,10 @@ import './userList.scss';
 interface IUserList {
   isVisibleUserList: boolean;
   listRef: React.RefObject<HTMLDivElement>;
-  handleVisibleUserList: () => void;
-  setDialogInfo: (username: string, lastseen: string, id: string) => void;
   users: IUserListItem[];
   isLoaded: boolean;
+  handleVisibleUserList: () => void;
+  setDialogInfo: (username: string, lastseen: string, id: string) => void;
 }
 
 export const UserList: React.FC<IUserList> = ({
@@ -29,22 +29,24 @@ export const UserList: React.FC<IUserList> = ({
 
   return (
     <div ref={listRef} className={classProps} onClick={handleVisibleUserList}>
-      {!isLoaded ? (
-        <Spinner />
-      ) : users.length ? (
-        users.map((user) => (
-          <UserListItem
-            setDialogInfo={setDialogInfo}
-            key={user.id}
-            id={user.id}
-            username={user.username}
-            userGender={user.userGender}
-            lastMessage={user.lastMessage}
-            isCurrentUserLastMessage={user.isCurrentUserLastMessage}
-          />
-        ))
+      {isLoaded ? (
+        users.length ? (
+          users.map((user) => (
+            <UserListItem
+              setDialogInfo={setDialogInfo}
+              key={user.id}
+              id={user.id}
+              username={user.username}
+              userGender={user.userGender}
+              lastMessage={user.lastMessage}
+              isCurrentUserLastMessage={user.isCurrentUserLastMessage}
+            />
+          ))
+        ) : (
+          <UserListNotification className="user-list__no-user-block" />
+        )
       ) : (
-        <UserListNotification className="user-list__no-user-block" />
+        <Spinner />
       )}
     </div>
   );

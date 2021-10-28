@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
 import { Wrapper } from '../../atoms/Wrapper';
@@ -6,7 +7,6 @@ import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { AvatarSize, UserGender } from '../../atoms/Avatar/types/types';
 
 import './userStatus.scss';
-import classNames from 'classnames';
 
 interface IUserStatus {
   username: string;

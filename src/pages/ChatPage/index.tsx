@@ -1,42 +1,38 @@
+import React, { useEffect, useRef, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import React, { useEffect, useRef } from 'react';
-import { useParams } from 'react-router';
 import { Button } from '../../components/atoms/Button';
-import { ButtonType, ButtonVariant } from '../../components/atoms/Button/types/types';
 import { Dialog } from '../../components/organism/Dialog';
 import { Header } from '../../components/organism/Header';
 import { MessageForm } from '../../components/organism/MessageForm';
 import { StatusBar } from '../../components/organism/StatusBar';
 import { UserList } from '../../components/organism/UserList';
 import { ChatPageTemplate } from '../../components/templates/ChatPageTemplate';
-import { currentDialogStore } from '../../store/currentDialogStore';
+import { RootStoreContext } from '../../store/RootStore';
 import { LOADING_STATE } from '../../store/types/types';
-import { userListStore } from '../../store/userListStore';
+import { ButtonType, ButtonVariant } from '../../components/atoms/Button/types/types';
 
 export const ChatPage = observer((): React.ReactElement => {
-  const [isVisibleUserList, setIsVisibleUserList] = React.useState(false);
-  const userListRef = useRef<HTMLDivElement>(null);
+  const [isVisibleUserList, setIsVisibleUserList] = useState(false);
+  const { userListStore, currentDialogStore } = useContext(RootStoreContext);
 
+  const userListRef = useRef<HTMLDivElement>(null);
   const handleVisibleUserList = React.useCallback(() => {
     setIsVisibleUserList(!isVisibleUserList);
   }, [isVisibleUserList]);
 
-  const setDialogInfo = (username: string, lastseen: string, id: string) => {
+  const setDialogInfo = React.useCallback((username: string, lastseen: string, id: string) => {
     currentDialogStore.setCurrentDialogInfo(username, lastseen, id);
-  };
-
-  const users = userListStore.userList;
-  const loadingState = userListStore.loadingState;
-  const dialogInfo = currentDialogStore.currentDialogInfo;
-  const dialogMessages = currentDialogStore.dialogMessages;
+  }, []);
 
   useEffect(() => {
     userListStore.fetchUserList();
   }, []);
 
+  console.log('sdf');
+
   useEffect(() => {
-    currentDialogStore.fetchDialogMessages(dialogInfo.id);
-  }, [dialogInfo.id]);
+    currentDialogStore.fetchDialogMessages(currentDialogStore.dialogInfo.id);
+  }, [currentDialogStore.dialogInfo.id]);
 
   return (
     <ChatPageTemplate
@@ -44,8 +40,8 @@ export const ChatPage = observer((): React.ReactElement => {
       userList={
         <UserList
           setDialogInfo={setDialogInfo}
-          users={users}
-          isLoaded={loadingState === LOADING_STATE.LOADED}
+          users={userListStore.userList}
+          isLoaded={userListStore.loadingState === LOADING_STATE.LOADED}
           listRef={userListRef}
           handleVisibleUserList={handleVisibleUserList}
           isVisibleUserList={isVisibleUserList}
@@ -55,10 +51,15 @@ export const ChatPage = observer((): React.ReactElement => {
         <StatusBar
           isVisibleUserList={isVisibleUserList}
           handleVisibleUserList={handleVisibleUserList}
-          dialogInfo={dialogInfo}
+          dialogInfo={currentDialogStore.dialogInfo}
         />
       }
-      dialog={<Dialog dialogMessages={dialogMessages} />}
+      dialog={
+        <Dialog
+          dialogMessages={currentDialogStore.dialogMessages}
+          isLoaded={currentDialogStore.loadingState === LOADING_STATE.LOADED}
+        />
+      }
       messageForm={<MessageForm />}
       notificationButton={
         <Button

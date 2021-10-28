@@ -10,10 +10,9 @@ interface IAvatar {
   size: AvatarSize;
   gender: UserGender;
   className?: string;
-  isNoUser?: boolean;
 }
 
-export const Avatar: React.FC<IAvatar> = ({ size, gender, className, isNoUser }) => {
+export const Avatar: React.FC<IAvatar> = ({ size, gender, className }) => {
   const classProps = classNames('avatar', {
     [`avatar_size_${size}`]: size,
     [`${className}`]: className,

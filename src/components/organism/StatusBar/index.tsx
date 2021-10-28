@@ -6,19 +6,20 @@ import { UserStatus } from '../../molecules/UserStatus';
 import { UserGender } from '../../atoms/Avatar/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { CurrentDialogInfoType } from '../../../store/types/types';
 
 import './statusBar.scss';
 
 interface IStatusBar {
   isVisibleUserList: boolean;
+  dialogInfo: CurrentDialogInfoType;
   handleVisibleUserList: () => void;
-  dialogInfo: any;
 }
 
 export const StatusBar: React.FC<IStatusBar> = ({
   isVisibleUserList,
-  handleVisibleUserList,
   dialogInfo,
+  handleVisibleUserList,
 }) => {
   return (
     <Wrapper flex align="center" className="status-bar">

@@ -4,9 +4,9 @@ import { Label } from '../../atoms/Label';
 import { Wrapper } from '../../atoms/Wrapper';
 import { Icon } from '../../atoms/Icon';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { InputType } from './types/types';
 
 import './formInput.scss';
-import { InputType } from './types/types';
 
 interface IFormInput {
   type: string;

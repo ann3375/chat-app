@@ -1,7 +1,7 @@
 import React from 'react';
+import { Wrapper } from '../../atoms/Wrapper';
 import { Icon } from '../../atoms/Icon';
 import { IconName } from '../../atoms/Icon/types/types';
-import { Wrapper } from '../../atoms/Wrapper';
 
 import './spinner.scss';
 

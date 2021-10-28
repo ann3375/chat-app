@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { SCREENS } from './endpoints';
 import { ChatPage } from '../pages/ChatPage';
 import { LoginPage } from '../pages/LoginPage';
 import { PrivateRoute } from './PrivateRoute';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
-import { userStore } from '../store/userStore';
+import { SCREENS } from './endpoints';
+import { RootStoreContext } from '../store/RootStore';
 
 export const Routes: React.FC = observer(() => {
   const [username] = useLocalStorageState('username', '');
+  const { userStore } = useContext(RootStoreContext);
 
   const isUserAuthenticate = userStore.user.isUserAuthenticate;
 

@@ -1,44 +1,51 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { LOADING_STATE } from './types/types';
+import { RootStore } from './RootStore';
+import { CurrentDialogInfoType, DialogMessageType, LOADING_STATE } from './types/types';
 
-class CurrentDialogStore {
-  currentDialogInfo = {
+type Dialog = [
+  {
+    id: string;
+    messages: DialogMessageType[];
+  }
+];
+
+export class CurrentDialogStore {
+  rootStore: RootStore;
+  dialogInfo: CurrentDialogInfoType = {
     username: '',
     lastSeen: '',
     id: '',
   };
-  dialogMessages = [];
+  dialogMessages: DialogMessageType[] = [];
   loadingState: LOADING_STATE = LOADING_STATE.NEVER;
 
-  constructor() {
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
     makeAutoObservable(this);
   }
 
-  setCurrentDialogInfo(username: string, lastSeen: string, id: string) {
-    this.currentDialogInfo = {
-      username,
-      lastSeen,
-      id,
-    };
+  setCurrentDialogInfo(username: string, lastSeen: string, id: string): void {
+    runInAction(() => {
+      this.dialogInfo = {
+        username,
+        lastSeen,
+        id,
+      };
+    });
   }
 
-  async fetchDialogMessages(id: string) {
+  *fetchDialogMessages(id: string): Generator<Promise<void>, void, Dialog> {
     this.dialogMessages = [];
     this.loadingState = LOADING_STATE.PENDING;
+
     try {
-      const dialogMessages = await fetch(`http://localhost:3004/dialogs?id=${id}`).then((res) =>
+      const dialogMessages = yield fetch(`http://localhost:3004/dialogs?id=${id}`).then((res) =>
         res.json()
       );
-      runInAction(() => {
-        this.dialogMessages = dialogMessages[0].messages;
-        this.loadingState = LOADING_STATE.LOADED;
-      });
+      this.dialogMessages = dialogMessages[0].messages;
+      this.loadingState = LOADING_STATE.LOADED;
     } catch (error) {
-      runInAction(() => {
-        this.loadingState = LOADING_STATE.ERROR;
-      });
+      this.loadingState = LOADING_STATE.ERROR;
     }
   }
 }
-
-export const currentDialogStore = new CurrentDialogStore();

@@ -10,9 +10,9 @@ import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/
 import { InputId, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { useLocalStorageState } from '../../../hooks/useLocalStorageState';
-import { userStore } from '../../../store/userStore';
 
 import './loginForm.scss';
+import { RootStoreContext } from '../../../store/RootStore';
 
 interface IFormInput {
   username: string;
@@ -35,7 +35,7 @@ const schema = yup.object().shape({
 
 export const LoginForm = (): React.ReactElement => {
   const [username, setUsername] = useLocalStorageState(InputId.username, '');
-
+  const rootStore = React.useContext(RootStoreContext);
   // eslint-disable-next-line
   const [isUserAuthenticate, setIsUserAuthenticate] = useLocalStorageState(
     'isUserAuthenticate',
@@ -57,7 +57,7 @@ export const LoginForm = (): React.ReactElement => {
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     setUsername(data.username);
     setIsUserAuthenticate('true');
-    userStore.setUser(data.username);
+    rootStore.userStore.setUser(data.username);
   };
 
   return (

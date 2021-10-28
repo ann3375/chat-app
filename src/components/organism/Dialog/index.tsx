@@ -1,30 +1,32 @@
 import React from 'react';
 import { Wrapper } from '../../atoms/Wrapper';
+import { Spinner } from '../../molecules/Spinner';
 import { DialogMessage } from '../../molecules/DialogMessage';
+import { DialogMessageType } from '../../../store/types/types';
 
 import './dialog.scss';
 
-type Message = {
-  id: number;
-  messageText: string;
-  isCurrentUserMessage: boolean;
-};
-type Text = Message[];
-
 interface IDialog {
-  dialogMessages: any;
+  dialogMessages: DialogMessageType[];
+  isLoaded: boolean;
 }
 
-export const Dialog: React.FC<IDialog> = ({ dialogMessages }) => {
+export const Dialog: React.FC<IDialog> = ({ dialogMessages, isLoaded }) => {
   return (
-    <Wrapper className="messages-area">
-      {dialogMessages.map((item: any) => (
-        <DialogMessage
-          messageText={item.messageText}
-          isCurrentUserMessage={item.from === 'user'}
-          key={item.id}
-        />
-      ))}
-    </Wrapper>
+    <>
+      <Wrapper className="messages-area">
+        {isLoaded ? (
+          dialogMessages.map((item) => (
+            <DialogMessage
+              messageText={item.messageText}
+              isCurrentUserMessage={item.from === 'user'}
+              key={item.messageId}
+            />
+          ))
+        ) : (
+          <Spinner />
+        )}
+      </Wrapper>
+    </>
   );
 };
