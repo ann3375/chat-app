@@ -7,10 +7,6 @@
   box-shadow: 0px 2px 8px $color-whitesmoke;
   background: $color-ghostwhite;
   padding: 12px;
-  position: absolute;
-  top: calc(50% - 40px);
-  left: 50%;
-  transform: translate(-50%, -50%);
 
   &__icon {
     width: 100%;

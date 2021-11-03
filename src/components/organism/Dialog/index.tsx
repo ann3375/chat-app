@@ -24,7 +24,7 @@ export const Dialog: React.FC<IDialog> = ({ dialogMessages, isLoaded }) => {
             />
           ))
         ) : (
-          <Spinner />
+          <Spinner className="messages-area__spinner" />
         )}
       </Wrapper>
     </>

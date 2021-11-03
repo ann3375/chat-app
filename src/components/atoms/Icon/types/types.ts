@@ -11,11 +11,14 @@ export enum IconName {
   arrowLeft = 'arrowLeft',
   closeIcon = 'closeIcon',
   spiner = 'spiner',
+  updateIcon = 'updateIcon',
+  arrowDown = 'arrowDown',
 }
 
 export enum ColorType {
   error = 'tomato',
   primary = 'cornflowerblue',
   grey = 'lightgray',
+  darkGrey = 'darkgrey',
   mediumBlue = 'mediumBlue',
 }

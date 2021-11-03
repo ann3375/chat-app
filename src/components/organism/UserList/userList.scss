@@ -21,6 +21,13 @@
     top: 46%;
     left: 50%;
   }
+
+  &__spinner {
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @media (max-width: $media-tablet) {

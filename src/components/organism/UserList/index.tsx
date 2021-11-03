@@ -46,7 +46,7 @@ export const UserList: React.FC<IUserList> = ({
           <UserListNotification className="user-list__no-user-block" />
         )
       ) : (
-        <Spinner />
+        <Spinner className="user-list__spinner" />
       )}
     </div>
   );

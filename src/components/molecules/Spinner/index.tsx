@@ -4,10 +4,18 @@ import { Icon } from '../../atoms/Icon';
 import { IconName } from '../../atoms/Icon/types/types';
 
 import './spinner.scss';
+import classNames from 'classnames';
 
-export const Spinner = (): React.ReactElement => {
+interface ISpinner {
+  className?: string;
+}
+
+export const Spinner: React.FC<ISpinner> = ({ className }) => {
+  const classProps = classNames('spinner', {
+    [`${className}`]: className,
+  });
   return (
-    <Wrapper className="spinner">
+    <Wrapper className={classProps}>
       <Icon name={IconName.spiner} className="spinner__icon" />
     </Wrapper>
   );

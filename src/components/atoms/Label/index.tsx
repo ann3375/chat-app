@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import './label.scss';
 
 interface ILabel {
-  htmlFor: string;
+  htmlFor?: string;
   children?: React.ReactNode;
   labelText?: string;
   errorText?: string;

@@ -14,7 +14,8 @@ import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { SCREENS } from '../../../router/endpoints';
 import { useLocalStorageState } from '../../../hooks/useLocalStorageState';
 
-import './loginForm.scss';
+import './signUpForm.scss';
+import { FormSelect } from '../../molecules/FormSelect';
 
 interface IFormInput {
   username: string;
@@ -29,18 +30,10 @@ const schema = yup.object().shape({
     .max(25, 'Your name must be less than 50 letters')
     .matches(/^[A-Za-zА-Яа-яЁё]+$/, 'Only alphabets are allowed in your name ')
     .required('Please input your name'),
-  password: yup
-    .string()
-    .min(4, ' Password must contain at least 4 symbols')
-    .required('Please input your password'),
-  captcha: yup
-    .string()
-    .min(5, 'Min 5 symbols')
-    .max(5, 'Max 5 symbols')
-    .required('Please input captcha'),
+  password: yup.string().required('Please choose gender'),
 });
 
-export const LoginForm = (): React.ReactElement => {
+export const SignUpForm = (): React.ReactElement => {
   const [username, setUsername] = useLocalStorageState(InputId.username, '');
   const rootStore = React.useContext(RootStoreContext);
   const [isUserAuthenticate, setIsUserAuthenticate] = useLocalStorageState(
@@ -51,40 +44,76 @@ export const LoginForm = (): React.ReactElement => {
   const {
     handleSubmit,
     control,
+    setValue,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm<IFormInput>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
-      username,
+      username: '',
       password: '',
-      captcha: '',
     },
   });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    setUsername(data.username);
-    setIsUserAuthenticate('true');
-    rootStore.userStore.setUser(data.username);
+    console.log(data);
+    console.log(data.password);
   };
+
+  const options = [
+    { id: '1', gender: 'male' },
+    { id: '2', gender: 'female' },
+  ];
 
   return (
     <Wrapper className="form-login">
       <Typography className="form-login__text" variant={TypographyTypeStyle.h2}>
-        Please, autorize yourself
+        Registration
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
+          name={InputId.password}
+          control={control}
+          render={() => (
+            <FormSelect
+              options={options}
+              setValue={setValue}
+              error={errors.password?.message}
+              clearErrors={clearErrors}
+            />
+          )}
+        />
+
+        <button type="submit">sd</button>
+
+        {/* <Controller
           name={InputId.username}
           control={control}
           render={({ field }) => (
             <FormInput
-              placeholder={'User name'}
+              placeholder={'Input user name'}
               type={InputType.text}
-              labelText="User name"
+              labelText="Create user name"
               className="form-login__input"
               field={field}
               errorText={errors.username?.message}
+            />
+          )}
+        /> */}
+
+        {/*
+        <Controller
+          name={InputId.password}
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              placeholder={'Create password'}
+              type={InputType.password}
+              labelText="Create password"
+              className="form-login__input"
+              field={field}
+              errorText={errors.password?.message}
             />
           )}
         />
@@ -94,12 +123,27 @@ export const LoginForm = (): React.ReactElement => {
           control={control}
           render={({ field }) => (
             <FormInput
-              placeholder={'Input password'}
+              placeholder={'Password confirmation'}
               type={InputType.password}
-              labelText="Password"
+              labelText="Password confirmation"
               className="form-login__input"
               field={field}
               errorText={errors.password?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name={InputId.username}
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              placeholder={'Nickname'}
+              type={InputType.text}
+              labelText="Nickname"
+              className="form-login__input"
+              field={field}
+              errorText={errors.username?.message}
             />
           )}
         />
@@ -131,7 +175,7 @@ export const LoginForm = (): React.ReactElement => {
             type={ButtonType.submit}
             isDisabled={!isValid}
           >
-            Log in
+            Register
           </Button>
 
           <Button
@@ -142,9 +186,9 @@ export const LoginForm = (): React.ReactElement => {
             isNavLink
             path={SCREENS.SCREEN_SIGN_UP}
           >
-            Registration
+            Log in
           </Button>
-        </Wrapper>
+        </Wrapper> */}
       </form>
     </Wrapper>
   );

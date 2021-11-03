@@ -6,6 +6,13 @@
   flex-direction: column;
   padding: 0 24px;
 
+  &__spinner {
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   & .message {
     margin: 12px 0;
 

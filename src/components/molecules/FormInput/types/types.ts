@@ -4,6 +4,7 @@ export enum InputType {
   password = 'password',
   file = 'file',
   textarea = 'textarea',
+  select = 'select',
 }
 
 export enum InputId {
@@ -11,4 +12,10 @@ export enum InputId {
   password = 'password',
   file = 'file',
   messageText = 'messageText',
+  captcha = 'captcha',
+}
+
+export enum InputSize {
+  large = 'large',
+  medium = 'medium',
 }

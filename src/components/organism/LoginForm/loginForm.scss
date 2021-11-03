@@ -1,7 +1,9 @@
 @import '../../../styles/variables';
 
 .form-login {
-  &__input:not(:last-of-type) {
+  max-width: 354px;
+
+  &__input {
     margin-bottom: 32px;
   }
 
@@ -10,18 +12,33 @@
     height: 56px;
   }
 
-  &__button {
+  &__buttons {
     margin-top: 48px;
   }
 
   &__text {
     margin-bottom: 48px;
   }
+
+  &__buttons {
+    justify-content: space-between;
+  }
+
+  &__security-code {
+    justify-content: space-between;
+    align-items: flex-end;
+
+    & .form-login__input {
+      margin-bottom: 0;
+    }
+  }
 }
 
 @media (max-width: $media-mobile-l) {
   .form-login {
-    &__input:not(:last-of-type) {
+    max-width: 100%;
+
+    &__input {
       margin-bottom: 24px;
     }
 
@@ -30,8 +47,26 @@
       height: 48px;
     }
 
-    &__button {
-      margin-top: 80px;
+    &__buttons {
+      margin-top: 40px;
+      flex-direction: column;
     }
+
+    &__button:not(:last-of-type) {
+      margin-bottom: 8px;
+    }
+
+    &__security-code {
+      & .form-login__input {
+        max-width: 171px;
+        margin-right: 2px;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-mobile-m) {
+  .form-login {
+    max-width: 354px;
   }
 }

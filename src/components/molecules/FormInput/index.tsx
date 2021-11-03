@@ -4,7 +4,7 @@ import { Label } from '../../atoms/Label';
 import { Wrapper } from '../../atoms/Wrapper';
 import { Icon } from '../../atoms/Icon';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
-import { InputType } from './types/types';
+import { InputSize, InputType } from './types/types';
 
 import './formInput.scss';
 
@@ -16,6 +16,7 @@ interface IFormInput {
   labelText?: string;
   errorText?: string;
   className?: string;
+  size?: InputSize;
   field: {
     name: string;
     onBlur: () => void;
@@ -31,10 +32,12 @@ export const FormInput: React.FC<IFormInput> = ({
   className,
   isRequired,
   isDisabled,
+  size,
   field,
 }) => {
   const classProps = classNames('form-field', {
     [`${className}`]: className,
+    [`form-field_size_${size}`]: size,
   });
 
   const classPropsInput = classNames('form-field__input', {
@@ -46,23 +49,23 @@ export const FormInput: React.FC<IFormInput> = ({
       <Label htmlFor={field.name} labelText={labelText} className="form-field__label" />
 
       <Wrapper className="form-field__inner">
-        {type === InputType.textarea ? (
+        {type === InputType.textarea && (
           <textarea
             required={isRequired}
             className="form-field__textarea"
             placeholder={placeholder}
             {...field}
           />
-        ) : (
-          <input
-            className={classPropsInput}
-            id={field.name}
-            placeholder={placeholder}
-            type={type}
-            disabled={isDisabled}
-            {...field}
-          />
         )}
+
+        <input
+          className={classPropsInput}
+          id={field.name}
+          placeholder={placeholder}
+          type={type}
+          disabled={isDisabled}
+          {...field}
+        />
 
         {errorText && (
           <Icon className="form-field__icon" color={ColorType.error} name={IconName.inputError} />

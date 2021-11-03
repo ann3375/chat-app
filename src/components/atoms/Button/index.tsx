@@ -3,11 +3,15 @@ import classNames from 'classnames';
 import { ButtonSize, ButtonType, ButtonVariant } from './types/types';
 
 import './button.scss';
+import { NavLink } from 'react-router-dom';
+import { SCREENS } from '../../../router/endpoints';
 
 export interface IButton {
   type: ButtonType;
   children: React.ReactNode;
   isDisabled?: boolean;
+  isNavLink?: boolean;
+  path?: SCREENS;
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
@@ -21,6 +25,8 @@ export const Button: React.FC<IButton> = ({
   variant,
   className,
   size,
+  path,
+  isNavLink,
   onClick,
 }) => {
   const classProps = classNames('button', {
@@ -31,7 +37,7 @@ export const Button: React.FC<IButton> = ({
 
   return (
     <button onClick={onClick} type={type} disabled={isDisabled} className={classProps}>
-      {children}
+      {isNavLink && path ? <NavLink to={path}> {children}</NavLink> : children}
     </button>
   );
 };

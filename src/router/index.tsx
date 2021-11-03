@@ -40,6 +40,14 @@ export const Routes: React.FC = observer(() => {
             redirectPath={SCREENS.SCREEN_DIALOGS}
           />
 
+          <PrivateRoute
+            component={LoginPage}
+            exact
+            path={[SCREENS.SCREEN_LOGIN, SCREENS.SCREEN_HOME]}
+            isUserAuthenticate={!isUserAuthenticate}
+            redirectPath={SCREENS.SCREEN_DIALOGS}
+          />
+
           <Route component={() => <>404: Page not found</>} />
         </Switch>
       </Router>
