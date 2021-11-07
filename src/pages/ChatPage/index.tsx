@@ -20,19 +20,20 @@ export const ChatPage = observer((): React.ReactElement => {
     setIsVisibleUserList(!isVisibleUserList);
   }, [isVisibleUserList]);
 
-  const setDialogInfo = React.useCallback((username: string, lastseen: string, id: string) => {
-    currentDialogStore.setCurrentDialogInfo(username, lastseen, id);
-  }, []);
+  const setDialogInfo = React.useCallback(
+    (username: string, lastseen: string, id: string) => {
+      currentDialogStore.setCurrentDialogInfo(username, lastseen, id);
+    },
+    [currentDialogStore]
+  );
 
   useEffect(() => {
     userListStore.fetchUserList();
-  }, []);
-
-  console.log('sdf');
+  }, [userListStore]);
 
   useEffect(() => {
     currentDialogStore.fetchDialogMessages(currentDialogStore.dialogInfo.id);
-  }, [currentDialogStore.dialogInfo.id]);
+  }, [currentDialogStore]);
 
   return (
     <ChatPageTemplate

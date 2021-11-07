@@ -7,6 +7,6 @@ export enum SCREENS {
 }
 
 export enum Pages {
-  login = 'login',
+  auth = 'auth',
   chat = 'chat',
 }

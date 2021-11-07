@@ -1,7 +1,6 @@
 @import '../../../styles/variables';
 
 .button {
-  padding: 16px;
   font-weight: 500;
   font-size: 15px;
   line-height: 23px;
@@ -11,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 56px;
 
   &_variant {
     &_primary {

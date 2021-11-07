@@ -1,6 +1,6 @@
 @import '../../../styles/variables';
 
-.login-page {
+.auth-page {
   &__main-container {
     height: 1080px;
     display: flex;
@@ -33,30 +33,30 @@
   }
 }
 
-.aside-form__inner {
-  padding-top: 256px;
+.aside-form {
+  &__login-inner {
+    padding-top: 256px;
+  }
+
+  &__signup-inner {
+    padding-top: 63px;
+  }
 }
 
 @media (max-width: $media-mobile-l) {
-  .login-page {
+  .auth-page {
     &__main-container {
       height: fit-content;
       flex-direction: column;
     }
 
     &__aside-form {
-      position: relative;
-      order: 1;
-      height: 400px;
       min-width: 100%;
 
-      & .form-login {
+      & .form-login,
+      .form-sign-up {
         &__button {
           max-width: 100%;
-        }
-
-        &__text {
-          margin-bottom: 20px;
         }
       }
     }
@@ -79,15 +79,25 @@
     }
   }
 
-  .aside-form__inner {
-    margin-top: -36%;
-    padding: 0 14px 15px;
-    width: 100%;
+  .aside-form {
+    &__login-inner {
+      position: absolute;
+      top: 123px;
+      padding: 0 14px 13px;
+      width: 100%;
+    }
+
+    &__signup-inner {
+      position: absolute;
+      top: 123px;
+      padding: 0 14px 13px;
+      width: 100%;
+    }
   }
 }
 
 @media (max-width: $media-mobile-m) {
-  .login-page {
+  .auth-page {
     &__aside-form {
       & .form-login {
         &__text {

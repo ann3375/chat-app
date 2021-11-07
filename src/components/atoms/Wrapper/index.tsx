@@ -10,6 +10,7 @@ export interface IWrapper {
   column?: boolean;
   row?: boolean;
   align?: 'center' | 'flex-start';
+  onClick?: () => void;
 }
 
 export const Wrapper: React.FC<IWrapper> = ({

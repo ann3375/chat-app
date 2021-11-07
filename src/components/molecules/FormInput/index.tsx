@@ -17,6 +17,7 @@ interface IFormInput {
   errorText?: string;
   className?: string;
   size?: InputSize;
+  isAvailableAutoComplete?: boolean;
   field: {
     name: string;
     onBlur: () => void;
@@ -34,6 +35,7 @@ export const FormInput: React.FC<IFormInput> = ({
   isDisabled,
   size,
   field,
+  isAvailableAutoComplete = true,
 }) => {
   const classProps = classNames('form-field', {
     [`${className}`]: className,
@@ -59,6 +61,7 @@ export const FormInput: React.FC<IFormInput> = ({
         )}
 
         <input
+          autoComplete={isAvailableAutoComplete ? 'on' : 'off'}
           className={classPropsInput}
           id={field.name}
           placeholder={placeholder}

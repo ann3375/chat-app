@@ -1,43 +1,51 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { UseFormSetValue } from 'react-hook-form';
-import { ButtonType } from '../../atoms/Button/types/types';
-import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { UseFormClearErrors, UseFormSetValue } from 'react-hook-form';
 import { Label } from '../../atoms/Label';
 import { Typography } from '../../atoms/Typography';
-import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { Wrapper } from '../../atoms/Wrapper';
-import { ButtonIcon } from '../ButtonIcon';
+import { Icon } from '../../atoms/Icon';
+import { ISignUpFormField } from '../../organism/SignUpForm';
+import { ColorType, IconName } from '../../atoms/Icon/types/types';
+import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 import './formSelect.scss';
 
-interface IFormInput {
-  username: string;
-  password: string;
-  captcha: string;
-}
-
 interface IFormSelect {
-  options: { id: string; gender: string }[];
-  setValue: UseFormSetValue<IFormInput>;
-  clearErrors: any;
   error: string | undefined;
+  className: string;
+  labelText: string;
+  options: {
+    id: string;
+    gender: string;
+  }[];
+  setValue: UseFormSetValue<ISignUpFormField>;
+  clearErrors: UseFormClearErrors<ISignUpFormField>;
 }
 
-export const FormSelect: React.FC<IFormSelect> = ({ options, setValue, clearErrors, error }) => {
+export const FormSelect: React.FC<IFormSelect> = ({
+  labelText,
+  error,
+  className,
+  options,
+  setValue,
+  clearErrors,
+}) => {
   const [isVisibleList, setIsVisibleList] = useState(false);
   const [genderValue, setGenderValue] = useState('');
 
   const classProps = classNames('select__list', {
     ' select__list_active': isVisibleList,
   });
-  console.log(error);
 
   return (
-    <>
-      <div
+    <Wrapper className="form-field">
+      <Label labelText={labelText} className="form-field__label" />
+
+      <Wrapper
         className={classNames('select', {
           ' select_notification_error': error,
+          [`${className}`]: className,
         })}
         onClick={() => setIsVisibleList(!isVisibleList)}
       >
@@ -48,34 +56,34 @@ export const FormSelect: React.FC<IFormSelect> = ({ options, setValue, clearErro
         >
           {genderValue ? genderValue : 'Your gender'}
         </Typography>
-        <ButtonIcon
+
+        <Icon
           className={classNames(`select__button`, {
             ' select__button_active': isVisibleList,
           })}
-          iconName={IconName.arrowDown}
+          name={IconName.arrowDown}
           color={ColorType.primary}
-          type={ButtonType.button}
         />
-      </div>
-      {error && <Label errorText={error} className="form-field__label_notification_error" />}
 
-      <ul className={classProps}>
-        {options.length &&
-          options.map((item) => (
+        <ul className={classProps}>
+          {options.map((item) => (
             <li
               className="select__item"
               onClick={() => {
-                clearErrors(['password']);
-                setValue('password', item.id);
+                setValue('gender', item.id, { shouldValidate: true });
                 setGenderValue(item.gender);
                 setIsVisibleList(!isVisibleList);
+                clearErrors(['gender']);
               }}
               key={item.id}
             >
               <Typography variant={TypographyTypeStyle.p3}>{item.gender}</Typography>
             </li>
           ))}
-      </ul>
-    </>
+        </ul>
+      </Wrapper>
+
+      {error && <Label errorText={error} className="form-field__label_notification_error" />}
+    </Wrapper>
   );
 };

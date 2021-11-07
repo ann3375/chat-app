@@ -1,5 +1,6 @@
-import React from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { RootStoreContext } from '../../../store/RootStore';
@@ -11,28 +12,26 @@ import { FormInput } from '../../molecules/FormInput';
 import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/types';
 import { InputId, InputSize, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
+import { convertDataToFormData } from '../../../utils/convertDataToFormData';
+import { defineErrorField } from '../../../utils/defineErrorField';
 import { SCREENS } from '../../../router/endpoints';
-import { useLocalStorageState } from '../../../hooks/useLocalStorageState';
 
 import './loginForm.scss';
 
 interface IFormInput {
-  username: string;
+  login: string;
   password: string;
   captcha: string;
 }
 
 const schema = yup.object().shape({
-  username: yup
+  login: yup
     .string()
     .min(2, 'Your name must contain at least 2 letters')
     .max(25, 'Your name must be less than 50 letters')
     .matches(/^[A-Za-zА-Яа-яЁё]+$/, 'Only alphabets are allowed in your name ')
     .required('Please input your name'),
-  password: yup
-    .string()
-    .min(4, ' Password must contain at least 4 symbols')
-    .required('Please input your password'),
+  password: yup.string().required('Please input your password'),
   captcha: yup
     .string()
     .min(5, 'Min 5 symbols')
@@ -40,32 +39,38 @@ const schema = yup.object().shape({
     .required('Please input captcha'),
 });
 
-export const LoginForm = (): React.ReactElement => {
-  const [username, setUsername] = useLocalStorageState(InputId.username, '');
-  const rootStore = React.useContext(RootStoreContext);
-  const [isUserAuthenticate, setIsUserAuthenticate] = useLocalStorageState(
-    'isUserAuthenticate',
-    ''
-  );
+export const LoginForm = observer((): React.ReactElement => {
+  const { userStore } = React.useContext(RootStoreContext);
 
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid },
-  } = useForm<IFormInput>({
+    setError,
+    formState: { errors, isValid, isSubmitSuccessful },
+  } = useForm<FieldValues>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
-      username,
+      login: '',
       password: '',
       captcha: '',
     },
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    setUsername(data.username);
-    setIsUserAuthenticate('true');
-    rootStore.userStore.setUser(data.username);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
+    const accessToken = await userStore.sendUserAuthData<string>(
+      convertDataToFormData(formData),
+      '/auth/login'
+    );
+
+    accessToken && userStore.setUser(formData.login, accessToken);
   };
+
+  useEffect(() => {
+    if (userStore.userAuthDataError && isSubmitSuccessful) {
+      defineErrorField(userStore.userAuthDataError, setError);
+    }
+  }, [setError, userStore, isSubmitSuccessful, userStore.userAuthDataError]);
 
   return (
     <Wrapper className="form-login">
@@ -75,7 +80,7 @@ export const LoginForm = (): React.ReactElement => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
-          name={InputId.username}
+          name={InputId.login}
           control={control}
           render={({ field }) => (
             <FormInput
@@ -84,7 +89,7 @@ export const LoginForm = (): React.ReactElement => {
               labelText="User name"
               className="form-login__input"
               field={field}
-              errorText={errors.username?.message}
+              errorText={errors.login?.message}
             />
           )}
         />
@@ -148,4 +153,4 @@ export const LoginForm = (): React.ReactElement => {
       </form>
     </Wrapper>
   );
-};
+});

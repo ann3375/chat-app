@@ -52,7 +52,7 @@
       flex-direction: column;
     }
 
-    &__button:not(:last-of-type) {
+    &__button:first-of-type {
       margin-bottom: 8px;
     }
 

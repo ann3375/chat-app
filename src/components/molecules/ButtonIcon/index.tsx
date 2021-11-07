@@ -9,7 +9,7 @@ import './buttonIcon.scss';
 
 interface IButtonIcon extends Omit<IButton, 'size' | 'variant' | 'children'> {
   iconName: IconName;
-  color: ColorType;
+  color?: ColorType;
 }
 
 export const ButtonIcon: React.FC<IButtonIcon> = ({

@@ -19,7 +19,7 @@ interface IHeader {
 
 export const Header = React.memo(function Header({ isLoginPage, isChatPage }: IHeader) {
   const classProps = classNames('header', {
-    [`login-page__header`]: isLoginPage,
+    [`auth-page__header`]: isLoginPage,
     [`chat-page__header`]: isChatPage,
   });
   return (

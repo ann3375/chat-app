@@ -8,11 +8,14 @@ export enum InputType {
 }
 
 export enum InputId {
-  username = 'username',
+  login = 'login',
   password = 'password',
+  passwordConfirm = 'passwordConfirm',
+  nickname = 'nickname',
+  captcha = 'captcha',
+  gender = 'gender',
   file = 'file',
   messageText = 'messageText',
-  captcha = 'captcha',
 }
 
 export enum InputSize {

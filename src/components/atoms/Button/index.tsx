@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { ButtonSize, ButtonType, ButtonVariant } from './types/types';
-
-import './button.scss';
 import { NavLink } from 'react-router-dom';
 import { SCREENS } from '../../../router/endpoints';
+
+import './button.scss';
 
 export interface IButton {
   type: ButtonType;
@@ -35,9 +35,17 @@ export const Button: React.FC<IButton> = ({
     [`${className}`]: className,
   });
 
+  if (isNavLink && path) {
+    return (
+      <NavLink className={classProps} to={path}>
+        {children}
+      </NavLink>
+    );
+  }
+
   return (
     <button onClick={onClick} type={type} disabled={isDisabled} className={classProps}>
-      {isNavLink && path ? <NavLink to={path}> {children}</NavLink> : children}
+      {children}
     </button>
   );
 };
