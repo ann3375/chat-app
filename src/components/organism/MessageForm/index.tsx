@@ -22,16 +22,16 @@ interface IMessageForm {
 
 interface IFormInput {
   messageText: string;
-  files?: File;
+  files: File;
 }
 
 const schema = yup.object().shape({
   messageText: yup.string(),
   files: yup
     .mixed()
-    .test('fileSize', 'Размер файла должен быть меньше 2 мб', (value: File) => {
-      return value.size ? value.size <= 2 * 1024 * 1024 : true;
-    })
+    .test('fileSize', 'Размер файла должен быть меньше 2 мб', (value: File) =>
+      value.size ? value.size <= 2 * 1024 * 1024 : true
+    )
     .test('fileType', `Данный тип не поддерживается`, (value: File) =>
       value.type ? SUPPORTED_FORMATS.includes(value.type) : true
     ),
@@ -53,8 +53,6 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
     },
   });
 
-  console.log(isValid);
-
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const formData = new FormData();
 
@@ -64,15 +62,12 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
     };
 
     if (data.files?.name) {
-      const fileLink = await currentDialogStore.sendMessageFile<string>(formData, '/upload');
       formData.append('0', data.files, data.files.name);
+      const fileLink = await currentDialogStore.sendMessageFile<string>(formData, '/upload');
       message.fileLink = `${URL}:${HTTP_PORT}${fileLink}`;
     }
 
-    console.log(message);
-
     WSAction.sendMessage(`'${JSON.stringify(message)}'`);
-    // reset();
   };
 
   return (

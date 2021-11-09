@@ -29,6 +29,15 @@ export class UserStore {
     localStorageUtils.setUsername(username);
   }
 
+  clearUserInfo(): void {
+    localStorageUtils.clearLocalStorage();
+
+    this.user = {
+      username: '',
+      isUserAuthenticate: null,
+    };
+  }
+
   setError(error: string): void {
     this.userAuthDataError = error;
   }

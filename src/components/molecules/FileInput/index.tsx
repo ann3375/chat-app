@@ -17,21 +17,19 @@ interface IFileInput {
   };
 }
 
-export const FileInput: React.FC<IFileInput> = ({ id, field }): React.ReactElement => {
-  return (
-    <Wrapper className="file-input">
-      <Label htmlFor={InputId.files} className="file-input__label">
-        <Icon name={IconName.addFile} className="file-input__icon" />
-        <input
-          type={InputType.file}
-          id={id}
-          {...field}
-          value={field.value.filename}
-          onChange={(event) => {
-            return event.target.files?.length && field.onChange(event.target.files[0]);
-          }}
-        />
-      </Label>
-    </Wrapper>
-  );
-};
+export const FileInput: React.FC<IFileInput> = ({ id, field }): React.ReactElement => (
+  <Wrapper className="file-input">
+    <Label htmlFor={InputId.files} className="file-input__label">
+      <Icon name={IconName.addFile} className="file-input__icon" />
+      <input
+        type={InputType.file}
+        id={id}
+        {...field}
+        value={field.value.filename}
+        onChange={(event) => {
+          return event.target.files?.length && field.onChange(event.target.files[0]);
+        }}
+      />
+    </Label>
+  </Wrapper>
+);

@@ -54,6 +54,9 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
 
     if (ws.current) {
       ws.current.onmessage = (event: MessageEvent) => {
+        if (event.data.includes('wrong')) {
+          setError(event.data);
+        }
         const reverseData = event.data.replaceAll("'", '');
         const { type: eventType, ...wsResponse } = JSON.parse(reverseData);
 

@@ -38,7 +38,6 @@ const schema = yup.object().shape({
     .string()
     .min(2, 'Your name must contain at least 2 letters')
     .max(50, 'Your name must be less than 50 letters')
-    .matches(/^[A-Za-zА-Яа-яЁё]+$/, 'Only alphabets are allowed in your name ')
     .required('Please input your name'),
   password: yup.string().required('Please input password'),
   passwordConfirm: yup

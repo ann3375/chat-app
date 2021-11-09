@@ -15,6 +15,7 @@ interface IChatPageTemplate {
   dialog?: React.ReactElement;
   messageForm?: React.ReactElement;
   notificationButton?: React.ReactElement;
+  errorModal?: React.ReactElement;
 }
 
 export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
@@ -24,6 +25,7 @@ export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
   dialog,
   messageForm,
   notificationButton,
+  errorModal,
 }): React.ReactElement | null => {
   const size = useWindowSize();
   const isCurrentDialogPage = useRouteMatch(`${SCREENS.SCREEN_CURRENT_DIALOG}`);
@@ -31,6 +33,7 @@ export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
 
   return (
     <MainContainer page={Pages.chat}>
+      {errorModal}
       {(size.width > WindowSize.SIZE_MOBILE_L || isDialogsPage?.isExact) && header}
 
       <main className="chat-page__inner">

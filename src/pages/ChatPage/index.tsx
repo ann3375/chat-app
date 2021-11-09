@@ -12,6 +12,7 @@ import { LOADING_STATE } from '../../store/types/types';
 import { ButtonType, ButtonVariant } from '../../components/atoms/Button/types/types';
 import { useWebsocket } from '../../services/useWebsocket';
 import { UserGender } from '../../components/atoms/Avatar/types/types';
+import { Modal } from '../../components/organism/Modal';
 
 export const ChatPage = observer((): React.ReactElement => {
   const [isVisibleUserList, setIsVisibleUserList] = useState(false);
@@ -38,6 +39,7 @@ export const ChatPage = observer((): React.ReactElement => {
   return (
     <>
       <ChatPageTemplate
+        errorModal={wsState.error ? <Modal isError notificationText={wsState.error} /> : undefined}
         header={<Header isChatPage />}
         userList={
           <UserList
