@@ -13,6 +13,7 @@ export class RootStore {
   constructor() {
     this.userStore = new UserStore(this);
     this.genderListStore = new GenderListStore(this);
+    this.currentDialogStore = new CurrentDialogStore(this);
   }
 }
 

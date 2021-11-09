@@ -1,10 +1,10 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Wrapper } from '../../atoms/Wrapper';
 import { Icon } from '../../atoms/Icon';
 import { IconName } from '../../atoms/Icon/types/types';
 
 import './spinner.scss';
-import classNames from 'classnames';
 
 interface ISpinner {
   className?: string;

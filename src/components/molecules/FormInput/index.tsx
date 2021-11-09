@@ -51,24 +51,25 @@ export const FormInput: React.FC<IFormInput> = ({
       <Label htmlFor={field.name} labelText={labelText} className="form-field__label" />
 
       <Wrapper className="form-field__inner">
-        {type === InputType.textarea && (
+        {type === InputType.textarea ? (
           <textarea
             required={isRequired}
             className="form-field__textarea"
             placeholder={placeholder}
+            id={field.name}
+            {...field}
+          />
+        ) : (
+          <input
+            autoComplete={isAvailableAutoComplete ? 'on' : 'off'}
+            className={classPropsInput}
+            id={field.name}
+            placeholder={placeholder}
+            type={type}
+            disabled={isDisabled}
             {...field}
           />
         )}
-
-        <input
-          autoComplete={isAvailableAutoComplete ? 'on' : 'off'}
-          className={classPropsInput}
-          id={field.name}
-          placeholder={placeholder}
-          type={type}
-          disabled={isDisabled}
-          {...field}
-        />
 
         {errorText && (
           <Icon className="form-field__icon" color={ColorType.error} name={IconName.inputError} />

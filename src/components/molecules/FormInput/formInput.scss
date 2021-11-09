@@ -60,12 +60,9 @@
     border: none;
     width: 100%;
     overflow: auto;
-    height: calc(100% - 10px);
-    margin-top: 10px;
+    height: calc(100%);
 
-    &::placeholder {
-      padding: 20px 30px 20px 0px;
-    }
+    padding: 30px 20px 20px 0px;
   }
 
   &_size {
@@ -88,9 +85,7 @@
     }
 
     &__textarea {
-      &::placeholder {
-        padding: 5px 16px 16px;
-      }
+      padding: 15px;
     }
   }
 }

@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { Wrapper } from '../../atoms/Wrapper';
 import { ButtonIcon } from '../../molecules/ButtonIcon';
 import { UserStatus } from '../../molecules/UserStatus';
-import { UserGender } from '../../atoms/Avatar/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { CurrentDialogInfoType } from '../../../store/types/types';
@@ -45,7 +44,7 @@ export const StatusBar: React.FC<IStatusBar> = ({
         className="status-bar__user-status"
         username={dialogInfo.username}
         userStatus={dialogInfo.lastSeen}
-        gender={UserGender.male}
+        gender={dialogInfo.gender}
       />
     </Wrapper>
   );

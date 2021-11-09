@@ -4,11 +4,11 @@ import { ButtonIcon } from '../ButtonIcon';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { Spinner } from '../Spinner';
-
-import './captchaBlock.scss';
 import { fetchApi } from '../../../services/api';
 
-export const CaptchaBlock = (): React.ReactElement => {
+import './captchaBlock.scss';
+
+export const CaptchaBlock = React.memo(function CaptchaBlock(): React.ReactElement {
   const [captchaURL, setCaptchaURL] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -41,4 +41,4 @@ export const CaptchaBlock = (): React.ReactElement => {
       />
     </Wrapper>
   );
-};
+});

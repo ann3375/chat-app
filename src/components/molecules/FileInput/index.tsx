@@ -9,15 +9,28 @@ import './fileInput.scss';
 
 interface IFileInput {
   id: InputId;
-  isDisabled?: boolean;
+  field: {
+    name: string;
+    onBlur: () => void;
+    onChange: (e: File) => void;
+    value: { filename: string };
+  };
 }
 
-export const FileInput: React.FC<IFileInput> = ({ id, isDisabled }): React.ReactElement => {
+export const FileInput: React.FC<IFileInput> = ({ id, field }): React.ReactElement => {
   return (
     <Wrapper className="file-input">
-      <Label htmlFor={InputId.file} className="file-input__label">
+      <Label htmlFor={InputId.files} className="file-input__label">
         <Icon name={IconName.addFile} className="file-input__icon" />
-        <input type={InputType.file} id={id} disabled={isDisabled} />
+        <input
+          type={InputType.file}
+          id={id}
+          {...field}
+          value={field.value.filename}
+          onChange={(event) => {
+            return event.target.files?.length && field.onChange(event.target.files[0]);
+          }}
+        />
       </Label>
     </Wrapper>
   );

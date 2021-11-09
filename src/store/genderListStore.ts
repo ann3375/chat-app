@@ -1,16 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { URL_API } from '../services/contants';
 import { RootStore } from './RootStore';
-import { LOADING_STATE } from './types/types';
-
-type Genders = {
-  id: string;
-  gender: string;
-};
+import { GendersListType, LOADING_STATE } from './types/types';
 
 export class GenderListStore {
   rootStore: RootStore;
-  genderList: Genders[] = [];
+  genderList: GendersListType[] = [];
   genderListFetchError = '';
   loadingState = LOADING_STATE.NEVER;
 
@@ -19,7 +14,7 @@ export class GenderListStore {
     makeAutoObservable(this);
   }
 
-  setGenderList(genderList: Genders[]): void {
+  setGenderList(genderList: GendersListType[]): void {
     this.genderListFetchError = '';
     this.genderList = genderList;
   }
@@ -28,7 +23,7 @@ export class GenderListStore {
     this.genderListFetchError = error;
   }
 
-  *fetchGenderList(): Generator<Promise<void>, void, Genders[]> {
+  *fetchGenderList(): Generator<Promise<void>, void, GendersListType[]> {
     this.genderList = [];
     this.loadingState = LOADING_STATE.PENDING;
 

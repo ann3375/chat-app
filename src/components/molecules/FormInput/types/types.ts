@@ -14,7 +14,7 @@ export enum InputId {
   nickname = 'nickname',
   captcha = 'captcha',
   gender = 'gender',
-  file = 'file',
+  files = 'files',
   messageText = 'messageText',
 }
 

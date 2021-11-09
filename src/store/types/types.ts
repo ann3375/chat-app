@@ -1,3 +1,5 @@
+import { UserGender } from '../../components/atoms/Avatar/types/types';
+
 export enum LOADING_STATE {
   LOADED = 'LOADED',
   ERROR = 'ERROR',
@@ -15,4 +17,17 @@ export type CurrentDialogInfoType = {
   username: string;
   lastSeen: string;
   id: string;
+  gender: UserGender;
 };
+
+export type GendersListType = {
+  id: string;
+  gender: string;
+};
+
+export type DialogResponseData = [
+  {
+    id: string;
+    messages: DialogMessageType[];
+  }
+];

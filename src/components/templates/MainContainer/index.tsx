@@ -5,7 +5,6 @@ import './mainContainer.scss';
 
 interface IMainContainer {
   page?: string;
-  grid?: boolean;
 }
 
 export const MainContainer: React.FC<IMainContainer> = ({ children, page }) => {

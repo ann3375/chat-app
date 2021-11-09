@@ -18,7 +18,7 @@ import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/
 import { InputId, InputSize, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { convertDataToFormData } from '../../../utils/convertDataToFormData';
-import { defineErrorField } from '../../../utils/defineErrorField';
+import { defineFieldError } from '../../../utils/defineFieldError';
 import { SCREENS } from '../../../router/endpoints';
 import { LOADING_STATE } from '../../../store/types/types';
 
@@ -26,11 +26,11 @@ import './signUpForm.scss';
 
 export interface ISignUpFormField {
   login: string;
-  password: string;
-  passwordConfirm: string;
+  password?: string;
+  passwordConfirm?: string;
   nickname: string;
   gender: string;
-  captcha: string;
+  captcha?: string;
 }
 
 const schema = yup.object().shape({
@@ -59,8 +59,8 @@ const schema = yup.object().shape({
 });
 
 export const SignUpForm = observer(() => {
-  const { genderListStore, userStore } = useContext(RootStoreContext);
   const history = useHistory();
+  const { genderListStore, userStore } = useContext(RootStoreContext);
 
   const handleFetchGenderList = useCallback(() => {
     genderListStore.fetchGenderList();
@@ -77,10 +77,10 @@ export const SignUpForm = observer(() => {
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
-      login: 'test',
-      password: 'test1',
-      passwordConfirm: 'test1',
-      nickname: 'testnick',
+      login: '',
+      password: '',
+      passwordConfirm: '',
+      nickname: '',
       gender: '',
       captcha: '',
     },
@@ -97,7 +97,7 @@ export const SignUpForm = observer(() => {
 
   useEffect(() => {
     if (userStore.userAuthDataError && isSubmitSuccessful) {
-      defineErrorField(userStore.userAuthDataError, setError);
+      defineFieldError(userStore.userAuthDataError, setError);
     }
   }, [setError, userStore.userAuthDataError, isSubmitSuccessful]);
 

@@ -2,7 +2,7 @@ import { FieldValues, UseFormSetError } from 'react-hook-form';
 import { ISignUpFormField } from '../components/organism/SignUpForm';
 import { SIGN_UP_FIELDS } from './constants';
 
-export const defineErrorField = (
+export const defineFieldError = (
   errorText: string,
   setError: UseFormSetError<FieldValues | ISignUpFormField>
 ): void => {

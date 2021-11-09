@@ -32,7 +32,15 @@
     white-space: nowrap;
   }
 
+  &__info {
+    height: 39px;
+  }
+
   &__username {
     margin-bottom: 4px;
+  }
+
+  &__last-message {
+    color: $color-grey;
   }
 }

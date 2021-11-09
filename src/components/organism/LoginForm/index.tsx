@@ -13,7 +13,7 @@ import { ButtonSize, ButtonType, ButtonVariant } from '../../atoms/Button/types/
 import { InputId, InputSize, InputType } from '../../molecules/FormInput/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { convertDataToFormData } from '../../../utils/convertDataToFormData';
-import { defineErrorField } from '../../../utils/defineErrorField';
+import { defineFieldError } from '../../../utils/defineFieldError';
 import { SCREENS } from '../../../router/endpoints';
 
 import './loginForm.scss';
@@ -63,12 +63,12 @@ export const LoginForm = observer((): React.ReactElement => {
       '/auth/login'
     );
 
-    accessToken && userStore.setUser(formData.login, accessToken);
+    accessToken && userStore.setUserInfo(formData.login, accessToken);
   };
 
   useEffect(() => {
     if (userStore.userAuthDataError && isSubmitSuccessful) {
-      defineErrorField(userStore.userAuthDataError, setError);
+      defineFieldError(userStore.userAuthDataError, setError);
     }
   }, [setError, userStore, isSubmitSuccessful, userStore.userAuthDataError]);
 

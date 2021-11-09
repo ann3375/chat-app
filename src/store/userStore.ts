@@ -4,10 +4,12 @@ import { localStorageUtils } from '../utils/localStorageUtils';
 import { RootStore } from './RootStore';
 import { LOADING_STATE } from './types/types';
 
+const username = localStorageUtils.getUsername();
+
 export class UserStore {
   rootStore: RootStore;
   user = {
-    username: '',
+    username: username ? username : '',
     isUserAuthenticate: localStorageUtils.getAccessToken(),
   };
   loadingState: LOADING_STATE = LOADING_STATE.NEVER;
@@ -18,12 +20,13 @@ export class UserStore {
     this.rootStore = rootStore;
   }
 
-  setUser(username: string, accessToken: string): void {
+  setUserInfo(username: string, accessToken: string): void {
     this.user = {
       username,
       isUserAuthenticate: accessToken,
     };
     localStorageUtils.setAccessToken(accessToken);
+    localStorageUtils.setUsername(username);
   }
 
   setError(error: string): void {

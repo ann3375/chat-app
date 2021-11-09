@@ -10,15 +10,13 @@ import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 import './formSelect.scss';
+import { GendersListType } from '../../../store/types/types';
 
 interface IFormSelect {
   error: string | undefined;
   className: string;
   labelText: string;
-  options: {
-    id: string;
-    gender: string;
-  }[];
+  options: GendersListType[];
   setValue: UseFormSetValue<ISignUpFormField>;
   clearErrors: UseFormClearErrors<ISignUpFormField>;
 }

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { IUserListItem, UserListItem } from '../../molecules/UserListItem';
 import { UserListNotification } from '../../molecules/UserListNotification';
 import { Spinner } from '../../molecules/Spinner';
+import { UserGender } from '../../atoms/Avatar/types/types';
 
 import './userList.scss';
 
@@ -12,7 +13,7 @@ interface IUserList {
   users: IUserListItem[];
   isLoaded: boolean;
   handleVisibleUserList: () => void;
-  setDialogInfo: (username: string, lastseen: string, id: string) => void;
+  setDialogInfo: (username: string, lastseen: string, id: string, gender: UserGender) => void;
 }
 
 export const UserList: React.FC<IUserList> = ({
@@ -31,13 +32,13 @@ export const UserList: React.FC<IUserList> = ({
     <div ref={listRef} className={classProps} onClick={handleVisibleUserList}>
       {isLoaded ? (
         users.length ? (
-          users.map((user) => (
+          users.map((user, index) => (
             <UserListItem
               setDialogInfo={setDialogInfo}
-              key={user.id}
-              id={user.id}
-              username={user.username}
-              userGender={user.userGender}
+              key={`${user.name}_${index}`}
+              id={`${user.name}_${index}`}
+              name={user.name}
+              gender={user.gender}
               lastMessage={user.lastMessage}
               isCurrentUserLastMessage={user.isCurrentUserLastMessage}
             />
