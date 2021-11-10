@@ -1,0 +1,90 @@
+@import '../../../styles/variables';
+
+.preview {
+  height: auto;
+  max-height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  opacity: 0;
+
+  &_active {
+    max-height: 200px;
+    visibility: inherit;
+    overflow: auto;
+    opacity: 1;
+  }
+
+  &__wrapper {
+    max-width: 400px;
+    max-height: 200px;
+    position: relative;
+  }
+
+  &__image,
+  &__video {
+    width: fit-content;
+    height: 200px;
+
+    & img,
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__audio {
+    margin: 0 10px 10px;
+
+    & audio::-webkit-media-controls-panel {
+      background: $color-aliceblue;
+    }
+  }
+
+  &__buttons {
+    margin-left: 5px;
+  }
+
+  &__button {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: $media-mobile-m) {
+  .preview {
+    &_active {
+      overflow: inherit;
+    }
+
+    &__wrapper {
+      max-width: 100vw;
+      max-height: 225px;
+      flex-direction: column;
+      position: relative;
+    }
+
+    &__video {
+      height: 200px;
+      max-width: 374px;
+      width: 100vw;
+    }
+
+    &__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: absolute;
+      right: 0;
+      top: -10%;
+      order: 1;
+    }
+
+    &__button {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+}

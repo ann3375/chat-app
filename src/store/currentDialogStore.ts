@@ -58,6 +58,7 @@ export class CurrentDialogStore {
         } else {
           response.text().then((error) => {
             runInAction(() => {
+              console.log('error', error);
               this.setError(error);
             });
           });
@@ -65,7 +66,12 @@ export class CurrentDialogStore {
       });
     } catch (e) {
       runInAction(() => {
-        this.setError((e as Error).message);
+        const error = (e as Error).message;
+        this.setError(
+          error === 'Failed to fetch'
+            ? 'Возникла ошибка при отправке файла, попробуйте снова...'
+            : error
+        );
       });
     } finally {
       runInAction(() => {

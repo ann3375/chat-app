@@ -13,6 +13,8 @@ export enum IconName {
   spiner = 'spiner',
   updateIcon = 'updateIcon',
   arrowDown = 'arrowDown',
+  deleteIcon = 'deleteIcon',
+  closeCircleIcon = 'closeCircleIcon',
 }
 
 export enum ColorType {

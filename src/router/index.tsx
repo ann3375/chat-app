@@ -32,7 +32,6 @@ export const Routes: React.FC = observer(() => {
           isUserAuthenticate={!isUserAuthenticate}
           redirectPath={SCREENS.SCREEN_DIALOGS}
         />
-
         <Route component={() => <>404: Page not found</>} />
       </Switch>
     </Router>
