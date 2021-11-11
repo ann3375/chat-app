@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,7 +15,7 @@ import { IWSAction } from '../../../services/types';
 import { URL, HTTP_PORT } from '../../../services/contants';
 import { FilePreview } from '../FilePreview';
 import { useFileReader } from '../../../hooks/useFileReader';
-import { isFileValid } from '../../../utils/isFileValid';
+import { validateFile } from '../../../utils/validateFile';
 
 import './messageForm.scss';
 
@@ -30,26 +30,25 @@ interface IFormInput {
 
 const schema = yup.object().shape({
   messageText: yup.string(),
-  files: yup
-    .mixed()
-    .test('fileSize', 'Размер файла должен быть меньше 2 мб', (value: File) =>
-      value.size ? value.size <= 2 * 1024 * 1024 : true
-    )
-    .test('fileType', `Данный тип не поддерживается`, (value: File) =>
-      value.type ? isFileValid(value) : false
-    ),
 });
 
 export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessageForm) {
   const { currentDialogStore, userStore } = useContext(RootStoreContext);
-  const [fileState, setFileState] = useFileReader();
+  const [previewFileState, setPreviewFileState] = useFileReader();
+
+  const message = useRef<{ messageText?: string; fromUser?: string; fileLink?: string }>({
+    messageText: '',
+    fromUser: '',
+    fileLink: '',
+  });
 
   const {
     handleSubmit,
     control,
-    setValue,
+    reset,
     clearErrors,
-    formState: { errors, isValid },
+    setError,
+    formState: { errors, isValid, isSubmitSuccessful },
   } = useForm<FieldValues>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -59,16 +58,16 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
     },
   });
 
-  const handleDeleteFile = useCallback(() => {
-    fileState.handleDeleteFile();
-    fileState.handleResetUniqueKey();
-    setValue('files', []);
-  }, [fileState, setValue]);
+  const handleDeletePreviewFile = useCallback(() => {
+    previewFileState.handleDeleteFile();
+    previewFileState.handleResetUniqueKey();
+    reset({ files: [] });
+  }, [previewFileState, reset]);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const formData = new FormData();
 
-    const message: { messageText: string; fromUser: string; fileLink?: string } = {
+    message.current = {
       messageText: data.messageText,
       fromUser: userStore.user.username,
     };
@@ -76,31 +75,73 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
     if (data.files?.name) {
       formData.append('0', data.files, data.files.name);
       const fileLink = await currentDialogStore.sendMessageFile<string>(formData, '/upload');
-      message.fileLink = `${URL}:${HTTP_PORT}${fileLink}`;
+
+      message.current.fileLink = fileLink ? `${URL}:${HTTP_PORT}${fileLink}` : '';
     }
 
     WSAction.sendMessage(`'${JSON.stringify(message)}'`);
-    fileState.handleDeleteFile();
   };
 
-  setTimeout(() => {
-    currentDialogStore.clearError();
-  }, 3000);
+  const fileErrors = errors.files?.message || currentDialogStore.dialogMessagesError;
+
+  const handleFileInputChange = (
+    event: { target: HTMLInputElement },
+    onChangeHandler: (e: File) => void
+  ) => {
+    if (event.target.files?.length) {
+      const file = event.target.files[0];
+      if (validateFile(file).isValid) {
+        setPreviewFileState(file);
+        onChangeHandler(file);
+      }
+
+      validateFile(file).isSizeError &&
+        setError('files', { type: 'fileError', message: 'Размер файла должен быть меньше 2 мб' });
+
+      validateFile(file).isTypeError &&
+        setError('files', { type: 'fileError', message: `Данный тип не поддерживается` });
+    }
+  };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      handleDeletePreviewFile();
+      reset({ files: [], messageText: '' });
+      message.current = {
+        messageText: '',
+        fromUser: '',
+      };
+    }
+  }, [isSubmitSuccessful, handleDeletePreviewFile, reset]);
+
+  useEffect(() => {
+    if (fileErrors) {
+      () => previewFileState.handleResetUniqueKey();
+
+      setTimeout(() => {
+        clearErrors('files');
+        currentDialogStore.clearError();
+      }, 1000);
+    }
+  }, [clearErrors, previewFileState, fileErrors, currentDialogStore]);
 
   return (
     <form className="message-form" onSubmit={handleSubmit(onSubmit)}>
       <Wrapper className="message-form__preview-block">
-        <FilePreview fileState={fileState} handleDeleteFile={handleDeleteFile} />
+        <FilePreview
+          previewFileState={previewFileState}
+          handleDeletePreviewFile={handleDeletePreviewFile}
+        />
       </Wrapper>
 
-      {fileState.fileInfo.name && (
+      {previewFileState.fileInfo.name && (
         <ButtonIcon
           className={classNames('message-form__preview-button', {
-            'message-form__preview-button_active': !fileState.isVisiblePreviewFile,
+            'message-form__preview-button_active': !previewFileState.isVisiblePreviewFile,
           })}
           iconName={IconName.arrowDown}
           type={ButtonType.button}
-          onClick={fileState.handleSetIsVisiblePreview}
+          onClick={previewFileState.handleSetIsVisiblePreview}
         />
       )}
 
@@ -108,17 +149,13 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
         <Controller
           name={InputId.files}
           control={control}
-          defaultValue={[]}
           render={({ field }) => (
             <FileInput
               id={InputId.files}
               field={field}
-              clearErrors={clearErrors}
-              handleDeleteFile={fileState.handleDeleteFile}
-              handleResetUniqueKey={fileState.handleResetUniqueKey}
-              setFileState={setFileState}
-              uniqueKey={fileState.uniqueKeyInput}
-              errorText={errors.files?.message || currentDialogStore.dialogMessagesError}
+              handleFileInputChange={handleFileInputChange}
+              uniqueKey={previewFileState.uniqueKeyInput}
+              errorText={fileErrors}
             />
           )}
         />

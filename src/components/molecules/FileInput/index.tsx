@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Label } from '../../atoms/Label';
 import { InputId, InputType } from '../FormInput/types/types';
 import { IconName } from '../../atoms/Icon/types/types';
 import { Icon } from '../../atoms/Icon';
 import { Wrapper } from '../../atoms/Wrapper';
-import { isFileValid } from '../../../utils/isFileValid';
 
 import './fileInput.scss';
 
@@ -18,10 +17,10 @@ interface IFileInput {
     onChange: (e: File) => void;
     value: { filename: string };
   };
-  clearErrors: (field: string) => void;
-  handleResetUniqueKey: () => void;
-  handleDeleteFile: () => void;
-  setFileState(file: File): void;
+  handleFileInputChange: (
+    event: { target: HTMLInputElement },
+    onChangeHandler: (e: File) => void
+  ) => void;
 }
 
 export const FileInput: React.FC<IFileInput> = ({
@@ -29,29 +28,8 @@ export const FileInput: React.FC<IFileInput> = ({
   field,
   uniqueKey,
   errorText,
-  setFileState,
-  handleDeleteFile,
-  handleResetUniqueKey,
-  clearErrors,
+  handleFileInputChange,
 }): React.ReactElement => {
-  useEffect(() => {
-    if (errorText) {
-      setTimeout(() => {
-        handleResetUniqueKey();
-        clearErrors('files');
-      }, 3000);
-    }
-  }, [errorText, clearErrors, handleResetUniqueKey]);
-
-  const handleFileInputChange = (event: { target: HTMLInputElement }) => {
-    if (event.target.files?.length) {
-      const file = event.target.files[0];
-
-      isFileValid(file) ? setFileState(file) : handleDeleteFile();
-      field.onChange(file);
-    }
-  };
-
   return (
     <Wrapper className="file-input">
       <Label htmlFor={InputId.files} className="file-input__label">
@@ -63,7 +41,7 @@ export const FileInput: React.FC<IFileInput> = ({
           {...field}
           value={field.value.filename}
           onChange={(event) => {
-            handleFileInputChange(event);
+            handleFileInputChange(event, field.onChange);
           }}
         />
       </Label>

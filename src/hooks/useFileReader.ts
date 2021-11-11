@@ -31,10 +31,9 @@ export const useFileReader = (): [IUseFileReader, (file: File) => void] => {
   const [isVisiblePreviewFile, setIsVisiblePreviewFile] = useState(false);
   const [uniqueKeyInput, resetUniqueKeyInput] = useState(Date.now());
 
-  const takeFile = useCallback((file: File) => {
+  const loadFile = useCallback((file: File) => {
     const reader = new FileReader();
     setIsVisiblePreviewFile(false);
-    console.log(file);
 
     reader.onload = function () {
       setFileInfo({
@@ -74,6 +73,6 @@ export const useFileReader = (): [IUseFileReader, (file: File) => void] => {
       handleDeleteFile,
       handleResetUniqueKey,
     },
-    takeFile,
+    loadFile,
   ];
 };

@@ -10,12 +10,15 @@ import { SUPPORTED_FORMATS } from '../MessageForm/constants/constants';
 import './filePreview.scss';
 
 interface IFilePreview {
-  handleDeleteFile: () => void;
-  fileState: IUseFileReader;
+  handleDeletePreviewFile: () => void;
+  previewFileState: IUseFileReader;
 }
 
-export const FilePreview: React.FC<IFilePreview> = ({ fileState, handleDeleteFile }) => {
-  const { isVisiblePreviewFile, fileInfo, handleSetIsVisiblePreview } = fileState;
+export const FilePreview: React.FC<IFilePreview> = ({
+  previewFileState,
+  handleDeletePreviewFile,
+}) => {
+  const { isVisiblePreviewFile, fileInfo, handleSetIsVisiblePreview } = previewFileState;
 
   return (
     <Wrapper
@@ -60,7 +63,7 @@ export const FilePreview: React.FC<IFilePreview> = ({ fileState, handleDeleteFil
             type={ButtonType.button}
             iconName={IconName.deleteIcon}
             color={ColorType.error}
-            onClick={handleDeleteFile}
+            onClick={handleDeletePreviewFile}
           />
         </Wrapper>
       </Wrapper>
