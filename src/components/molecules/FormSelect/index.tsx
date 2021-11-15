@@ -29,8 +29,8 @@ export const FormSelect: React.FC<IFormSelect> = ({
   setValue,
   clearErrors,
 }) => {
-  const [isVisibleList, setIsVisibleList] = useState(false);
-  const [genderValue, setGenderValue] = useState('');
+  const [isVisibleList, setIsVisibleList] = useState<boolean>(false);
+  const [genderValue, setGenderValue] = useState<string>('');
 
   const classProps = classNames('select__list', {
     ' select__list_active': isVisibleList,

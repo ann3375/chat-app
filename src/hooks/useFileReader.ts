@@ -26,10 +26,10 @@ const initialFileInfoState = {
 };
 
 export const useFileReader = (): [IUseFileReader, (file: File) => void] => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [fileInfo, setFileInfo] = useState(initialFileInfoState);
-  const [isVisiblePreviewFile, setIsVisiblePreviewFile] = useState(false);
-  const [uniqueKeyInput, resetUniqueKeyInput] = useState(Date.now());
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [fileInfo, setFileInfo] = useState<FileInfoType>(initialFileInfoState);
+  const [isVisiblePreviewFile, setIsVisiblePreviewFile] = useState<boolean>(false);
+  const [uniqueKeyInput, resetUniqueKeyInput] = useState<number>(Date.now());
 
   const loadFile = useCallback((file: File) => {
     const reader = new FileReader();

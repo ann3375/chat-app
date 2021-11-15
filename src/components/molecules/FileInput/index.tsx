@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Label } from '../../atoms/Label';
 import { InputId, InputType } from '../FormInput/types/types';
 import { IconName } from '../../atoms/Icon/types/types';
@@ -11,6 +12,7 @@ interface IFileInput {
   id: InputId;
   uniqueKey: number;
   errorText: string | undefined;
+  className: string;
   field: {
     name: string;
     onBlur: () => void;
@@ -28,10 +30,15 @@ export const FileInput: React.FC<IFileInput> = ({
   field,
   uniqueKey,
   errorText,
+  className,
   handleFileInputChange,
 }): React.ReactElement => {
+  const classProps = classNames('file-input', {
+    [`${className}`]: className,
+  });
+
   return (
-    <Wrapper className="file-input">
+    <Wrapper className={classProps}>
       <Label htmlFor={InputId.files} className="file-input__label">
         <Icon name={IconName.addFile} className="file-input__icon" />
         <input

@@ -11,6 +11,7 @@ export enum IconName {
   arrowLeft = 'arrowLeft',
   closeIcon = 'closeIcon',
   spiner = 'spiner',
+  spinnerCircle = 'spinnerCircle',
   updateIcon = 'updateIcon',
   arrowDown = 'arrowDown',
   deleteIcon = 'deleteIcon',

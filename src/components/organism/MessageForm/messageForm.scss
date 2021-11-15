@@ -30,9 +30,17 @@
     }
   }
 
+  &__button {
+    padding: 15px;
+  }
+
   &__preview-block {
     position: absolute;
     bottom: 100%;
+  }
+  &__file-input {
+    background: $color-white;
+    z-index: 10;
   }
 
   & .form-field {
@@ -46,6 +54,28 @@
 
     & label {
       display: none;
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    background: $color-white;
+    border-radius: 20px 0px 0px 0px;
+    padding: 15px;
+    transition: all 0.5s ease;
+    opacity: 0;
+
+    height: auto;
+    max-height: 0;
+    visibility: hidden;
+    overflow: hidden;
+
+    &_active {
+      visibility: inherit;
+      max-height: 100px;
+      opacity: 1;
     }
   }
 }
@@ -81,6 +111,7 @@
     &__button {
       width: 48px;
       height: 48px;
+      padding: 15px;
     }
   }
 }

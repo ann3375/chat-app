@@ -29,7 +29,7 @@ export const Modal: React.FC<IModal> = ({ notificationText, isError }) => {
 
         <Typography variant={TypographyTypeStyle.p1} className="modal__info-text">
           Попытка подключения завершилась неудачно, текст ошибки :
-          <Typography variant={TypographyTypeStyle.p2} className="modal__error-text">
+          <Typography variant={TypographyTypeStyle.span} className="modal__error-text">
             {notificationText === 'error' ? 'Проверьте подключение к сети' : notificationText}
           </Typography>
         </Typography>
@@ -44,7 +44,7 @@ export const Modal: React.FC<IModal> = ({ notificationText, isError }) => {
           className="modal__button"
           onClick={handleButtonClick}
         >
-          Вернуться на страницу авторизации
+          На страницу авторизации
         </Button>
       </Wrapper>
     </Wrapper>

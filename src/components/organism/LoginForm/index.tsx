@@ -62,7 +62,7 @@ export const LoginForm = observer((): React.ReactElement => {
       '/auth/login'
     );
 
-    accessToken && userStore.setUserInfo(formData.login, accessToken);
+    accessToken && userStore.setAccessToken(accessToken);
   };
 
   useEffect(() => {

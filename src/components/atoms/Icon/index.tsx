@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: string;
@@ -6,7 +6,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
 
 export const Icon: React.FC<IconProps> = ({ name, ...rest }): JSX.Element | null => {
   const importedIconRef = React.useRef<React.FC<React.SVGProps<SVGSVGElement>>>();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   React.useEffect(() => {
     setIsLoading(true);

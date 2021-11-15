@@ -10,12 +10,12 @@ import { ChatPageTemplate } from '../../components/templates/ChatPageTemplate';
 import { RootStoreContext } from '../../store/RootStore';
 import { LOADING_STATE } from '../../store/types/types';
 import { ButtonType, ButtonVariant } from '../../components/atoms/Button/types/types';
-import { useWebsocket } from '../../services/useWebsocket';
+import { useWebsocket } from '../../hooks/useWebsocket';
 import { UserGender } from '../../components/atoms/Avatar/types/types';
 import { Modal } from '../../components/organism/Modal';
 
 export const ChatPage = observer((): React.ReactElement => {
-  const [isVisibleUserList, setIsVisibleUserList] = useState(false);
+  const [isVisibleUserList, setIsVisibleUserList] = useState<boolean>(false);
   const { userListStore, currentDialogStore } = useContext(RootStoreContext);
 
   const [wsState, WSAction] = useWebsocket();
@@ -34,6 +34,7 @@ export const ChatPage = observer((): React.ReactElement => {
 
   useEffect(() => {
     wsState.isOpen && WSAction.fetchUserList();
+    wsState.isOpen && WSAction.fetchUserData();
   }, [WSAction, wsState.isOpen]);
 
   return (

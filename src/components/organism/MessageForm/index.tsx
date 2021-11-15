@@ -18,6 +18,9 @@ import { useFileReader } from '../../../hooks/useFileReader';
 import { validateFile } from '../../../utils/validateFile';
 
 import './messageForm.scss';
+import { LOADING_STATE } from '../../../store/types/types';
+import { Typography } from '../../atoms/Typography';
+import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 interface IMessageForm {
   WSAction: IWSAction;
@@ -32,13 +35,23 @@ const schema = yup.object().shape({
   messageText: yup.string(),
 });
 
-export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessageForm) {
+export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
   const { currentDialogStore, userStore } = useContext(RootStoreContext);
   const [previewFileState, setPreviewFileState] = useFileReader();
 
-  const message = useRef<{ messageText?: string; fromUser?: string; fileLink?: string }>({
+  const isFileLoading = currentDialogStore.loadingState === LOADING_STATE.PENDING;
+
+  console.log(currentDialogStore.loadingState);
+
+  const message = useRef<{
+    messageText?: string;
+    fromUser?: string;
+    forUser?: string;
+    fileLink?: string;
+  }>({
     messageText: '',
     fromUser: '',
+    forUser: '',
     fileLink: '',
   });
 
@@ -69,7 +82,8 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
 
     message.current = {
       messageText: data.messageText,
-      fromUser: userStore.user.username,
+      fromUser: userStore.userInfo.username,
+      forUser: currentDialogStore.dialogInfo.username,
     };
 
     if (data.files?.name) {
@@ -79,40 +93,44 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
       message.current.fileLink = fileLink ? `${URL}:${HTTP_PORT}${fileLink}` : '';
     }
 
-    WSAction.sendMessage(`'${JSON.stringify(message)}'`);
+    if (message.current.messageText || message.current.fileLink) {
+      WSAction.sendMessage(`'${JSON.stringify(message)}'`);
+    }
   };
 
   const fileErrors = errors.files?.message || currentDialogStore.dialogMessagesError;
 
-  const handleFileInputChange = (
-    event: { target: HTMLInputElement },
-    onChangeHandler: (e: File) => void
-  ) => {
-    if (event.target.files?.length) {
-      const file = event.target.files[0];
-      if (validateFile(file).isValid) {
-        setPreviewFileState(file);
-        onChangeHandler(file);
+  const handleFileInputChange = useCallback(
+    (event: { target: HTMLInputElement }, onChangeHandler: (e: File) => void) => {
+      if (event.target.files?.length) {
+        const file = event.target.files[0];
+        if (validateFile(file).isValid) {
+          setPreviewFileState(file);
+          onChangeHandler(file);
+        }
+
+        validateFile(file).isSizeError &&
+          setError('files', { type: 'fileError', message: 'Размер файла должен быть меньше 2 мб' });
+
+        validateFile(file).isTypeError &&
+          setError('files', { type: 'fileError', message: `Данный тип не поддерживается` });
       }
-
-      validateFile(file).isSizeError &&
-        setError('files', { type: 'fileError', message: 'Размер файла должен быть меньше 2 мб' });
-
-      validateFile(file).isTypeError &&
-        setError('files', { type: 'fileError', message: `Данный тип не поддерживается` });
-    }
-  };
+    },
+    [setError, setPreviewFileState]
+  );
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       handleDeletePreviewFile();
+
       reset({ files: [], messageText: '' });
       message.current = {
         messageText: '',
         fromUser: '',
+        forUser: '',
       };
     }
-  }, [isSubmitSuccessful, handleDeletePreviewFile, reset]);
+  }, [isSubmitSuccessful, previewFileState, handleDeletePreviewFile, reset]);
 
   useEffect(() => {
     if (fileErrors) {
@@ -121,6 +139,7 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
       setTimeout(() => {
         clearErrors('files');
         currentDialogStore.clearError();
+        previewFileState.handleResetUniqueKey();
       }, 1000);
     }
   }, [clearErrors, previewFileState, fileErrors, currentDialogStore]);
@@ -152,6 +171,7 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
           render={({ field }) => (
             <FileInput
               id={InputId.files}
+              className="message-form__file-input"
               field={field}
               handleFileInputChange={handleFileInputChange}
               uniqueKey={previewFileState.uniqueKeyInput}
@@ -168,14 +188,23 @@ export const MessageForm = React.memo(function MessageForm({ WSAction }: IMessag
           )}
         />
 
+        <Typography
+          variant={TypographyTypeStyle.span}
+          className={classNames('message-form__tooltip', {
+            'message-form__tooltip_active': isFileLoading,
+          })}
+        >
+          Идет отправка файла...
+        </Typography>
+
         <ButtonIcon
-          iconName={IconName.sendMessage}
+          iconName={isFileLoading ? IconName.spinnerCircle : IconName.sendMessage}
           type={ButtonType.submit}
           color={ColorType.primary}
           className="message-form__button"
-          isDisabled={!isValid}
+          isDisabled={!isValid || isFileLoading}
         />
       </Wrapper>
     </form>
   );
-});
+};

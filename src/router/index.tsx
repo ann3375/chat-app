@@ -8,11 +8,11 @@ import { SCREENS } from './endpoints';
 import { RootStoreContext } from '../store/RootStore';
 
 export const Routes: React.FC = observer(() => {
+  const { userStore } = useContext(RootStoreContext);
+
   const {
-    userStore: {
-      user: { isUserAuthenticate },
-    },
-  } = useContext(RootStoreContext);
+    userInfo: { isUserAuthenticate },
+  } = userStore;
 
   return (
     <Router>
@@ -21,7 +21,7 @@ export const Routes: React.FC = observer(() => {
           component={ChatPage}
           exact
           path={[SCREENS.SCREEN_DIALOGS, SCREENS.SCREEN_CURRENT_DIALOG]}
-          isUserAuthenticate={!!isUserAuthenticate}
+          isUserAuthenticate={isUserAuthenticate}
           redirectPath={SCREENS.SCREEN_LOGIN}
         />
 

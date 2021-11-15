@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { RootStoreContext } from '../store/RootStore';
-import { webSocketMessage, WS_API } from './contants';
-import { IWSAction, WebSocketMessageType } from './types';
+import { webSocketMessage, WS_API } from '../services/contants';
+import { IWSAction, WebSocketMessageType } from '../services/types';
 
 type Result<T> = T | undefined;
 
@@ -16,12 +16,12 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
   const { userStore, userListStore } = useContext(RootStoreContext);
   const ws = useRef<WebSocket | null>();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const [result, setResult] = useState<Result<T>>();
-  const [isClosed, setIsClosed] = useState(false);
+  const [isClosed, setIsClosed] = useState<boolean>(false);
 
-  const accessToken = userStore.user.isUserAuthenticate;
+  const accessToken = userStore.tokens.accessToken;
 
   const params = '/?type=test&ws_id=';
 
@@ -45,6 +45,7 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
 
     ws.current.onerror = (event: Event) => {
       setError(event.type);
+      console.log(event);
     };
 
     ws.current.onclose = () => {
@@ -54,9 +55,10 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
 
     if (ws.current) {
       ws.current.onmessage = (event: MessageEvent) => {
-        if (event.data.includes('wrong')) {
-          setError(event.data);
+        if (event.data.includes(`Get param 'ws_id' - is wrong! Please relogin!`)) {
+          return setError(event.data);
         }
+
         const reverseData = event.data.replaceAll("'", '');
         const { type: eventType, ...wsResponse } = JSON.parse(reverseData);
 
@@ -64,10 +66,14 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
           userListStore.setUserList(wsResponse.data);
         }
 
+        if (eventType === WebSocketMessageType.userData) {
+          userStore.setCurrentUserInfo(wsResponse.data);
+        }
+
         setResult(wsResponse.data);
       };
     }
-  }, [userListStore]);
+  }, [userListStore, userStore]);
 
   const send = (messageType: WebSocketMessageType, data?: Record<string, unknown>) => {
     if (messageType === WebSocketMessageType.sendMessage) {

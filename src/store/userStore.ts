@@ -4,14 +4,25 @@ import { localStorageUtils } from '../utils/localStorageUtils';
 import { RootStore } from './RootStore';
 import { LOADING_STATE } from './types/types';
 
-const username = localStorageUtils.getUsername();
+export type UserInfoType = {
+  name: string;
+  gender: string;
+};
+
+const accessToken = localStorageUtils.getAccessToken();
 
 export class UserStore {
   rootStore: RootStore;
-  user = {
-    username: username ? username : '',
-    isUserAuthenticate: localStorageUtils.getAccessToken(),
+  userInfo = {
+    username: '',
+    gender: '',
+    isUserAuthenticate: !!accessToken,
   };
+
+  tokens = {
+    accessToken: accessToken ? accessToken : '',
+  };
+
   loadingState: LOADING_STATE = LOADING_STATE.NEVER;
   userAuthDataError = '';
 
@@ -20,21 +31,31 @@ export class UserStore {
     this.rootStore = rootStore;
   }
 
-  setUserInfo(username: string, accessToken: string): void {
-    this.user = {
+  setCurrentUserInfo(userInfo: UserInfoType): void {
+    const { name: username, gender } = userInfo;
+
+    this.userInfo = {
       username,
-      isUserAuthenticate: accessToken,
+      gender,
+      isUserAuthenticate: true,
     };
+  }
+
+  setAccessToken(accessToken: string): void {
+    this.tokens = {
+      accessToken,
+    };
+    this.userInfo.isUserAuthenticate = true;
     localStorageUtils.setAccessToken(accessToken);
-    localStorageUtils.setUsername(username);
   }
 
   clearUserInfo(): void {
     localStorageUtils.clearLocalStorage();
 
-    this.user = {
+    this.userInfo = {
       username: '',
-      isUserAuthenticate: null,
+      gender: '',
+      isUserAuthenticate: false,
     };
   }
 

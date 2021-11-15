@@ -9,8 +9,8 @@ import { fetchApi } from '../../../services/api';
 import './captchaBlock.scss';
 
 export const CaptchaBlock = React.memo(function CaptchaBlock(): React.ReactElement {
-  const [captchaURL, setCaptchaURL] = useState('');
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [captchaURL, setCaptchaURL] = useState<string>('');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const handlerCaptchaURL = useCallback(() => {
     fetchApi.fetchCaptcha(setCaptchaURL, setIsLoaded);
