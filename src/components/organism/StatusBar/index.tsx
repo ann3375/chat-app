@@ -5,13 +5,12 @@ import { ButtonIcon } from '../../molecules/ButtonIcon';
 import { UserStatus } from '../../molecules/UserStatus';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
-import { CurrentDialogInfoType } from '../../../store/types/types';
 
 import './statusBar.scss';
 
 interface IStatusBar {
   isVisibleUserList: boolean;
-  dialogInfo: CurrentDialogInfoType;
+  dialogInfo: { username: string; gender: string; lastSeen: string };
   handleVisibleUserList: () => void;
 }
 

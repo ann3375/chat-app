@@ -1,19 +1,21 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+import { RootStore } from './RootStore';
 import { UserGender } from '../components/atoms/Avatar/types/types';
 import { URL_API } from '../services/contants';
-import { RootStore } from './RootStore';
-import { CurrentDialogInfoType, DialogMessageType, LOADING_STATE } from './types/types';
+import { CurrentDialogInfoType, DialogType, LOADING_STATE, MessageType } from './types/types';
 
-export class CurrentDialogStore {
+export class DialogStore {
   rootStore: RootStore;
-  dialogInfo: CurrentDialogInfoType = {
-    username: '',
-    gender: UserGender.noGender,
-    lastSeen: '',
-    id: '',
+  dialogsList: DialogType[] = [];
+  currentDialogInfo: CurrentDialogInfoType = {
+    companion: {
+      username: '',
+      gender: UserGender.noGender,
+      lastSeen: '',
+    },
   };
-  dialogMessages: DialogMessageType[] = [];
-  dialogMessagesError = '';
+  currentDialogId = '';
+  currentDialogError = '';
   loadingState: LOADING_STATE = LOADING_STATE.NEVER;
 
   constructor(rootStore: RootStore) {
@@ -21,23 +23,51 @@ export class CurrentDialogStore {
     makeAutoObservable(this);
   }
 
+  getDialogInfo(): DialogType | undefined {
+    const currentDialog = this.dialogsList.find(
+      (dialog) => dialog.dialogId === this.currentDialogId
+    );
+    return currentDialog;
+  }
+
+  addDialogToDialogList(): void {
+    const currentDialog = this.getDialogInfo();
+
+    if (!currentDialog) {
+      const newDialog = {
+        dialogId: this.currentDialogId,
+        dialogMessages: [],
+      };
+      this.dialogsList.push(newDialog);
+    }
+  }
+
   setCurrentDialogInfo(username: string, lastSeen: string, id: string, gender: UserGender): void {
     runInAction(() => {
-      this.dialogInfo = {
+      this.currentDialogInfo.companion = {
         username,
         lastSeen,
-        id,
         gender,
       };
+      this.currentDialogId = id;
+      this.addDialogToDialogList();
+    });
+  }
+
+  updateCurrentDialogMessages(message: MessageType): void {
+    const currentDialog = this.getDialogInfo();
+
+    runInAction(() => {
+      currentDialog?.dialogMessages.push(message);
     });
   }
 
   setError(error: string): void {
-    this.dialogMessagesError = error;
+    this.currentDialogError = error;
   }
 
   clearError(): void {
-    this.dialogMessagesError = '';
+    this.currentDialogError = '';
   }
 
   async sendMessageFile<R>(files: FormData, url: string): Promise<R | string | undefined> {
@@ -49,7 +79,7 @@ export class CurrentDialogStore {
         body: files,
       }).then((response) => {
         if (response.status === 200) {
-          if (this.dialogMessagesError) {
+          if (this.currentDialogError) {
             runInAction(() => {
               this.clearError();
             });

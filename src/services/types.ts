@@ -9,6 +9,7 @@ export enum WebSocketMessageType {
   usersList = 'users_list',
   userData = 'user_data',
   sendMessage = 'send_message',
+  sendUserJoinedInfo = 'user_joined',
 }
 
 export interface IMessageToWS {
@@ -19,4 +20,5 @@ export interface IWSAction {
   fetchUserList: () => void;
   fetchUserData: () => void;
   sendMessage: (text: string) => void;
+  sendUserJoinedInfo: (name: string, gender: string) => void;
 }

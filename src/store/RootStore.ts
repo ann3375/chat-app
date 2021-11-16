@@ -1,19 +1,19 @@
 import { createContext } from 'react';
 import { GenderListStore } from './genderListStore';
-import { CurrentDialogStore } from './currentDialogStore';
+import { DialogStore } from './dialogStore';
 import { UserListStore } from './userListStore';
 import { UserStore } from './userStore';
 
 export class RootStore {
   userStore = new UserStore(this);
   userListStore = new UserListStore(this);
-  currentDialogStore = new CurrentDialogStore(this);
+  dialogStore = new DialogStore(this);
   genderListStore = new GenderListStore(this);
 
   constructor() {
     this.userStore = new UserStore(this);
     this.genderListStore = new GenderListStore(this);
-    this.currentDialogStore = new CurrentDialogStore(this);
+    this.dialogStore = new DialogStore(this);
   }
 }
 

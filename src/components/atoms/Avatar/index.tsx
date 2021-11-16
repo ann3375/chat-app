@@ -1,14 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Icon } from '../Icon';
-import { UserGender, AvatarSize } from './types/types';
+import { AvatarSize } from './types/types';
 import { checkUserAvatar } from '../../../utils/checkUserAvatar';
 
 import './avatar.scss';
 
 interface IAvatar {
   size: AvatarSize;
-  gender: UserGender;
+  gender: string;
   className?: string;
 }
 

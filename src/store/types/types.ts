@@ -1,5 +1,3 @@
-import { UserGender } from '../../components/atoms/Avatar/types/types';
-
 export enum LOADING_STATE {
   LOADED = 'LOADED',
   ERROR = 'ERROR',
@@ -7,27 +5,28 @@ export enum LOADING_STATE {
   PENDING = 'PENDING',
 }
 
-export type DialogMessageType = {
-  messageId: number;
-  messageText: string;
-  from: string;
-};
-
-export type CurrentDialogInfoType = {
-  username: string;
-  lastSeen: string;
-  id: string;
-  gender: UserGender;
-};
-
 export type GendersListType = {
   id: string;
   gender: string;
 };
 
-export type DialogResponseData = [
-  {
-    id: string;
-    messages: DialogMessageType[];
-  }
-];
+export type MessageType = {
+  text: string;
+  fromUser: string;
+  forUser: string;
+  createdAt: number | null;
+  fileLink?: string;
+};
+
+export type DialogType = {
+  dialogId: string;
+  dialogMessages: MessageType[];
+};
+
+export type CurrentDialogInfoType = {
+  companion: {
+    username: string;
+    gender: string;
+    lastSeen: string;
+  };
+};

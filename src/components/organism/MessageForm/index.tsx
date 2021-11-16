@@ -4,6 +4,7 @@ import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Wrapper } from '../../atoms/Wrapper';
+import { Typography } from '../../atoms/Typography';
 import { ButtonIcon } from '../../molecules/ButtonIcon';
 import { FileInput } from '../../molecules/FileInput';
 import { FormInput } from '../../molecules/FormInput';
@@ -11,48 +12,31 @@ import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { InputId, InputType } from '../../molecules/FormInput/types/types';
 import { RootStoreContext } from '../../../store/RootStore';
-import { IWSAction } from '../../../services/types';
 import { URL, HTTP_PORT } from '../../../services/contants';
 import { FilePreview } from '../FilePreview';
 import { useFileReader } from '../../../hooks/useFileReader';
 import { validateFile } from '../../../utils/validateFile';
+import { LOADING_STATE, MessageType } from '../../../store/types/types';
+import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
+import { IFormInput, IMessageForm } from './types/types';
 
 import './messageForm.scss';
-import { LOADING_STATE } from '../../../store/types/types';
-import { Typography } from '../../atoms/Typography';
-import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
-
-interface IMessageForm {
-  WSAction: IWSAction;
-}
-
-interface IFormInput {
-  messageText: string;
-  files: File;
-}
 
 const schema = yup.object().shape({
   messageText: yup.string(),
 });
 
 export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
-  const { currentDialogStore, userStore } = useContext(RootStoreContext);
+  const { dialogStore, userStore } = useContext(RootStoreContext);
   const [previewFileState, setPreviewFileState] = useFileReader();
+  const isFileLoading = dialogStore.loadingState === LOADING_STATE.PENDING;
 
-  const isFileLoading = currentDialogStore.loadingState === LOADING_STATE.PENDING;
-
-  console.log(currentDialogStore.loadingState);
-
-  const message = useRef<{
-    messageText?: string;
-    fromUser?: string;
-    forUser?: string;
-    fileLink?: string;
-  }>({
-    messageText: '',
+  const message = useRef<MessageType>({
+    text: '',
     fromUser: '',
     forUser: '',
     fileLink: '',
+    createdAt: null,
   });
 
   const {
@@ -71,6 +55,8 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
     },
   });
 
+  const fileErrors = errors.files?.message || dialogStore.currentDialogError;
+
   const handleDeletePreviewFile = useCallback(() => {
     previewFileState.handleDeleteFile();
     previewFileState.handleResetUniqueKey();
@@ -81,24 +67,23 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
     const formData = new FormData();
 
     message.current = {
-      messageText: data.messageText,
+      text: data.messageText,
       fromUser: userStore.userInfo.username,
-      forUser: currentDialogStore.dialogInfo.username,
+      forUser: dialogStore.currentDialogInfo.companion.username,
+      createdAt: Date.now(),
     };
 
     if (data.files?.name) {
       formData.append('0', data.files, data.files.name);
-      const fileLink = await currentDialogStore.sendMessageFile<string>(formData, '/upload');
+      const fileLink = await dialogStore.sendMessageFile<string>(formData, '/upload');
 
       message.current.fileLink = fileLink ? `${URL}:${HTTP_PORT}${fileLink}` : '';
     }
 
-    if (message.current.messageText || message.current.fileLink) {
-      WSAction.sendMessage(`'${JSON.stringify(message)}'`);
+    if (message.current.text || message.current.fileLink) {
+      WSAction.sendMessage(`'${JSON.stringify(message.current)}'`);
     }
   };
-
-  const fileErrors = errors.files?.message || currentDialogStore.dialogMessagesError;
 
   const handleFileInputChange = useCallback(
     (event: { target: HTMLInputElement }, onChangeHandler: (e: File) => void) => {
@@ -116,7 +101,7 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
           setError('files', { type: 'fileError', message: `Данный тип не поддерживается` });
       }
     },
-    [setError, setPreviewFileState]
+    [setPreviewFileState, setError]
   );
 
   useEffect(() => {
@@ -125,9 +110,10 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
 
       reset({ files: [], messageText: '' });
       message.current = {
-        messageText: '',
+        text: '',
         fromUser: '',
         forUser: '',
+        createdAt: null,
       };
     }
   }, [isSubmitSuccessful, previewFileState, handleDeletePreviewFile, reset]);
@@ -138,11 +124,11 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
 
       setTimeout(() => {
         clearErrors('files');
-        currentDialogStore.clearError();
+        dialogStore.clearError();
         previewFileState.handleResetUniqueKey();
       }, 1000);
     }
-  }, [clearErrors, previewFileState, fileErrors, currentDialogStore]);
+  }, [clearErrors, previewFileState, fileErrors, dialogStore]);
 
   return (
     <form className="message-form" onSubmit={handleSubmit(onSubmit)}>

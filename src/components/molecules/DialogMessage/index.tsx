@@ -7,11 +7,11 @@ import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import './dialogMessage.scss';
 
 interface IDialogMessage {
-  messageText: string;
   isCurrentUserMessage: boolean;
+  messageText?: string;
 }
 
-export const DialogMessage: React.FC<IDialogMessage> = ({ messageText, isCurrentUserMessage }) => {
+export const DialogMessage: React.FC<IDialogMessage> = ({ isCurrentUserMessage, messageText }) => {
   const classProps = classNames('message', {
     ['message_side_left']: !isCurrentUserMessage,
     ['message_side_right']: isCurrentUserMessage,

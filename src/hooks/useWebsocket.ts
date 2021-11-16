@@ -12,8 +12,10 @@ interface IWSState<T> {
   isClosed: boolean;
 }
 
-export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAction] => {
-  const { userStore, userListStore } = useContext(RootStoreContext);
+export const useWebsocket = <T = Record<string, unknown>>(
+  type: string
+): [IWSState<T>, IWSAction] => {
+  const { userStore, userListStore, dialogStore } = useContext(RootStoreContext);
   const ws = useRef<WebSocket | null>();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -23,7 +25,7 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
 
   const accessToken = userStore.tokens.accessToken;
 
-  const params = '/?type=test&ws_id=';
+  const params = `/?type=${type}&ws_id=`;
 
   useEffect(() => {
     if (accessToken) {
@@ -34,7 +36,7 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
       ws.current?.close();
       setIsClosed(true);
     };
-  }, [accessToken]);
+  }, [accessToken, params]);
 
   useEffect(() => {
     if (!ws.current) return;
@@ -49,7 +51,9 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
     };
 
     ws.current.onclose = () => {
-      ws.current?.close();
+      setTimeout(() => {
+        ws.current?.close();
+      }, 1000);
       setIsClosed(true);
     };
 
@@ -62,6 +66,10 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
         const reverseData = event.data.replaceAll("'", '');
         const { type: eventType, ...wsResponse } = JSON.parse(reverseData);
 
+        if (eventType === WebSocketMessageType.sendMessage) {
+          dialogStore.updateCurrentDialogMessages(JSON.parse(wsResponse.data.message));
+        }
+
         if (eventType === WebSocketMessageType.usersList) {
           userListStore.setUserList(wsResponse.data);
         }
@@ -70,14 +78,22 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
           userStore.setCurrentUserInfo(wsResponse.data);
         }
 
+        if (eventType === WebSocketMessageType.sendUserJoinedInfo) {
+          userListStore.updateUserList(wsResponse.data);
+        }
+
         setResult(wsResponse.data);
       };
     }
-  }, [userListStore, userStore]);
+  }, [userListStore, userStore, dialogStore]);
 
   const send = (messageType: WebSocketMessageType, data?: Record<string, unknown>) => {
     if (messageType === WebSocketMessageType.sendMessage) {
-      return ws.current?.send(`'${JSON.stringify({ type: messageType, ...data })}'`);
+      return ws.current?.send(`'${JSON.stringify({ type: messageType, data })}'`);
+    }
+
+    if (messageType === WebSocketMessageType.sendUserJoinedInfo) {
+      return ws.current?.send(`'${JSON.stringify({ type: messageType, data })}'`);
     }
 
     return ws.current?.send(JSON.stringify({ type: messageType, ...data }));
@@ -87,8 +103,10 @@ export const useWebsocket = <T = Record<string, unknown>>(): [IWSState<T>, IWSAc
     const fetchUserList = () => webSocketMessage.fetchUserList(send);
     const fetchUserData = () => webSocketMessage.fetchUserData(send);
     const sendMessage = (text: string) => webSocketMessage.sendMessage(send, text);
+    const sendUserJoinedInfo = (username: string, gender: string) =>
+      webSocketMessage.sendUserJoinedInfo(send, username, gender);
 
-    return { fetchUserList, fetchUserData, sendMessage };
+    return { fetchUserList, fetchUserData, sendMessage, sendUserJoinedInfo };
   }, []);
 
   return [{ isOpen, error, result, isClosed }, WSAction];

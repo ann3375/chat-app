@@ -18,6 +18,10 @@ export const webSocketMessage = {
   },
 
   sendMessage: (messageToWS: IMessageToWS, text: string): void => {
-    messageToWS(WebSocketMessageType.sendMessage, { text });
+    messageToWS(WebSocketMessageType.sendMessage, { message: text });
+  },
+
+  sendUserJoinedInfo: (messageToWS: IMessageToWS, name: string, gender: string): void => {
+    messageToWS(WebSocketMessageType.sendUserJoinedInfo, { name, gender });
   },
 };
