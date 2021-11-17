@@ -15,6 +15,7 @@ export interface IUserListItem {
   gender: UserGender;
   id: string;
   setDialogInfo: (username: string, lastseen: string, id: string, gender: UserGender) => void;
+  handleVisibleUserList: () => void;
   isCurrentUserLastMessage?: boolean;
   lastMessage?: string;
 }
@@ -26,13 +27,17 @@ export const UserListItem = React.memo(function UserListItem({
   isCurrentUserLastMessage,
   lastMessage,
   setDialogInfo,
+  handleVisibleUserList,
 }: IUserListItem) {
   return (
     <NavLink
       to={`${SCREENS.SCREEN_DIALOGS}/${id}`}
       className="user-list__link"
       activeClassName="user-list__link_active"
-      onClick={() => setDialogInfo(name, 'Last seen 3 seconds ago', id, gender)}
+      onClick={() => {
+        handleVisibleUserList();
+        setDialogInfo(name, 'Last seen 3 seconds ago', id, gender);
+      }}
     >
       <Avatar size={AvatarSize.medium} gender={gender} className="link__avatar" />
       <Wrapper className="link__info">

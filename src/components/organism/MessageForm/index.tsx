@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,12 +11,11 @@ import { FormInput } from '../../molecules/FormInput';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { InputId, InputType } from '../../molecules/FormInput/types/types';
-import { RootStoreContext } from '../../../store/RootStore';
 import { URL, HTTP_PORT } from '../../../services/contants';
 import { FilePreview } from '../FilePreview';
 import { useFileReader } from '../../../hooks/useFileReader';
 import { validateFile } from '../../../utils/validateFile';
-import { LOADING_STATE, MessageType } from '../../../store/types/types';
+import { MessageType } from '../../../store/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { IFormInput, IMessageForm } from './types/types';
 
@@ -26,16 +25,24 @@ const schema = yup.object().shape({
   messageText: yup.string(),
 });
 
-export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
-  const { dialogStore, userStore } = useContext(RootStoreContext);
+export const MessageForm: React.FC<IMessageForm> = ({
+  WSAction,
+  dialogStore,
+  currentUsername,
+  isFileLoading,
+}) => {
   const [previewFileState, setPreviewFileState] = useFileReader();
-  const isFileLoading = dialogStore.loadingState === LOADING_STATE.PENDING;
 
   const message = useRef<MessageType>({
     text: '',
     fromUser: '',
     forUser: '',
-    fileLink: '',
+    file: {
+      fileLink: '',
+      fileType: '',
+      fileSize: 0,
+      fileName: '',
+    },
     createdAt: null,
   });
 
@@ -68,19 +75,26 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
 
     message.current = {
       text: data.messageText,
-      fromUser: userStore.userInfo.username,
+      fromUser: currentUsername,
       forUser: dialogStore.currentDialogInfo.companion.username,
       createdAt: Date.now(),
     };
 
     if (data.files?.name) {
+      const { name: fileName, size: fileSize, type: fileType } = data.files;
+
       formData.append('0', data.files, data.files.name);
       const fileLink = await dialogStore.sendMessageFile<string>(formData, '/upload');
 
-      message.current.fileLink = fileLink ? `${URL}:${HTTP_PORT}${fileLink}` : '';
+      message.current.file = {
+        fileLink: `${URL}:${HTTP_PORT}${fileLink}`,
+        fileType,
+        fileSize,
+        fileName,
+      };
     }
 
-    if (message.current.text || message.current.fileLink) {
+    if (message.current.text || message.current.file) {
       WSAction.sendMessage(`'${JSON.stringify(message.current)}'`);
     }
   };
@@ -139,7 +153,7 @@ export const MessageForm: React.FC<IMessageForm> = ({ WSAction }) => {
         />
       </Wrapper>
 
-      {previewFileState.fileInfo.name && (
+      {previewFileState.fileInfo.fileName && (
         <ButtonIcon
           className={classNames('message-form__preview-button', {
             'message-form__preview-button_active': !previewFileState.isVisiblePreviewFile,

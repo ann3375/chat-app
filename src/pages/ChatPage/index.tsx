@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Button } from '../../components/atoms/Button';
 import { Dialog } from '../../components/organism/Dialog';
@@ -16,24 +16,28 @@ import { Modal } from '../../components/organism/Modal';
 
 export const ChatPage = observer((): React.ReactElement => {
   const [isVisibleUserList, setIsVisibleUserList] = useState<boolean>(false);
-  const { userListStore, dialogStore, userStore } = useContext(RootStoreContext);
-  const currentUsername = userStore.userInfo.username;
-  const currentGender = userStore.userInfo.gender;
-  const messages = dialogStore.getDialogInfo();
+  const {
+    userListStore,
+    dialogStore,
+    userStore: {
+      userInfo: { username: currentUsername, gender: currentUserGender },
+    },
+  } = useContext(RootStoreContext);
 
-  const [wsState, WSAction] = useWebsocket('test');
+  const messages = dialogStore.getDialogInfo(dialogStore.currentDialogId);
+  const [wsState, WSAction] = useWebsocket('general_channel');
 
-  const userListRef = useRef<HTMLDivElement>(null);
   const handleVisibleUserList = React.useCallback(() => {
     setIsVisibleUserList(!isVisibleUserList);
   }, [isVisibleUserList]);
 
   const setDialogInfo = React.useCallback(
     (username: string, lastseen: string, id: string, gender: UserGender) => {
-      dialogStore.setCurrentDialogInfo(username, lastseen, id, gender);
+      const curId = [currentUsername, id.slice(0, id.lastIndexOf('_'))].sort().toString();
+      dialogStore.setCurrentDialogInfo(username, lastseen, curId, gender);
     },
 
-    [dialogStore]
+    [dialogStore, currentUsername]
   );
 
   useEffect(() => {
@@ -45,9 +49,9 @@ export const ChatPage = observer((): React.ReactElement => {
 
   useEffect(() => {
     if (wsState.isOpen && currentUsername) {
-      WSAction.sendUserJoinedInfo(currentUsername, currentGender);
+      WSAction.sendUserJoinedInfo(currentUsername, currentUserGender);
     }
-  }, [WSAction, wsState.isOpen, currentUsername, currentGender]);
+  }, [WSAction, wsState.isOpen, currentUsername, currentUserGender]);
 
   return (
     <>
@@ -59,7 +63,6 @@ export const ChatPage = observer((): React.ReactElement => {
             setDialogInfo={setDialogInfo}
             users={userListStore.userList}
             isLoaded={userListStore.loadingState === LOADING_STATE.LOADED}
-            listRef={userListRef}
             handleVisibleUserList={handleVisibleUserList}
             isVisibleUserList={isVisibleUserList}
           />
@@ -72,13 +75,17 @@ export const ChatPage = observer((): React.ReactElement => {
           />
         }
         dialog={
-          <Dialog
-            dialogMessages={messages?.dialogMessages}
-            currentUsername={userStore.userInfo.username}
-          />
+          <Dialog dialogMessages={messages?.dialogMessages} currentUsername={currentUsername} />
         }
         messageForm={
-          dialogStore.currentDialogId ? <MessageForm WSAction={WSAction} /> : <span>dsf</span>
+          dialogStore.currentDialogId ? (
+            <MessageForm
+              dialogStore={dialogStore}
+              currentUsername={currentUsername}
+              WSAction={WSAction}
+              isFileLoading={dialogStore.loadingState === LOADING_STATE.PENDING}
+            />
+          ) : undefined
         }
         notificationButton={
           <Button

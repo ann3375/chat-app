@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { LegacyRef } from 'react';
 import classNames from 'classnames';
 
 import './wrapper.scss';
@@ -10,6 +10,7 @@ export interface IWrapper {
   column?: boolean;
   row?: boolean;
   align?: 'center' | 'flex-start';
+  refBlock?: LegacyRef<HTMLDivElement> | undefined;
   onClick?: () => void;
 }
 
@@ -20,6 +21,7 @@ export const Wrapper: React.FC<IWrapper> = ({
   row,
   align,
   column,
+  refBlock,
   ...props
 }) => {
   const classProps = classNames('', {
@@ -30,7 +32,7 @@ export const Wrapper: React.FC<IWrapper> = ({
     [`${className}`]: className,
   });
   return (
-    <div className={classProps} {...props}>
+    <div ref={refBlock} className={classProps} {...props}>
       {children}
     </div>
   );

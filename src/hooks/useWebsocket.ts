@@ -33,8 +33,8 @@ export const useWebsocket = <T = Record<string, unknown>>(
     }
 
     return () => {
-      ws.current?.close();
       setIsClosed(true);
+      ws.current?.close();
     };
   }, [accessToken, params]);
 
@@ -47,14 +47,12 @@ export const useWebsocket = <T = Record<string, unknown>>(
 
     ws.current.onerror = (event: Event) => {
       setError(event.type);
-      console.log(event);
     };
 
     ws.current.onclose = () => {
-      setTimeout(() => {
-        ws.current?.close();
-      }, 1000);
       setIsClosed(true);
+
+      ws.current?.close();
     };
 
     if (ws.current) {
@@ -79,7 +77,9 @@ export const useWebsocket = <T = Record<string, unknown>>(
         }
 
         if (eventType === WebSocketMessageType.sendUserJoinedInfo) {
-          userListStore.updateUserList(wsResponse.data);
+          if (!userListStore.userList.find((user) => user.name === wsResponse.data.name)) {
+            userListStore.updateUserList(wsResponse.data);
+          }
         }
 
         setResult(wsResponse.data);
@@ -88,11 +88,10 @@ export const useWebsocket = <T = Record<string, unknown>>(
   }, [userListStore, userStore, dialogStore]);
 
   const send = (messageType: WebSocketMessageType, data?: Record<string, unknown>) => {
-    if (messageType === WebSocketMessageType.sendMessage) {
-      return ws.current?.send(`'${JSON.stringify({ type: messageType, data })}'`);
-    }
-
-    if (messageType === WebSocketMessageType.sendUserJoinedInfo) {
+    if (
+      messageType === WebSocketMessageType.sendMessage ||
+      messageType === WebSocketMessageType.sendUserJoinedInfo
+    ) {
       return ws.current?.send(`'${JSON.stringify({ type: messageType, data })}'`);
     }
 

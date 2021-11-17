@@ -23,43 +23,36 @@ export class DialogStore {
     makeAutoObservable(this);
   }
 
-  getDialogInfo(): DialogType | undefined {
-    const currentDialog = this.dialogsList.find(
-      (dialog) => dialog.dialogId === this.currentDialogId
-    );
-    return currentDialog;
-  }
-
-  addDialogToDialogList(): void {
-    const currentDialog = this.getDialogInfo();
-
-    if (!currentDialog) {
-      const newDialog = {
-        dialogId: this.currentDialogId,
-        dialogMessages: [],
-      };
-      this.dialogsList.push(newDialog);
-    }
+  getDialogInfo(id: string): DialogType | undefined {
+    return this.dialogsList.find((dialog) => dialog.dialogId === id);
   }
 
   setCurrentDialogInfo(username: string, lastSeen: string, id: string, gender: UserGender): void {
-    runInAction(() => {
-      this.currentDialogInfo.companion = {
-        username,
-        lastSeen,
-        gender,
-      };
-      this.currentDialogId = id;
-      this.addDialogToDialogList();
-    });
+    this.currentDialogInfo.companion = {
+      username,
+      lastSeen,
+      gender,
+    };
+    this.currentDialogId = id;
   }
 
   updateCurrentDialogMessages(message: MessageType): void {
-    const currentDialog = this.getDialogInfo();
+    const id = [message.fromUser, message.forUser].sort().toString();
+    const currentUsername = this.rootStore.userStore.userInfo.username;
 
-    runInAction(() => {
+    if (message.forUser === currentUsername || message.fromUser === currentUsername) {
+      const currentDialog = this.getDialogInfo(id);
+
+      if (!currentDialog) {
+        const newDialog = {
+          dialogId: id,
+          dialogMessages: [message],
+        };
+        this.dialogsList.push(newDialog);
+      }
+
       currentDialog?.dialogMessages.push(message);
-    });
+    }
   }
 
   setError(error: string): void {
@@ -72,7 +65,6 @@ export class DialogStore {
 
   async sendMessageFile<R>(files: FormData, url: string): Promise<R | string | undefined> {
     this.loadingState = LOADING_STATE.PENDING;
-
     try {
       return await fetch(`${URL_API}${url}`, {
         method: 'POST',
@@ -104,9 +96,7 @@ export class DialogStore {
         );
       });
     } finally {
-      runInAction(() => {
-        this.loadingState = LOADING_STATE.LOADED;
-      });
+      this.loadingState = LOADING_STATE.LOADED;
     }
   }
 }

@@ -9,7 +9,6 @@ import './userList.scss';
 
 interface IUserList {
   isVisibleUserList: boolean;
-  listRef: React.RefObject<HTMLDivElement>;
   users: IUserListItem[];
   isLoaded: boolean;
   handleVisibleUserList: () => void;
@@ -18,7 +17,6 @@ interface IUserList {
 
 export const UserList: React.FC<IUserList> = ({
   isVisibleUserList,
-  listRef,
   users,
   isLoaded,
   setDialogInfo,
@@ -29,11 +27,12 @@ export const UserList: React.FC<IUserList> = ({
   });
 
   return (
-    <div ref={listRef} className={classProps} onClick={handleVisibleUserList}>
+    <div className={classProps}>
       {isLoaded ? (
         users.length ? (
           users.map((user, index) => (
             <UserListItem
+              handleVisibleUserList={handleVisibleUserList}
               setDialogInfo={setDialogInfo}
               key={`${user.name}_${index}`}
               id={`${user.name}_${index}`}

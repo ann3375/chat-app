@@ -15,7 +15,7 @@ export const Routes: React.FC = observer(() => {
   } = userStore;
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <PrivateRoute
           component={ChatPage}

@@ -2,6 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { Wrapper } from '../../atoms/Wrapper';
 import { ButtonIcon } from '../../molecules/ButtonIcon';
+import { ImageBlock } from '../../molecules/ImageBlock';
+import { VideoBlock } from '../../molecules/VideoBlock';
+import { AudioBlock } from '../../molecules/AudioBlock';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { ButtonType } from '../../atoms/Button/types/types';
 import { IUseFileReader } from '../../../hooks/useFileReader';
@@ -27,26 +30,16 @@ export const FilePreview: React.FC<IFilePreview> = ({
       })}
     >
       <Wrapper className="preview__wrapper" flex>
-        {SUPPORTED_FORMATS.VIDEO.includes(fileInfo.type) && (
-          <Wrapper className="preview__video">
-            <video controls>
-              <source src={fileInfo.src} type={fileInfo.type}></source>
-            </video>
-          </Wrapper>
+        {SUPPORTED_FORMATS.VIDEO.includes(fileInfo.fileType) && (
+          <VideoBlock className="preview__video" file={fileInfo} />
         )}
 
-        {SUPPORTED_FORMATS.IMAGE.includes(fileInfo.type) && (
-          <Wrapper className="preview__image">
-            <img src={fileInfo.src} />
-          </Wrapper>
+        {SUPPORTED_FORMATS.IMAGE.includes(fileInfo.fileType) && (
+          <ImageBlock className="preview__image" file={fileInfo} />
         )}
 
-        {SUPPORTED_FORMATS.AUDIO.includes(fileInfo.type) && (
-          <Wrapper className="preview__audio">
-            <audio controls>
-              <source src={fileInfo.src} type={fileInfo.type} />
-            </audio>
-          </Wrapper>
+        {SUPPORTED_FORMATS.AUDIO.includes(fileInfo.fileType) && (
+          <AudioBlock className="preview__audio" file={fileInfo} />
         )}
 
         <Wrapper className="preview__buttons">

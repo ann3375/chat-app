@@ -1,3 +1,5 @@
+import { FileInfoType } from '../../hooks/useFileReader';
+
 export enum LOADING_STATE {
   LOADED = 'LOADED',
   ERROR = 'ERROR',
@@ -15,7 +17,7 @@ export type MessageType = {
   fromUser: string;
   forUser: string;
   createdAt: number | null;
-  fileLink?: string;
+  file?: FileInfoType;
 };
 
 export type DialogType = {

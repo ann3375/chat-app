@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 
 export type FileInfoType = {
-  src: string;
-  type: string;
-  size: number;
-  name: string;
+  fileLink: string;
+  fileType: string;
+  fileSize: number;
+  fileName: string;
 };
 
 export interface IUseFileReader {
@@ -19,10 +19,10 @@ export interface IUseFileReader {
 }
 
 const initialFileInfoState = {
-  src: '',
-  type: '',
-  size: 0,
-  name: '',
+  fileLink: '',
+  fileType: '',
+  fileSize: 0,
+  fileName: '',
 };
 
 export const useFileReader = (): [IUseFileReader, (file: File) => void] => {
@@ -37,10 +37,10 @@ export const useFileReader = (): [IUseFileReader, (file: File) => void] => {
 
     reader.onload = function () {
       setFileInfo({
-        src: reader.result as string,
-        type: file.type,
-        size: file.size,
-        name: file.name,
+        fileLink: reader.result as string,
+        fileType: file.type,
+        fileSize: file.size,
+        fileName: file.name,
       });
       setIsLoaded(true);
       setIsVisiblePreviewFile(true);

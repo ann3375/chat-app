@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Wrapper } from '../../atoms/Wrapper';
 import { DialogMessage } from '../../molecules/DialogMessage';
 import { MessageType } from '../../../store/types/types';
@@ -11,15 +11,25 @@ interface IDialog {
 }
 
 export const Dialog: React.FC<IDialog> = ({ currentUsername, dialogMessages }) => {
+  const messageBlockRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const { current: messageBlock } = messageBlockRef;
+
+    if (messageBlock) {
+      messageBlock.scroll(0, messageBlock.scrollHeight);
+    }
+  }, [dialogMessages?.length]);
+
   return (
     <>
       {dialogMessages?.length ? (
-        <Wrapper className="messages-area">
-          {dialogMessages.map((item) => (
+        <Wrapper className="messages-area" refBlock={messageBlockRef}>
+          {dialogMessages.map((message) => (
             <DialogMessage
-              messageText={item.text}
-              isCurrentUserMessage={item.fromUser === currentUsername}
-              key={item.createdAt}
+              message={message}
+              isCurrentUserMessage={message.fromUser === currentUsername}
+              key={message.createdAt}
             />
           ))}
         </Wrapper>
