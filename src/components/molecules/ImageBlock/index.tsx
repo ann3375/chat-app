@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Wrapper } from '../../atoms/Wrapper';
+import { Typography } from '../../atoms/Typography';
 import { Spinner } from '../Spinner';
 import { FileInfoType } from '../../../hooks/useFileReader';
+import { truncateFileName } from '../../../utils/truncateFileName';
+import { convertFileSize } from '../../../utils/covertFileSize';
+import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 
 import './imageBlock.scss';
 
@@ -19,12 +23,22 @@ export const ImageBlock: React.FC<iImageBlock> = ({ file, className }) => {
 
   return (
     <Wrapper className={classProps}>
-      <img className="image-block__image" src={file.fileLink} onLoad={() => setIsLoaded(true)} />
-      {!isLoaded && (
+      {!isLoaded ? (
         <Wrapper className="image-block__spinner">
           <Spinner />
         </Wrapper>
+      ) : (
+        <Wrapper flex align="center">
+          <Typography className="image-block__filename" variant={TypographyTypeStyle.h4}>
+            {truncateFileName(file.fileName)}
+          </Typography>
+          <Typography className="image-block__size" variant={TypographyTypeStyle.p3}>
+            {convertFileSize(file.fileSize)}
+          </Typography>
+        </Wrapper>
       )}
+
+      <img className="image-block__image" src={file.fileLink} onLoad={() => setIsLoaded(true)} />
     </Wrapper>
   );
 };

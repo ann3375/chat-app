@@ -64,7 +64,9 @@ export class DialogStore {
   }
 
   async sendMessageFile<R>(files: FormData, url: string): Promise<R | string | undefined> {
-    this.loadingState = LOADING_STATE.PENDING;
+    runInAction(() => {
+      this.loadingState = LOADING_STATE.PENDING;
+    });
     try {
       return await fetch(`${URL_API}${url}`, {
         method: 'POST',
@@ -96,7 +98,9 @@ export class DialogStore {
         );
       });
     } finally {
-      this.loadingState = LOADING_STATE.LOADED;
+      runInAction(() => {
+        this.loadingState = LOADING_STATE.LOADED;
+      });
     }
   }
 }
