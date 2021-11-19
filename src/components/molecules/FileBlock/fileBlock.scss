@@ -2,19 +2,21 @@
 
 .file-block {
   height: fit-content;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
 
   &__info {
-    height: 30px;
+    overflow-wrap: anywhere;
+    margin-bottom: 5px;
+  }
+
+  &__filename {
+    font-weight: 600;
   }
 
   &__size {
     margin-left: 10px;
-  }
-
-  &__filename {
-    max-width: 80%;
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -30,7 +32,24 @@
     width: fit-content;
     max-height: 400px;
   }
+
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  &__audio::-webkit-media-controls-panel {
+    background: $color-lightBlue;
+  }
 }
 
 @media (max-width: $media-mobile-l) {
+  .file-block {
+    &__audio {
+      width: 250px;
+    }
+  }
 }

@@ -27,7 +27,7 @@ export const Dialog: React.FC<IDialog> = ({ currentUsername, dialogMessages }) =
   return (
     <>
       {dialogMessages?.length ? (
-        <Wrapper className="messages-area" refBlock={messageBlockRef}>
+        <Wrapper className="messages-area">
           {dialogMessages.map((message) => (
             <DialogMessage
               message={message}

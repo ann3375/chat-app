@@ -13,27 +13,20 @@
     height: 100%;
     visibility: inherit;
     opacity: 1;
-
-    // width: 100vw;
   }
 
   &__wrapper {
     max-width: 400px;
   }
 
-  &__image,
-  &__video {
-    width: fit-content;
-    height: auto;
-  }
+  &__file {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 
-  &__image {
-    width: fit-content;
-    height: auto;
-  }
-
-  &__audio {
-    margin: 0 10px 10px;
+    & video {
+      width: 100%;
+    }
   }
 
   &__buttons {
@@ -70,16 +63,20 @@
       order: 1;
     }
 
-    &__image {
-      width: fit-content;
-      height: auto;
-      max-height: 270px;
-    }
-
     &__button {
       width: 20px;
       height: 20px;
       margin-right: 10px;
+    }
+
+    &__file {
+      & video {
+        max-height: 250px;
+      }
+
+      & audio {
+        margin: 0 10px 10px;
+      }
     }
   }
 }

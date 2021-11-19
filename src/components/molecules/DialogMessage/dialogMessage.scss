@@ -18,14 +18,15 @@
     position: absolute;
   }
 
-  // &__text {
-  //   white-space: pre-line;
-  //   margin-top: 10px;
-  // }
+  &__text {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
 
-  // &__file-wrapper {
-  //   width: 100%;
-  // }
+  &__file-wrapper {
+    width: 100%;
+    height: auto;
+  }
 
   &_side {
     &_left {
