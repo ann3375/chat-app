@@ -18,10 +18,14 @@
     position: absolute;
   }
 
-  &__text {
-    white-space: pre-line;
-    margin-top: 10px;
-  }
+  // &__text {
+  //   white-space: pre-line;
+  //   margin-top: 10px;
+  // }
+
+  // &__file-wrapper {
+  //   width: 100%;
+  // }
 
   &_side {
     &_left {
@@ -62,3 +66,12 @@
     }
   }
 }
+
+// @media (max-width: $media-mobile-l) {
+//   .message {
+//     &__file-wrapper {
+//       max-width: 300px;
+//       width: 100%;
+//     }
+//   }
+// }

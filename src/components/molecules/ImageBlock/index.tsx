@@ -22,7 +22,7 @@ export const ImageBlock: React.FC<iImageBlock> = ({ file, className }) => {
   });
 
   return (
-    <Wrapper className={classProps}>
+    <Wrapper className={classProps} flex>
       {!isLoaded ? (
         <Wrapper className="image-block__spinner">
           <Spinner />

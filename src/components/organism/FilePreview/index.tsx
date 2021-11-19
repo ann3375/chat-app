@@ -11,6 +11,7 @@ import { IUseFileReader } from '../../../hooks/useFileReader';
 import { SUPPORTED_FORMATS } from '../MessageForm/constants/constants';
 
 import './filePreview.scss';
+import { FileBlock } from '../../molecules/FileBlock';
 
 interface IFilePreview {
   handleDeletePreviewFile: () => void;
@@ -41,6 +42,8 @@ export const FilePreview: React.FC<IFilePreview> = ({
         {SUPPORTED_FORMATS.AUDIO.includes(fileInfo.fileType) && (
           <AudioBlock className="preview__audio" file={fileInfo} />
         )}
+
+        {/* <FileBlock file={fileInfo} className="preview__file" /> */}
 
         <Wrapper className="preview__buttons">
           <ButtonIcon

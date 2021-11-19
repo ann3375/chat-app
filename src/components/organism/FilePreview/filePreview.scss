@@ -13,19 +13,21 @@
     height: 100%;
     visibility: inherit;
     opacity: 1;
+
+    // width: 100vw;
   }
 
   &__wrapper {
     max-width: 400px;
-    position: relative;
+  }
+
+  &__image,
+  &__video {
+    width: fit-content;
+    height: auto;
   }
 
   &__image {
-    width: fit-content;
-    height: 230px;
-  }
-
-  &__video {
     width: fit-content;
     height: auto;
   }
@@ -66,6 +68,12 @@
       right: 0;
       bottom: 100%;
       order: 1;
+    }
+
+    &__image {
+      width: fit-content;
+      height: auto;
+      max-height: 270px;
     }
 
     &__button {

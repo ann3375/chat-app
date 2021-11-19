@@ -23,7 +23,7 @@ export const VideoBlock: React.FC<iVideoBlock> = ({ className, file }) => {
   return (
     <Wrapper className={classProps}>
       {isLoaded && (
-        <Wrapper flex align="center">
+        <Wrapper flex align="center" className="video-block__info">
           <Typography className="video-block__filename" variant={TypographyTypeStyle.h4}>
             {truncateFileName(file.fileName)}
           </Typography>

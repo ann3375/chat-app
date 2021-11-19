@@ -10,11 +10,18 @@ import { MessageType } from '../../../store/types/types';
 import { SUPPORTED_FORMATS } from '../../organism/MessageForm/constants/constants';
 
 import './dialogMessage.scss';
+import { FileBlock } from '../FileBlock';
 
 interface IDialogMessage {
   isCurrentUserMessage: boolean;
   message: MessageType;
 }
+
+// <Wrapper className="message__file-wrapper">
+// {SUPPORTED_FORMATS.IMAGE.includes(file.fileType) && <ImageBlock file={file} />}
+// {SUPPORTED_FORMATS.VIDEO.includes(file.fileType) && <VideoBlock file={file} />}
+// {SUPPORTED_FORMATS.AUDIO.includes(file.fileType) && <AudioBlock file={file} />}
+// </Wrapper>
 
 export const DialogMessage: React.FC<IDialogMessage> = ({ isCurrentUserMessage, message }) => {
   const classProps = classNames('message', {
@@ -27,9 +34,7 @@ export const DialogMessage: React.FC<IDialogMessage> = ({ isCurrentUserMessage, 
     <Wrapper className={classProps}>
       {file && (
         <Wrapper className="message__file-wrapper">
-          {SUPPORTED_FORMATS.IMAGE.includes(file.fileType) && <ImageBlock file={file} />}
-          {SUPPORTED_FORMATS.VIDEO.includes(file.fileType) && <VideoBlock file={file} />}
-          {SUPPORTED_FORMATS.AUDIO.includes(file.fileType) && <AudioBlock file={file} />}
+          <FileBlock file={file} />
         </Wrapper>
       )}
 
