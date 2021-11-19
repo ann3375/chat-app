@@ -3,6 +3,7 @@ import { RootStore } from './RootStore';
 import { UserGender } from '../components/atoms/Avatar/types/types';
 import { URL_API } from '../services/contants';
 import { CurrentDialogInfoType, DialogType, LOADING_STATE, MessageType } from './types/types';
+import { localStorageUtils } from '../utils/localStorageUtils';
 
 export class DialogStore {
   rootStore: RootStore;
@@ -27,6 +28,11 @@ export class DialogStore {
     return this.dialogsList.find((dialog) => dialog.dialogId === id);
   }
 
+  setDialogList(): void {
+    const dialogsFromLocalStorage = localStorageUtils.getDialogsInfo();
+    this.dialogsList = dialogsFromLocalStorage ? dialogsFromLocalStorage : [];
+  }
+
   setCurrentDialogInfo(username: string, lastSeen: string, id: string, gender: UserGender): void {
     this.currentDialogInfo.companion = {
       username,
@@ -49,9 +55,13 @@ export class DialogStore {
           dialogMessages: [message],
         };
         this.dialogsList.push(newDialog);
+        localStorageUtils.setDialogsInfo(newDialog, id);
       }
 
-      currentDialog?.dialogMessages.push(message);
+      if (currentDialog) {
+        currentDialog.dialogMessages.push(message);
+        localStorageUtils.setDialogsInfo(currentDialog, id);
+      }
     }
   }
 

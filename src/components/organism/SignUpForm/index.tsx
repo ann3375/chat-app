@@ -181,6 +181,7 @@ export const SignUpForm = observer(() => {
               iconName={IconName.updateIcon}
               type={ButtonType.button}
               onClick={handleFetchGenderList}
+              arialabel="Fetch gender list"
             />
           </Wrapper>
         ) : (

@@ -25,14 +25,18 @@ export const DialogMessage: React.FC<IDialogMessage> = ({ isCurrentUserMessage, 
   const { text: messageText, file } = message;
   return (
     <Wrapper className={classProps}>
-      {messageText && <Typography variant={TypographyTypeStyle.p1}>{messageText}</Typography>}
-
       {file && (
-        <>
+        <Wrapper className="message__file-wrapper">
           {SUPPORTED_FORMATS.IMAGE.includes(file.fileType) && <ImageBlock file={file} />}
           {SUPPORTED_FORMATS.VIDEO.includes(file.fileType) && <VideoBlock file={file} />}
           {SUPPORTED_FORMATS.AUDIO.includes(file.fileType) && <AudioBlock file={file} />}
-        </>
+        </Wrapper>
+      )}
+
+      {messageText && (
+        <Typography variant={TypographyTypeStyle.p1} className="message__text">
+          {messageText}
+        </Typography>
       )}
     </Wrapper>
   );

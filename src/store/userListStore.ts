@@ -16,12 +16,13 @@ export class UserListStore {
 
   setUserList(userList: IUserListItem[]): void {
     const currentUsername = this.rootStore.userStore.userInfo.username;
+
     const excludedCurrentUserUserList = userList.filter(
       (item: { name: string; gender: string }) => item.name !== currentUsername
     );
+
     runInAction(() => {
       this.userList = excludedCurrentUserUserList;
-
       this.loadingState = LOADING_STATE.LOADED;
     });
   }

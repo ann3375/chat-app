@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Wrapper } from '../../atoms/Wrapper';
+import { Typography } from '../../atoms/Typography';
 import { DialogMessage } from '../../molecules/DialogMessage';
 import { MessageType } from '../../../store/types/types';
+import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
+import { ColorType } from '../../atoms/Icon/types/types';
 
 import './dialog.scss';
 
@@ -34,7 +37,11 @@ export const Dialog: React.FC<IDialog> = ({ currentUsername, dialogMessages }) =
           ))}
         </Wrapper>
       ) : (
-        'сообщений нет'
+        <Wrapper className="messages-area__no-messages-block">
+          <Typography variant={TypographyTypeStyle.h4} color={ColorType.primary}>
+            Сообщений пока нет...
+          </Typography>
+        </Wrapper>
       )}
     </>
   );

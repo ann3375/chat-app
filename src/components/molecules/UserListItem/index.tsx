@@ -9,26 +9,29 @@ import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { SCREENS } from '../../../router/endpoints';
 
 import './userListItem.scss';
+import { MessageType } from '../../../store/types/types';
+import { formatLastUserMessage } from '../../../utils/formatLastUserMessage';
 
 export interface IUserListItem {
   name: string;
   gender: UserGender;
   id: string;
-  setDialogInfo: (username: string, lastseen: string, id: string, gender: UserGender) => void;
+  setDialogInfo: (username: string, lastseen: string, gender: UserGender) => void;
   handleVisibleUserList: () => void;
   isCurrentUserLastMessage?: boolean;
-  lastMessage?: string;
+  lastMessage?: MessageType;
 }
 
 export const UserListItem = React.memo(function UserListItem({
   name,
   gender,
   id,
-  isCurrentUserLastMessage,
   lastMessage,
   setDialogInfo,
   handleVisibleUserList,
 }: IUserListItem) {
+  const isCurrentUserLastMessage = lastMessage?.forUser === name;
+
   return (
     <NavLink
       to={`${SCREENS.SCREEN_DIALOGS}/${id}`}
@@ -36,7 +39,7 @@ export const UserListItem = React.memo(function UserListItem({
       activeClassName="user-list__link_active"
       onClick={() => {
         handleVisibleUserList();
-        setDialogInfo(name, 'Last seen 3 seconds ago', id, gender);
+        setDialogInfo(name, 'Last seen 3 seconds ago', gender);
       }}
     >
       <Avatar size={AvatarSize.medium} gender={gender} className="link__avatar" />
@@ -50,7 +53,7 @@ export const UserListItem = React.memo(function UserListItem({
               You:{' '}
             </Typography>
           )}
-          {lastMessage}Last message from user
+          {formatLastUserMessage(lastMessage)}
         </Typography>
       </Wrapper>
     </NavLink>

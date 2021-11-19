@@ -38,6 +38,7 @@ export const CaptchaBlock = React.memo(function CaptchaBlock(): React.ReactEleme
         color={ColorType.primary}
         type={ButtonType.button}
         onClick={handlerCaptchaURL}
+        arialabel="Refresh captcha"
       />
     </Wrapper>
   );

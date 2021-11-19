@@ -18,6 +18,11 @@
     position: absolute;
   }
 
+  &__text {
+    white-space: pre-line;
+    margin-top: 10px;
+  }
+
   &_side {
     &_left {
       border-radius: 0px 12px 12px 12px;

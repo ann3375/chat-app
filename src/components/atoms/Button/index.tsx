@@ -15,6 +15,7 @@ export interface IButton {
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
+  arialabel?: string;
   onClick?: () => void;
 }
 
@@ -27,6 +28,7 @@ export const Button: React.FC<IButton> = ({
   size,
   path,
   isNavLink,
+  arialabel,
   onClick,
 }) => {
   const classProps = classNames('button', {
@@ -44,7 +46,13 @@ export const Button: React.FC<IButton> = ({
   }
 
   return (
-    <button onClick={onClick} type={type} disabled={isDisabled} className={classProps}>
+    <button
+      onClick={onClick}
+      type={type}
+      disabled={isDisabled}
+      className={classProps}
+      aria-label={arialabel}
+    >
       {children}
     </button>
   );

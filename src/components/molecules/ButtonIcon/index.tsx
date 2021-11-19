@@ -10,6 +10,7 @@ import './buttonIcon.scss';
 interface IButtonIcon extends Omit<IButton, 'size' | 'variant' | 'children'> {
   iconName: IconName;
   color?: ColorType;
+  arialabel?: string;
 }
 
 export const ButtonIcon: React.FC<IButtonIcon> = ({
@@ -18,6 +19,7 @@ export const ButtonIcon: React.FC<IButtonIcon> = ({
   color,
   isDisabled,
   className,
+  arialabel,
   onClick,
 }) => {
   return (
@@ -28,6 +30,7 @@ export const ButtonIcon: React.FC<IButtonIcon> = ({
       onClick={onClick}
       className={className}
       variant={ButtonVariant.icon}
+      arialabel={arialabel}
     >
       <Icon name={iconName} color={color} className="button__icon" />
     </Button>
