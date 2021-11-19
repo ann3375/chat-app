@@ -48,15 +48,10 @@
   }
 }
 
-@media (max-width: $media-mobile-l) {
+@media (max-width: $media-tablet) {
   .chat-page {
-    &__inner {
-      height: 100%;
-    }
-
-    &__header {
-      padding: 16px;
-      height: 64px;
+    &__main-container {
+      min-height: 100vh;
     }
 
     &__dialog {
@@ -68,6 +63,19 @@
         height: calc(100% - 72px - 48px);
         max-height: 100%;
       }
+    }
+  }
+}
+
+@media (max-width: $media-tablet-s) {
+  .chat-page {
+    &__inner {
+      height: 100%;
+    }
+
+    &__header {
+      padding: 16px;
+      height: 64px;
     }
 
     &__button_notification {

@@ -34,10 +34,10 @@ export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
   return (
     <MainContainer page={Pages.chat}>
       {errorModal}
-      {(size.width > WindowSize.SIZE_MOBILE_L || isDialogsPage?.isExact) && header}
+      {(size.width > WindowSize.SIZE_TABLET_S || isDialogsPage?.isExact) && header}
 
       <main className="chat-page__inner">
-        {(size.width > WindowSize.SIZE_MOBILE_L || isDialogsPage?.isExact) && userList}
+        {(size.width > WindowSize.SIZE_TABLET_S || isDialogsPage?.isExact) && userList}
 
         <Wrapper className="chat-page__dialog">
           {isCurrentDialogPage ? (

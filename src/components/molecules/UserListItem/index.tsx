@@ -7,10 +7,10 @@ import { Wrapper } from '../../atoms/Wrapper';
 import { ColorType } from '../../atoms/Icon/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
 import { SCREENS } from '../../../router/endpoints';
-
-import './userListItem.scss';
 import { MessageType } from '../../../store/types/types';
 import { formatLastUserMessage } from '../../../utils/formatLastUserMessage';
+
+import './userListItem.scss';
 
 export interface IUserListItem {
   name: string;

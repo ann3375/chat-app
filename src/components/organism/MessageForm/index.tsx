@@ -86,12 +86,14 @@ export const MessageForm: React.FC<IMessageForm> = ({
       formData.append('0', data.files, data.files.name);
       const fileLink = await dialogStore.sendMessageFile<string>(formData, '/upload');
 
-      message.current.file = {
-        fileLink: `${URL}:${HTTP_PORT}${fileLink}`,
-        fileType,
-        fileSize,
-        fileName,
-      };
+      if (fileLink) {
+        message.current.file = {
+          fileLink: `${URL}:${HTTP_PORT}${fileLink}`,
+          fileType,
+          fileSize,
+          fileName,
+        };
+      }
     }
 
     if (message.current.text || message.current.file) {
