@@ -39,7 +39,7 @@ export const UserListItem = React.memo(function UserListItem({
       activeClassName="user-list__link_active"
       onClick={() => {
         handleVisibleUserList();
-        setDialogInfo(name, 'Last seen 3 seconds ago', gender);
+        setDialogInfo(name, 'Last seen recently', gender);
       }}
     >
       <Avatar size={AvatarSize.medium} gender={gender} className="link__avatar" />

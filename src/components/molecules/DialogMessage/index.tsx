@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { Wrapper } from '../../atoms/Wrapper';
 import { Typography } from '../../atoms/Typography';
@@ -21,9 +21,13 @@ export const DialogMessage: React.FC<IDialogMessage> = ({ isCurrentUserMessage, 
 
   const { text: messageText, file } = message;
 
+  const handleImageClick = useCallback((fileLink: string) => {
+    window.open(fileLink);
+  }, []);
+
   return (
     <Wrapper className={classProps}>
-      {file && <FileBlock file={file} />}
+      {file && <FileBlock file={file} handleImageClick={handleImageClick} />}
 
       {messageText && (
         <Typography variant={TypographyTypeStyle.p1} className="message__text">

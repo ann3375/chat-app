@@ -13,10 +13,11 @@ import './fileBlock.scss';
 
 interface IFileBlock {
   file: FileInfoType;
+  handleImageClick?: (fileLink: string) => void;
   className?: string;
 }
 
-export const FileBlock: React.FC<IFileBlock> = ({ file, className }) => {
+export const FileBlock: React.FC<IFileBlock> = ({ file, className, handleImageClick }) => {
   const classProps = classNames('file-block', {
     [`${className}`]: className,
   });
@@ -42,7 +43,12 @@ export const FileBlock: React.FC<IFileBlock> = ({ file, className }) => {
       )}
 
       {SUPPORTED_FORMATS.IMAGE.includes(file.fileType) && (
-        <img className="file-block__image" src={file.fileLink} onLoad={() => setIsLoaded(true)} />
+        <img
+          className="file-block__image"
+          src={file.fileLink}
+          onClick={() => handleImageClick && handleImageClick(file.fileLink)}
+          onLoad={() => setIsLoaded(true)}
+        />
       )}
 
       {SUPPORTED_FORMATS.VIDEO.includes(file.fileType) && (
