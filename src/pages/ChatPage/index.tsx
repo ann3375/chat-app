@@ -68,7 +68,7 @@ export const ChatPage = observer((): React.ReactElement => {
         (user) => user.name === id.slice(0, id.lastIndexOf('_'))
       );
       currentCompanion?.name
-        ? setDialogInfo(currentCompanion.name, currentCompanion.name, currentCompanion.gender)
+        ? setDialogInfo(currentCompanion.name, 'Last seen recently', currentCompanion.gender)
         : history.push(SCREENS.SCREEN_DIALOGS);
     }
   }, [params, setDialogInfo, history, userListStore.loadingState, userListStore.userList]);
