@@ -1,6 +1,6 @@
 import React from 'react';
-import * as H from 'history';
 import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
+import * as H from 'history';
 import { SCREENS } from './endpoints';
 
 interface IProps {

@@ -9,6 +9,7 @@ import { WindowSize } from '../../../hooks/constants';
 import './chatPageTemplate.scss';
 
 interface IChatPageTemplate {
+  isLoadedDialogInfo: boolean;
   header?: React.ReactElement;
   userList?: React.ReactElement;
   statusBar?: React.ReactElement;
@@ -16,9 +17,11 @@ interface IChatPageTemplate {
   messageForm?: React.ReactElement;
   notificationButton?: React.ReactElement;
   errorModal?: React.ReactElement;
+  spinner?: React.ReactElement;
 }
 
 export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
+  isLoadedDialogInfo,
   header,
   userList,
   statusBar,
@@ -26,6 +29,7 @@ export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
   messageForm,
   notificationButton,
   errorModal,
+  spinner,
 }): React.ReactElement | null => {
   const size = useWindowSize();
   const isCurrentDialogPage = useRouteMatch(`${SCREENS.SCREEN_CURRENT_DIALOG}`);
@@ -40,14 +44,18 @@ export const ChatPageTemplate: React.FC<IChatPageTemplate> = ({
         {(size.width > WindowSize.SIZE_TABLET_S || isDialogsPage?.isExact) && userList}
 
         <Wrapper className="chat-page__dialog">
-          {isCurrentDialogPage ? (
-            <>
-              {statusBar}
-              {dialog}
-              {messageForm}
-            </>
+          {isLoadedDialogInfo ? (
+            isCurrentDialogPage ? (
+              <>
+                {statusBar}
+                {dialog}
+                {messageForm}
+              </>
+            ) : (
+              notificationButton
+            )
           ) : (
-            notificationButton
+            <Wrapper className="chat-page__spinner">{spinner}</Wrapper>
           )}
         </Wrapper>
       </main>

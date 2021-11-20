@@ -8,9 +8,9 @@ import { Icon } from '../../atoms/Icon';
 import { ISignUpFormField } from '../../organism/SignUpForm';
 import { ColorType, IconName } from '../../atoms/Icon/types/types';
 import { TypographyTypeStyle } from '../../atoms/Typography/types/types';
+import { GendersListType } from '../../../store/types/types';
 
 import './formSelect.scss';
-import { GendersListType } from '../../../store/types/types';
 
 interface IFormSelect {
   error: string | undefined;

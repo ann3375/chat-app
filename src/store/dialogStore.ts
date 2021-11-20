@@ -5,16 +5,18 @@ import { URL_API } from '../services/contants';
 import { CurrentDialogInfoType, DialogType, LOADING_STATE, MessageType } from './types/types';
 import { localStorageUtils } from '../utils/localStorageUtils';
 
+const initialCurrentDialogInfo = {
+  companion: {
+    username: '',
+    gender: UserGender.noGender,
+    lastSeen: '',
+  },
+};
+
 export class DialogStore {
   rootStore: RootStore;
   dialogsList: DialogType[] = [];
-  currentDialogInfo: CurrentDialogInfoType = {
-    companion: {
-      username: '',
-      gender: UserGender.noGender,
-      lastSeen: '',
-    },
-  };
+  currentDialogInfo: CurrentDialogInfoType = initialCurrentDialogInfo;
   currentDialogId = '';
   currentDialogError = '';
   loadingState: LOADING_STATE = LOADING_STATE.NEVER;
@@ -71,6 +73,18 @@ export class DialogStore {
 
   clearError(): void {
     this.currentDialogError = '';
+  }
+
+  clearDialogs(): void {
+    this.dialogsList = [];
+  }
+
+  clearDialogStore(): void {
+    this.clearDialogs();
+    this.clearError();
+    this.currentDialogId = '';
+    this.loadingState = LOADING_STATE.NEVER;
+    this.currentDialogInfo = initialCurrentDialogInfo;
   }
 
   async sendMessageFile<R>(files: FormData, url: string): Promise<R | string | undefined> {

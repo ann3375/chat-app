@@ -33,6 +33,7 @@ export const useWebsocket = <T = Record<string, unknown>>(
     }
 
     return () => {
+      ws.current?.send('closed1');
       setIsClosed(true);
       ws.current?.close();
     };
@@ -40,7 +41,6 @@ export const useWebsocket = <T = Record<string, unknown>>(
 
   useEffect(() => {
     if (!ws.current) return;
-
     ws.current.onopen = () => {
       setIsOpen(true);
     };
@@ -50,8 +50,9 @@ export const useWebsocket = <T = Record<string, unknown>>(
     };
 
     ws.current.onclose = () => {
-      setIsClosed(true);
+      ws.current?.send('closed2');
 
+      setIsClosed(true);
       ws.current?.close();
     };
 
@@ -90,7 +91,8 @@ export const useWebsocket = <T = Record<string, unknown>>(
   const send = (messageType: WebSocketMessageType, data?: Record<string, unknown>) => {
     if (
       messageType === WebSocketMessageType.sendMessage ||
-      messageType === WebSocketMessageType.sendUserJoinedInfo
+      messageType === WebSocketMessageType.sendUserJoinedInfo ||
+      messageType === WebSocketMessageType.sendUserLogoutInfo
     ) {
       return ws.current?.send(`'${JSON.stringify({ type: messageType, data })}'`);
     }

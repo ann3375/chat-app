@@ -4,8 +4,12 @@ class LocalStorageUtils {
   private accessToken = 'accessToken';
   private dialogs = 'dialogs';
 
-  clearLocalStorage(): void {
+  clearAcessToken(): void {
     localStorage.removeItem(this.accessToken);
+  }
+
+  clearDialogs(): void {
+    localStorage.removeItem(this.dialogs);
   }
 
   getAccessToken(): string | null {

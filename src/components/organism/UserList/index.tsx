@@ -1,13 +1,13 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 import { IUserListItem, UserListItem } from '../../molecules/UserListItem';
 import { UserListNotification } from '../../molecules/UserListNotification';
 import { Spinner } from '../../molecules/Spinner';
 import { UserGender } from '../../atoms/Avatar/types/types';
+import { MessageType } from '../../../store/types/types';
 
 import './userList.scss';
-import { MessageType } from '../../../store/types/types';
-import { observer } from 'mobx-react-lite';
 
 interface IUserList {
   isVisibleUserList: boolean;

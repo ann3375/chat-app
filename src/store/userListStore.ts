@@ -14,6 +14,11 @@ export class UserListStore {
     makeAutoObservable(this);
   }
 
+  clearUserListStore(): void {
+    this.userList = [];
+    this.loadingState = LOADING_STATE.NEVER;
+  }
+
   setUserList(userList: IUserListItem[]): void {
     const currentUsername = this.rootStore.userStore.userInfo.username;
 

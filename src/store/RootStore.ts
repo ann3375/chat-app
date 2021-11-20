@@ -14,6 +14,7 @@ export class RootStore {
     this.userStore = new UserStore(this);
     this.genderListStore = new GenderListStore(this);
     this.dialogStore = new DialogStore(this);
+    this.genderListStore = new GenderListStore(this);
   }
 }
 

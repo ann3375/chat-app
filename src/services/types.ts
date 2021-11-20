@@ -10,6 +10,7 @@ export enum WebSocketMessageType {
   userData = 'user_data',
   sendMessage = 'send_message',
   sendUserJoinedInfo = 'user_joined',
+  sendUserLogoutInfo = 'user_logout',
 }
 
 export interface IMessageToWS {

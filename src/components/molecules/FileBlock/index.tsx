@@ -21,7 +21,7 @@ export const FileBlock: React.FC<IFileBlock> = ({ file, className }) => {
     [`${className}`]: className,
   });
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   return (
     <Wrapper className={classProps}>

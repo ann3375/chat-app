@@ -40,7 +40,8 @@
     }
   }
 
-  &__button_notification {
+  &__button_notification,
+  &__spinner {
     position: absolute;
     top: calc(50% - 40px);
     left: 50%;

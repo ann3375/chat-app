@@ -6,22 +6,11 @@
   flex-direction: column;
   padding: 0 24px;
 
-  &__spinner {
-    position: absolute;
-    top: calc(50% - 40px);
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
   &__no-messages-block {
     margin: 0 auto;
   }
 
   & .message {
     margin: 12px 0;
-
-    &_side_right {
-      align-self: flex-end;
-    }
   }
 }

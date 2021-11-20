@@ -9,6 +9,8 @@
   width: fit-content;
   background: $color-lightBlue;
   overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
 
   &::before,
   &::after {
@@ -32,6 +34,7 @@
     &_left {
       border-radius: 0px 12px 12px 12px;
       background: $color-white;
+      align-items: flex-start;
 
       &::before,
       &::after {
@@ -50,6 +53,9 @@
     }
 
     &_right {
+      align-items: flex-end;
+      align-self: flex-end;
+
       &::before,
       &::after {
         right: -13px;

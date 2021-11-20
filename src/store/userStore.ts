@@ -50,13 +50,15 @@ export class UserStore {
   }
 
   clearUserInfo(): void {
-    localStorageUtils.clearLocalStorage();
+    localStorageUtils.clearAcessToken();
 
     this.userInfo = {
       username: '',
       gender: '',
       isUserAuthenticate: false,
     };
+
+    this.tokens.accessToken = '';
   }
 
   setError(error: string): void {
